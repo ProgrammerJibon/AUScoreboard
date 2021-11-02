@@ -1,0 +1,64 @@
+package bd.com.jibon.AUScoreboard.Fragments;
+
+import android.app.Activity;
+import android.os.Build;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.ProgressBar;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import bd.com.jibon.AUScoreboard.Data;
+import bd.com.jibon.AUScoreboard.Internet.GetMatchListAndSetToMainView;
+import bd.com.jibon.AUScoreboard.R;
+
+public class MatcheList extends Fragment {
+    public ListView listView;
+    public Activity activity;
+    public ProgressBar progressBar;
+    public SwipeRefreshLayout swipeRefreshLayout;
+    public MatcheList() {
+        // Required empty public constructor
+    }
+
+
+    @Override
+    public void onAttach(@NonNull Activity context) {
+        super.onAttach(context);
+        this.activity = context;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_match_list, container, false);
+        try {
+
+            listView = view.findViewById(R.id.ListViewMatchList);
+            progressBar = view.findViewById(R.id.match_list_progressbar);
+            swipeRefreshLayout = view.findViewById(R.id.swiprefresh_match_list);
+
+            listView.setOnContextClickListener(view1 -> false);
+
+            swipeRefreshLayout.setOnRefreshListener(() -> {
+                swipeRefreshLayout.setRefreshing(false);
+                new GetMatchListAndSetToMainView(activity, new Data(activity).urlGenerate("matches=1"), progressBar, listView).execute();
+            });
+
+            new GetMatchListAndSetToMainView(activity, new Data(activity).urlGenerate("matches=1"), progressBar, listView).execute();
+        }catch (Exception error){
+            Log.e("errnos_ma.java", error.toString());
+        }
+
+        return view;
+    }
+
+}
