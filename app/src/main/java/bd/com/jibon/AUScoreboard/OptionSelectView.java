@@ -45,14 +45,12 @@ public class OptionSelectView extends AsyncTask<String, String, JSONObject> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     protected void onPostExecute(JSONObject json) {
         super.onPostExecute(json);
         try{
-            progressBar.setVisibility(View.GONE);
             if (json != null){
                 if (json.has("countries") && type == "countries"){
                     JSONArray countries = json.getJSONArray("countries");

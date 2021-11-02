@@ -56,7 +56,7 @@ public class RegisterForAccount extends AsyncTask<String, String, JSONObject> {
                 this.fnamex = String.valueOf(fname.getText());
                 this.lnamex = String.valueOf(lname.getText());
                 this.reg_emailx = String.valueOf(reg_email.getText());
-                this.birthday = dd.getText() + "%2f" + mm.getText() + "%2f" + yyyy.getText();
+                this.birthday = dd.getText() + "-" + mm.getText() + "-" + yyyy.getText();
                 this.countryx = String.valueOf(country.getSelectedItem());
                 this.fpassx = String.valueOf(fpass.getText());
                 this.url = new Data(activity).urlGenerate("add_user=1&fname="+fnamex+"&lname="+lnamex+"&sex="+sexx+"&birth="+birthday+"&email="+reg_emailx+"&country="+countryx+"&pass="+fpassx);

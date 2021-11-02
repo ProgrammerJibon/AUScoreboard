@@ -22,6 +22,7 @@ import androidx.fragment.app.Fragment;
 import java.util.ArrayList;
 
 import bd.com.jibon.AUScoreboard.Data;
+import bd.com.jibon.AUScoreboard.Internet.LoginForAccount;
 import bd.com.jibon.AUScoreboard.Internet.RegisterForAccount;
 import bd.com.jibon.AUScoreboard.OptionSelectView;
 import bd.com.jibon.AUScoreboard.R;
@@ -29,7 +30,7 @@ import bd.com.jibon.AUScoreboard.R;
 
 public class MyAccount extends Fragment {
     Activity activity;
-    EditText fname, lname, dd, mm, yyyy, reg_email, fpass, cpass;
+    EditText fname, lname, dd, mm, yyyy, reg_email, fpass, cpass, email, password;
     Spinner sex, country;
     Button register, toggle_login, login, toggle_signup;
     ScrollView signup_view, login_view;
@@ -64,11 +65,17 @@ public class MyAccount extends Fragment {
         login = view.findViewById(R.id.login);
         toggle_login = view.findViewById(R.id.toggle_login);
         toggle_signup = view.findViewById(R.id.toggle_signup);
+        email = view.findViewById(R.id.email);
+        password = view.findViewById(R.id.password);
 
 
 
         register.setOnClickListener(v->{
             new RegisterForAccount(activity,fname, lname, dd, mm, yyyy, reg_email, country, fpass, cpass, sex, (LinearLayout) view.findViewById(R.id.progressBar)).execute();
+        });
+
+        login.setOnClickListener(v->{
+            new LoginForAccount(activity, view.findViewById(R.id.progressBar), email, password).execute();
         });
 
         ArrayList<String> sexList = new ArrayList<>();
