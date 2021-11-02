@@ -52,7 +52,7 @@ public class MatchBallerAdapter extends BaseAdapter {
             JSONObject teamdatass = jsonObjects.get(position);
             if (convertView == null){
                 LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = inflater.inflate(R.layout.baller_status, parent, false);
+                convertView = inflater.inflate(R.layout.sample_baller_status, parent, false);
             }
             TextView ballerName = convertView.findViewById(R.id.ballerName);
             TextView run = convertView.findViewById(R.id.run);

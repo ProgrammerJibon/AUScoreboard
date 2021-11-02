@@ -56,7 +56,7 @@ public class MatchListGetSetViews extends BaseAdapter {
         try {
             if (view == null) {
                 LayoutInflater layoutInflater = (LayoutInflater) viewGroup.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                view = layoutInflater.inflate(R.layout.match_list_get_set, viewGroup, false);
+                view = layoutInflater.inflate(R.layout.sample_match_list, viewGroup, false);
             }
 
             JSONObject new_data = (JSONObject)arrayList.get(i);

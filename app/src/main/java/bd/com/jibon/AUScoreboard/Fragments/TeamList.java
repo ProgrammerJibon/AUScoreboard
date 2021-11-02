@@ -40,6 +40,7 @@ public class TeamList extends Fragment {
         progressBar = view.findViewById(R.id.progressBarTeams);
         new GetTeamListInternet(activity, new Data(activity).urlGenerate("teams=1"), progressBar, listView).execute();
         swipeRefreshLayout.setOnRefreshListener(() -> {
+            swipeRefreshLayout.setRefreshing(false);
             new GetTeamListInternet(activity, new Data(activity).urlGenerate("teams=1"), progressBar, listView).execute();
         });
         return view;

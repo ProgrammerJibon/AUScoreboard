@@ -42,7 +42,7 @@ public class OptionSelectViewAdapter extends BaseAdapter {
         try {
             if (convertView == null) {
                 LayoutInflater layoutInflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = layoutInflater.inflate(R.layout.match_list_get_set, parent, false);
+                convertView = layoutInflater.inflate(R.layout.sample_match_list, parent, false);
             }
             //TextView StringOfListItem = convertView.findViewById(R.id.StringOfListItem);
             //TextView IdOfListItem = convertView.findViewById(R.id.IdOfListItem);

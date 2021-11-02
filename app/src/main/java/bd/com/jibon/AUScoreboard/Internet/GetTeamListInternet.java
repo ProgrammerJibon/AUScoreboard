@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.webkit.CookieManager;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bd.com.jibon.AUScoreboard.Adapter.MatchListGetSetViews;
+import bd.com.jibon.AUScoreboard.Adapter.TeamListAdapter;
 import bd.com.jibon.AUScoreboard.CustomTools;
 import bd.com.jibon.AUScoreboard.R;
 
@@ -40,7 +42,6 @@ public class GetTeamListInternet extends AsyncTask<String, String, JSONObject> {
     @Override
     protected void onPostExecute(JSONObject jsonObject) {
         progressBar.setVisibility(View.GONE);
-        Log.e("errnos_teamres", jsonObject.toString());
         try{
             if (jsonObject == null){
                 new CustomTools(context).toast("Can't connect to server", R.drawable.ic_baseline_kitchen_24);
@@ -53,9 +54,10 @@ public class GetTeamListInternet extends AsyncTask<String, String, JSONObject> {
             if (jsonObject.has("teams")) {
                 JSONArray matchArray = jsonObject.getJSONArray("teams");
                 for (int xs = 0; xs < matchArray.length(); xs++){
-                    this.arrayList.add(matchArray.getJSONObject(xs));
-                    Log.e("errnos_"+xs, matchArray.getString(xs));
+                    arrayList.add(matchArray.getJSONObject(xs));
                 }
+                BaseAdapter baseAdapter = new TeamListAdapter(arrayList, context, user_role);
+                listView.setAdapter(baseAdapter);
             }
         }catch (Exception error){
             Log.e("errnos_teamli", error.toString());
