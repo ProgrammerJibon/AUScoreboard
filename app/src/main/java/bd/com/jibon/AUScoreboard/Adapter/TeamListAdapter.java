@@ -58,11 +58,14 @@ public class TeamListAdapter extends BaseAdapter {
 
             TextView name = convertView.findViewById(R.id.name);
             TextView type = convertView.findViewById(R.id.type);
+            TextView id = convertView.findViewById(R.id.id);
 
 
 
             name.setText(jsonObject.getString("name"));
             type.setText(jsonObject.getString("type"));
+            id.setText(jsonObject.getString("id"));
+
         }catch (Exception error){
             Log.e("errnos_teamada", error.toString());
         }
