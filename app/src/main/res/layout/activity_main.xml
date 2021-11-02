@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.appcompat.widget.ActionMenuView
+        android:id="@+id/ActionMenuVIew"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="#004A95">
+
+        <TextView
+            android:id="@+id/MainActivityTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="15dp"
+            android:text="@string/app_name"
+            android:textColor="@color/white" />
+    </androidx.appcompat.widget.ActionMenuView>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentMainActivity"
+        android:name="bd.com.jibon.auscorecard.Fragments.MatcheList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/MainActivityTabLayout"
+        android:layout_below="@+id/ActionMenuVIew" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/MainActivityTabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="Running Matches"
+            android:icon="@drawable/ic_baseline_sports_cricket_24"/>
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="Admin Panel"
+            android:icon="@drawable/ic_outline_admin_panel_settings_24" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="Players"
+            android:icon="@drawable/ic_outline_people_24" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="Teams"
+            android:icon="@drawable/ic_outline_emoji_flags_24" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="My Account"
+            android:icon="@drawable/ic_baseline_account_circle_24" />
+
+    </com.google.android.material.tabs.TabLayout>
+</RelativeLayout>
