@@ -5,7 +5,10 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.webkit.CookieManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 
@@ -24,12 +27,12 @@ public class OptionSelectView extends AsyncTask<String, String, JSONObject> {
 
     public Activity activity;
     public String url;
-    public ProgressBar progressBar;
+    public LinearLayout progressBar;
     public Spinner spinner;
     public String type;
     public ArrayList<String> countryName = new ArrayList<>();
     public ArrayList<String> countryId = new ArrayList<>();
-    public OptionSelectView(Activity context, String url, ProgressBar progressBar, Spinner spinner, String type) {
+    public OptionSelectView(Activity context, String url, LinearLayout progressBar, Spinner spinner, String type) {
         this.activity = context;
         this.url = url;
         this.progressBar = progressBar;

@@ -9,40 +9,46 @@
         android:layout_width="match_parent"
         android:paddingTop="16dp"
         android:layout_height="match_parent">
+
         <ScrollView
+            android:id="@+id/loginView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/loginView">
+            android:layout_height="match_parent">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <EditText
                     android:id="@+id/email"
-                    android:inputType="textEmailAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
+                    android:hint="Email or username"
+                    android:inputType="textEmailAddress"
                     android:padding="16dp"
-                    android:textColor="@color/teaser_blue"
-                    android:hint="Email or username" />
+                    android:textColor="@color/teaser_blue" />
+
                 <EditText
                     android:id="@+id/password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:padding="16dp"
+                    android:hint="Password"
                     android:inputType="textPassword"
-                    android:textColor="@color/teaser_blue"
-                    android:hint="Password" />
+                    android:padding="16dp"
+                    android:textColor="@color/teaser_blue" />
+
                 <Button
-                android:id="@+id/login"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:text="Login"
-                tools:targetApi="lollipop" />
+                    android:id="@+id/login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:text="Login"
+                    tools:targetApi="lollipop" />
+
                 <Button
                     android:id="@+id/toggle_signup"
                     android:layout_width="match_parent"
@@ -50,8 +56,8 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
                     android:backgroundTint="@color/white"
-                    android:textColor="@color/teaser_blue"
                     android:text="Register"
+                    android:textColor="@color/teaser_blue"
                     tools:targetApi="lollipop" />
             </LinearLayout>
         </ScrollView>
@@ -70,6 +76,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:padding="16dp"
+                    android:inputType="textPersonName"
                     android:textColor="@color/teaser_blue"
                     android:hint="First Name" />
                 <EditText
@@ -77,6 +84,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
+                    android:inputType="textPersonName"
                     android:padding="16dp"
                     android:textColor="@color/teaser_blue"
                     android:hint="Last Name" />
@@ -96,26 +104,38 @@
                         android:layout_weight="4"/>
                     <EditText
                         android:id="@+id/day"
+                        android:inputType="number"
                         android:layout_width="0dp"
                         android:layout_weight="2"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
                         android:padding="16dp"
+                        android:maxEms="2"
+                        android:minEms="2"
+                        android:text="1"
                         android:textColor="@color/teaser_blue"
                         android:hint="DD" />
                     <EditText
+                        android:maxEms="2"
+                        android:minEms="2"
+                        android:inputType="number"
                         android:id="@+id/month"
                         android:layout_width="0dp"
                         android:layout_weight="2"
+                        android:text="1"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
                         android:padding="16dp"
                         android:textColor="@color/teaser_blue"
                         android:hint="MM" />
                     <EditText
+                        android:maxEms="4"
                         android:id="@+id/year"
                         android:layout_width="0dp"
+                        android:inputType="number"
                         android:layout_weight="4"
+                        android:minEms="4"
+                        android:text="2000"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
                         android:padding="16dp"
@@ -132,7 +152,6 @@
                     android:inputType="textEmailAddress"
                     android:textColor="@color/teaser_blue"
                     android:hint="Email" />
-
                 <Spinner
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -179,12 +198,21 @@
         </ScrollView>
 
     </RelativeLayout>
-    <ProgressBar
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:id="@+id/progress_horizontal"
-        android:indeterminate="true"
-        android:indeterminateTint="@color/teaser_blue"/>
+        android:id="@+id/progressBar"
+        android:clickable="false"
+        android:background="#E6000000"
+        android:visibility="gone"
+        android:layout_height="match_parent">
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/teaser_blue"/>
+    </LinearLayout>
+
 
 </FrameLayout>

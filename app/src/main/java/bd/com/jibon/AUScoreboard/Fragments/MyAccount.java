@@ -10,6 +10,7 @@ import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.SimpleAdapter;
@@ -21,13 +22,14 @@ import androidx.fragment.app.Fragment;
 import java.util.ArrayList;
 
 import bd.com.jibon.AUScoreboard.Data;
+import bd.com.jibon.AUScoreboard.Internet.RegisterForAccount;
 import bd.com.jibon.AUScoreboard.OptionSelectView;
 import bd.com.jibon.AUScoreboard.R;
 
 
 public class MyAccount extends Fragment {
     Activity activity;
-    EditText fname, lname, dd, mm, yyyy, email, fpass, cpass;
+    EditText fname, lname, dd, mm, yyyy, reg_email, fpass, cpass;
     Spinner sex, country;
     Button register, toggle_login, login, toggle_signup;
     ScrollView signup_view, login_view;
@@ -53,7 +55,7 @@ public class MyAccount extends Fragment {
         dd = view.findViewById(R.id.day);
         mm = view.findViewById(R.id.month);
         yyyy = view.findViewById(R.id.year);
-        email = view.findViewById(R.id.reg_email);
+        reg_email = view.findViewById(R.id.reg_email);
         fpass = view.findViewById(R.id.fpass);
         cpass = view.findViewById(R.id.cpass);
         sex = view.findViewById(R.id.sex);
@@ -63,12 +65,18 @@ public class MyAccount extends Fragment {
         toggle_login = view.findViewById(R.id.toggle_login);
         toggle_signup = view.findViewById(R.id.toggle_signup);
 
+
+
+        register.setOnClickListener(v->{
+            new RegisterForAccount(activity,fname, lname, dd, mm, yyyy, reg_email, country, fpass, cpass, sex, (LinearLayout) view.findViewById(R.id.progressBar)).execute();
+        });
+
         ArrayList<String> sexList = new ArrayList<>();
         sexList.add("Boy");sexList.add("Girl");sexList.add("Other");
         ArrayAdapter<String> adapter = new ArrayAdapter<>(activity, android.R.layout.simple_list_item_1, sexList);
         sex.setAdapter(adapter);
 
-        new OptionSelectView(activity, new Data(activity).urlGenerate("countries=1"), view.findViewById(R.id.progress_horizontal), country, "countries").execute();
+        new OptionSelectView(activity, new Data(activity).urlGenerate("countries=1"), view.findViewById(R.id.progressBar), country, "countries").execute();
 
         toggle_signup.setOnClickListener(v->{
             signup_view.setVisibility(View.VISIBLE);
