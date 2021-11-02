@@ -1,7 +1,6 @@
-package bd.com.jibon.AUScoreboard;/*
-package bd.com.jibon.auscorecard;
+package bd.com.jibon.AUScoreboard;
 
-import android.app.Activity;
+/*import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -44,8 +43,8 @@ public class OptionSelectViewAdapter extends BaseAdapter {
                 LayoutInflater layoutInflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = layoutInflater.inflate(R.layout.sample_match_list, parent, false);
             }
-            //TextView StringOfListItem = convertView.findViewById(R.id.StringOfListItem);
-            //TextView IdOfListItem = convertView.findViewById(R.id.IdOfListItem);
+            TextView StringOfListItem = convertView.findViewById(R.id.StringOfListItem);
+            TextView IdOfListItem = convertView.findViewById(R.id.IdOfListItem);
 
             IdOfListItem.setText(ID_LIST.get(position));
             StringOfListItem.setText(NAMES.get(position));
@@ -55,5 +54,4 @@ public class OptionSelectViewAdapter extends BaseAdapter {
             return null;
         }
     }
-}
-*/
+}*/

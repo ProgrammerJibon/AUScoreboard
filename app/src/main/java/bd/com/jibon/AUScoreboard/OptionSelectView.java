@@ -1,14 +1,11 @@
-package bd.com.jibon.AUScoreboard;/*
-package bd.com.jibon.auscorecard;
+package bd.com.jibon.AUScoreboard;
 
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.webkit.CookieManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 
@@ -54,17 +51,16 @@ public class OptionSelectView extends AsyncTask<String, String, JSONObject> {
         try{
             progressBar.setVisibility(View.GONE);
             if (json != null){
-                if (json.has("countries")){
+                if (json.has("countries") && type == "countries"){
                     JSONArray countries = json.getJSONArray("countries");
                     for (int countryInt = 0; countryInt < countries.length(); countryInt++){
                         countryName.add(countries.getJSONObject(countryInt).getString("name"));
                         countryId.add(countries.getJSONObject(countryInt).getString("id"));
                     }
-                    BaseAdapter baseAdapter1 = new OptionSelectViewAdapter(activity, countryId, countryName);
+                    ArrayAdapter<String> baseAdapter1 = new ArrayAdapter<>(activity, android.R.layout.simple_list_item_1, countryName);
                     spinner.setAdapter(baseAdapter1);
                 }
             }
-            Log.e("errnos_result_recycler", String.valueOf(json));
         }catch (Exception e){
             Log.e("errnos_OptionSelect", url+"--/ \t"+e.toString());
         }
@@ -107,4 +103,3 @@ public class OptionSelectView extends AsyncTask<String, String, JSONObject> {
         }
     }
 }
-*/

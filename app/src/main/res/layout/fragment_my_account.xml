@@ -3,12 +3,188 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:ignore="HardcodedText"
     tools:context=".Fragments.MyAccount">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="My Account" />
+        android:paddingTop="16dp"
+        android:layout_height="match_parent">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/loginView">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <EditText
+                    android:id="@+id/email"
+                    android:inputType="textEmailAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:padding="16dp"
+                    android:textColor="@color/teaser_blue"
+                    android:hint="Email or username" />
+                <EditText
+                    android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:padding="16dp"
+                    android:inputType="textPassword"
+                    android:textColor="@color/teaser_blue"
+                    android:hint="Password" />
+                <Button
+                android:id="@+id/login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:text="Login"
+                tools:targetApi="lollipop" />
+                <Button
+                    android:id="@+id/toggle_signup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:backgroundTint="@color/white"
+                    android:textColor="@color/teaser_blue"
+                    android:text="Register"
+                    tools:targetApi="lollipop" />
+            </LinearLayout>
+        </ScrollView>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:id="@+id/signupView"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <EditText
+                    android:id="@+id/fname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:padding="16dp"
+                    android:textColor="@color/teaser_blue"
+                    android:hint="First Name" />
+                <EditText
+                    android:id="@+id/lname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:padding="16dp"
+                    android:textColor="@color/teaser_blue"
+                    android:hint="Last Name" />
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:id="@+id/sex"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Birthday:"
+                        android:padding="16dp"
+                        android:layout_weight="4"/>
+                    <EditText
+                        android:id="@+id/day"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:padding="16dp"
+                        android:textColor="@color/teaser_blue"
+                        android:hint="DD" />
+                    <EditText
+                        android:id="@+id/month"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:padding="16dp"
+                        android:textColor="@color/teaser_blue"
+                        android:hint="MM" />
+                    <EditText
+                        android:id="@+id/year"
+                        android:layout_width="0dp"
+                        android:layout_weight="4"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:padding="16dp"
+                        android:textColor="@color/teaser_blue"
+                        android:hint="YYYY" />
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/reg_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:padding="16dp"
+                    android:inputType="textEmailAddress"
+                    android:textColor="@color/teaser_blue"
+                    android:hint="Email" />
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:contentDescription="Country"
+                    android:spinnerMode="dialog"
+                    android:id="@+id/country"/>
+                <EditText
+                    android:id="@+id/fpass"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:padding="16dp"
+                    android:textColor="@color/teaser_blue"
+                    android:inputType="textPassword"
+                    android:hint="Enter a password" />
+                <EditText
+                    android:id="@+id/cpass"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:inputType="textPassword"
+                    android:padding="16dp"
+                    android:textColor="@color/teaser_blue"
+                    android:hint="Reenter password" />
+                <Button
+                    android:id="@+id/register"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:text="Register"
+                    tools:targetApi="lollipop" />
+                <Button
+                    android:id="@+id/toggle_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:backgroundTint="@color/white"
+                    android:textColor="@color/teaser_blue"
+                    android:text="Login"
+                    tools:targetApi="lollipop" />
+            </LinearLayout>
+        </ScrollView>
+
+    </RelativeLayout>
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:id="@+id/progress_horizontal"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/teaser_blue"/>
 
 </FrameLayout>
