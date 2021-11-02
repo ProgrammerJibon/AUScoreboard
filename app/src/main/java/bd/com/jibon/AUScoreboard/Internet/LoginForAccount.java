@@ -18,6 +18,7 @@ import java.net.URL;
 import java.util.List;
 
 import bd.com.jibon.AUScoreboard.CustomTools;
+import bd.com.jibon.AUScoreboard.Data;
 import bd.com.jibon.AUScoreboard.R;
 import bd.com.jibon.AUScoreboard.Splash;
 
@@ -31,33 +32,38 @@ public class LoginForAccount extends AsyncTask<String, String, JSONObject> {
         this.activity = activity;
         this.email = email;
         this.password = password;
-        this.url = "?login=1&user="+this.email.getText()+"&pass="+this.password.getText();
+        this.url = new Data(this.activity).urlGenerate("login=1&user="+String.valueOf(this.email.getText())+"&pass="+String.valueOf(this.password.getText()));
     }
 
     @Override
     protected void onPostExecute(JSONObject jsonObject) {
         progressBar.setVisibility(View.GONE);
         try {
-            if (jsonObject.has("login_error")) {
-                String login_error = jsonObject.getString("login_error");
-                if (login_error.equals("user")){
-                    email.setError("Type your email or username");
-                    password.setError("Type your password");
+            if (jsonObject == null){
+                new CustomTools(activity).toast("Can't connect to server", R.drawable.ic_baseline_kitchen_24);
+            }else {
+                Log.e("errnos", jsonObject.toString());
+                if (jsonObject.has("login_error")) {
+                    String login_error = jsonObject.getString("login_error");
+                    if (login_error.equals("user")) {
+                        email.setError("Type your email or username");
+                        password.setError("Type your password");
+                    }
+                    if (login_error.equals("pass")) {
+                        password.setError("Enter correct password");
+                    }
+                    if (login_error.equals("logged")) {
+                        activity.startActivity(new Intent(activity, Splash.class));
+                        activity.finish();
+                        new CustomTools(activity).toast("Already logged in", R.drawable.ic_baseline_notifications_none_24);
+                    }
+
                 }
-                if (login_error.equals("pass")){
-                    password.setError("Enter correct password");
-                }
-                if (login_error.equals("logged")){
+                if (jsonObject.has("username") && jsonObject.has("user_id")) {
+                    new CustomTools(activity).toast("Please wait, Registration Success...", R.drawable.ic_baseline_account_circle_24);
                     activity.startActivity(new Intent(activity, Splash.class));
                     activity.finish();
-                    new CustomTools(activity).toast("Already logged in", R.drawable.ic_baseline_notifications_none_24);
                 }
-
-            }
-            if (jsonObject.has("username") && jsonObject.has("user_id")){
-                new CustomTools(activity).toast("Please wait, Registration Success...", R.drawable.ic_baseline_account_circle_24);
-                activity.startActivity(new Intent(activity, Splash.class));
-                activity.finish();
             }
         }catch (Exception e){
             Log.e("errnos", e.toString());
