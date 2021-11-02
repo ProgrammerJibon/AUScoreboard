@@ -1,6 +1,8 @@
 package bd.com.jibon.AUScoreboard;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,27 +31,39 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         try {
-            this.tabLayoutMainActivity = (TabLayout) findViewById(R.id.MainActivityTabLayout);
-            this.fragmentMainActivity = findViewById(R.id.fragmentMainActivity);
-            this.mainActivityTitle = (TextView) findViewById(R.id.MainActivityTitle);
-            this.tabLayoutMainActivity.addOnTabSelectedListener((TabLayout.OnTabSelectedListener) new TabLayout.OnTabSelectedListener() {
+            tabLayoutMainActivity = findViewById(R.id.MainActivityTabLayout);
+            fragmentMainActivity = findViewById(R.id.fragmentMainActivity);
+            mainActivityTitle = findViewById(R.id.MainActivityTitle);
+
+            Intent intentList = getIntent();
+            Bundle bundle = intentList.getExtras();
+            String user_role = "";
+            if (bundle != null){
+                user_role = bundle.getString("user_role");
+            }
+            if (!user_role.equals("ADMIN")){
+                tabLayoutMainActivity.removeTabAt(4);
+            }
+
+            tabLayoutMainActivity.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                @SuppressLint("SetTextI18n")
                 public void onTabSelected(TabLayout.Tab tab) {
                     Fragment fragment = null;
                     if (tab.getPosition() == 0) {
                         fragment = new MatcheList();
                         MainActivity.this.mainActivityTitle.setText("All Matches");
                     } else if (tab.getPosition() == 1) {
-                        fragment = new AdminPage();
-                        MainActivity.this.mainActivityTitle.setText("Admin Area");
-                    } else if (tab.getPosition() == 2) {
                         fragment = new PlayerList();
                         MainActivity.this.mainActivityTitle.setText("All Player");
-                    } else if (tab.getPosition() == 3) {
+                    } else if (tab.getPosition() == 2) {
                         fragment = new TeamList();
                         MainActivity.this.mainActivityTitle.setText("All Temas");
-                    } else if (tab.getPosition() == 4) {
+                    } else if (tab.getPosition() == 3) {
                         fragment = new MyAccount();
                         MainActivity.this.mainActivityTitle.setText("My Account");
+                    } else if (tab.getPosition() == 4) {
+                        fragment = new AdminPage();
+                        MainActivity.this.mainActivityTitle.setText("Admin Area");
                     }
                     if (fragment != null) {
                         FragmentTransaction fragmentTransaction1 = MainActivity.this.getSupportFragmentManager().beginTransaction();
