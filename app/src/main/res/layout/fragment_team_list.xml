@@ -30,6 +30,13 @@
             android:gravity="center"
             android:layout_height="wrap_content"
             android:text="Type"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1.5"
+            android:id="@+id/deleteTeam"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:text="Action"/>
     </LinearLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout

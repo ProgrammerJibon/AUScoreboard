@@ -8,6 +8,7 @@ import android.webkit.CookieManager;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -30,12 +31,14 @@ public class GetTeamListInternet extends AsyncTask<String, String, JSONObject> {
     public String url;
     public ProgressBar progressBar;
     public ListView listView;
+    TextView actionBtn;
     public ArrayList<JSONObject> arrayList = new ArrayList<>();
-    public GetTeamListInternet(Activity context, String url, ProgressBar progressBar, ListView listView) {
+    public GetTeamListInternet(Activity context, String url, ProgressBar progressBar, ListView listView, TextView textView) {
         this.context = context;
         this.url = url;
         this.progressBar = progressBar;
         this.listView = listView;
+        this.actionBtn = textView;
     }
 
 
@@ -49,7 +52,9 @@ public class GetTeamListInternet extends AsyncTask<String, String, JSONObject> {
             String user_role = "";
             if(jsonObject.has("user_role")){
                 user_role = jsonObject.getString("user_role");
-
+                if (!user_role.equals("ADMIN")){
+                    actionBtn.setVisibility(View.GONE);
+                }
             }
             if (jsonObject.has("teams")) {
                 JSONArray matchArray = jsonObject.getJSONArray("teams");

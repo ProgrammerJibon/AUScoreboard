@@ -31,5 +31,12 @@
             android:id="@+id/type"
             android:layout_height="wrap_content"
             android:text="Type"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1.5"
+            android:gravity="center"
+            android:id="@+id/deleteTeam"
+            android:layout_height="wrap_content"
+            android:text="Restore"/>
     </LinearLayout>
 </LinearLayout>

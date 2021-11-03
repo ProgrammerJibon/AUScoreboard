@@ -44,6 +44,7 @@ public class ProfilePage extends Fragment {
     public ImageView avatar;
     public ImageButton logout;
     public LinearLayout progressBar;
+    public String profile_id;
     SwipeRefreshLayout swipeRefreshLayout;
     public ProfilePage() {
         // Required empty public constructor
@@ -79,9 +80,15 @@ public class ProfilePage extends Fragment {
             });
 
             String url = new Data(activity).urlGenerate("users=1&self=1");
+
+            if (profile_id != null){
+                url = new Data(activity).urlGenerate("users=1&id="+profile_id);
+            }
+
+            String finalUrl = url;
             swipeRefreshLayout.setOnRefreshListener(() -> {
                 swipeRefreshLayout.setRefreshing(false);
-                new ProfileDataInternet(url).execute();
+                new ProfileDataInternet(finalUrl).execute();
             });
             new ProfileDataInternet(url).execute();
         }catch (Exception e){

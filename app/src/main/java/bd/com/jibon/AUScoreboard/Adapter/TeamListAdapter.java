@@ -1,7 +1,9 @@
 package bd.com.jibon.AUScoreboard.Adapter;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +15,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import bd.com.jibon.AUScoreboard.Internet.DeleteTargetedWithId;
 import bd.com.jibon.AUScoreboard.R;
+import bd.com.jibon.AUScoreboard.RestoreWithId;
 
 public class TeamListAdapter extends BaseAdapter {
     public ArrayList<JSONObject> arrayList;
@@ -60,6 +64,65 @@ public class TeamListAdapter extends BaseAdapter {
             TextView type = convertView.findViewById(R.id.type);
             TextView id = convertView.findViewById(R.id.id);
 
+            TextView deletePlayer = convertView.findViewById(R.id.deleteTeam);
+            String xxId = jsonObject.getString("id");
+            String xxname = jsonObject.getString("name");
+
+            if (user_role.equals("ADMIN")){
+
+                if (jsonObject.getString("status").equals("DELETED")){
+                    deletePlayer.setText("Restore");
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        deletePlayer.setTextColor(activity.getColor(R.color.teaser_blue));
+                    }
+                }else{
+                    deletePlayer.setText("Delete");
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        deletePlayer.setTextColor(activity.getColor(R.color.red));
+                    }
+                }
+
+                if (deletePlayer.getText().equals("Restore")){
+                    deletePlayer.setText("Restore");
+                    deletePlayer.setOnClickListener(v -> {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                        builder.setTitle("Restore")
+                                .setCancelable(true)
+                                .setMessage("Restore " + xxname)
+                                .setIcon(R.drawable.ic_baseline_admin_panel_settings_24)
+                                .setPositiveButton("RESTORE", (dialog, which) -> {
+                                    new RestoreWithId(activity, "TEAM", xxId).execute();
+                                    deletePlayer.setText("Delete");
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                        deletePlayer.setTextColor(activity.getColor(R.color.red));
+                                    }
+                                })
+                                .setNegativeButton("Cancel", ((dialog, which) -> dialog.cancel()))
+                                .show();
+                    });
+                }else{
+                    deletePlayer.setText("Delete");
+                    deletePlayer.setOnClickListener(v -> {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                        builder.setTitle("Delete")
+                                .setCancelable(true)
+                                .setMessage("Delete " + xxname)
+                                .setIcon(R.drawable.ic_baseline_admin_panel_settings_24)
+                                .setPositiveButton("DELETE", (dialog, which) -> {
+                                    new DeleteTargetedWithId(activity, "TEAM", xxId).execute();
+                                    deletePlayer.setText("Restore");
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                        deletePlayer.setTextColor(activity.getColor(R.color.teaser_blue));
+                                    }
+                                })
+                                .setNegativeButton("Cancel", ((dialog, which) -> dialog.cancel()))
+                                .show();
+                    });
+                }
+
+            }else{
+                deletePlayer.setVisibility(View.GONE);
+            }
 
 
             name.setText(jsonObject.getString("name"));
