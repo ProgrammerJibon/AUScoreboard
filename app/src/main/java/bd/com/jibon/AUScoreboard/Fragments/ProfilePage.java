@@ -3,6 +3,7 @@ package bd.com.jibon.AUScoreboard.Fragments;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import android.webkit.CookieManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -28,17 +30,20 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import bd.com.jibon.AUScoreboard.CustomTools;
 import bd.com.jibon.AUScoreboard.Data;
 import bd.com.jibon.AUScoreboard.R;
+import bd.com.jibon.AUScoreboard.Splash;
 
 public class ProfilePage extends Fragment {
     public Activity activity;
     public TextView name, username, country, birthday, sex, email, joined, role;
     public ImageView avatar;
     public ImageButton logout;
-    public ProgressBar progressBar;
+    public LinearLayout progressBar;
     SwipeRefreshLayout swipeRefreshLayout;
     public ProfilePage() {
         // Required empty public constructor
@@ -54,27 +59,34 @@ public class ProfilePage extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile_page, container, false);
+        try {
+            name = view.findViewById(R.id.name);
+            username = view.findViewById(R.id.userName);
+            country = view.findViewById(R.id.country);
+            birthday = view.findViewById(R.id.birthday);
+            sex = view.findViewById(R.id.sex);
+            email = view.findViewById(R.id.email);
+            joined = view.findViewById(R.id.time);
+            role = view.findViewById(R.id.role);
+            logout = view.findViewById(R.id.logout);
+            avatar = view.findViewById(R.id.avatar);
+            progressBar = view.findViewById(R.id.progressBar);
+            swipeRefreshLayout = view.findViewById(R.id.refresh);
 
-        name = view.findViewById(R.id.name);
-        username = view.findViewById(R.id.userName);
-        country = view.findViewById(R.id.country);
-        birthday = view.findViewById(R.id.birthday);
-        sex = view.findViewById(R.id.sex);
-        email = view.findViewById(R.id.email);
-        joined = view.findViewById(R.id.time);
-        role = view.findViewById(R.id.role);
-        logout = view.findViewById(R.id.logout);
-        avatar = view.findViewById(R.id.avatar);
-        progressBar = view.findViewById(R.id.progressBar);
-        swipeRefreshLayout = view.findViewById(R.id.refresh);
+            logout.setOnClickListener(v->{
+                String lsx = new Data(activity).urlGenerate("logout=true");
+                new ProfileDataInternet(lsx).execute();
+            });
 
-        String url = new Data(activity).urlGenerate("users=1&self=1");
-        swipeRefreshLayout.setOnRefreshListener(() -> {
-            swipeRefreshLayout.setRefreshing(false);
+            String url = new Data(activity).urlGenerate("users=1&self=1");
+            swipeRefreshLayout.setOnRefreshListener(() -> {
+                swipeRefreshLayout.setRefreshing(false);
+                new ProfileDataInternet(url).execute();
+            });
             new ProfileDataInternet(url).execute();
-        });
-        new ProfileDataInternet(url).execute();
-
+        }catch (Exception e){
+            Log.e("errnos", e.toString());
+        }
         return view;
     }
 
@@ -92,7 +104,6 @@ public class ProfilePage extends Fragment {
                 if (jsonObject == null) {
                     new CustomTools(activity).toast("Server Disconnected", R.drawable.ic_baseline_kitchen_24);
                 }else{
-                    Log.e("errnos", jsonObject.toString());
                     if (jsonObject.has("users")){
                         JSONObject jsonObject1 = jsonObject.getJSONArray("users").getJSONObject(0);
                         name.setText(jsonObject1.getString("fname")+" "+jsonObject1.getString("lname"));
@@ -103,6 +114,20 @@ public class ProfilePage extends Fragment {
                         email.setText(jsonObject1.getString("email"));
                         joined.setText(jsonObject1.getString("time"));
                         role.setText(jsonObject1.getString("role"));
+                    }
+                    if(jsonObject.has("logout")){
+                        if(jsonObject.getBoolean("logout")){
+                            new Timer().schedule(new TimerTask() {
+                                @Override
+                                public void run() {
+                                    new CustomTools(activity).toast("Logout success. Please wait...", R.drawable.ic_baseline_power_settings_new_24);
+                                    activity.startActivity(new Intent(activity, Splash.class));
+                                    activity.finish();
+                                }
+                            }, 1500);
+                        }else{
+                            new CustomTools(activity).toast("Try again later...", R.drawable.ic_baseline_power_settings_new_24);
+                        }
                     }
                 }
             }catch (Exception e){
