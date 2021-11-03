@@ -18,6 +18,7 @@ import bd.com.jibon.AUScoreboard.Fragments.AdminPage;
 import bd.com.jibon.AUScoreboard.Fragments.MatcheList;
 import bd.com.jibon.AUScoreboard.Fragments.MyAccount;
 import bd.com.jibon.AUScoreboard.Fragments.PlayerList;
+import bd.com.jibon.AUScoreboard.Fragments.ProfilePage;
 import bd.com.jibon.AUScoreboard.Fragments.TeamList;
 
 
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 tabLayoutMainActivity.removeTabAt(4);
             }
 
+            String finalUser_role = user_role;
             tabLayoutMainActivity.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                 @SuppressLint("SetTextI18n")
                 public void onTabSelected(TabLayout.Tab tab) {
@@ -59,8 +61,13 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new TeamList();
                         MainActivity.this.mainActivityTitle.setText("All Temas");
                     } else if (tab.getPosition() == 3) {
-                        fragment = new MyAccount();
-                        MainActivity.this.mainActivityTitle.setText("My Account");
+                        if (finalUser_role.equals("ADMIN") || finalUser_role.equals("USER")){
+                            fragment = new ProfilePage();
+                            MainActivity.this.mainActivityTitle.setText("Profile");
+                        }else{
+                            fragment = new MyAccount();
+                            MainActivity.this.mainActivityTitle.setText("My Account");
+                        }
                     } else if (tab.getPosition() == 4) {
                         fragment = new AdminPage();
                         MainActivity.this.mainActivityTitle.setText("Admin Area");
