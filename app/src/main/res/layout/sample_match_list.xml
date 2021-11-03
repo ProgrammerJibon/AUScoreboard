@@ -10,42 +10,6 @@
     android:background="@drawable/just_ripple"
     android:layout_height="wrap_content">
     <LinearLayout
-        android:id="@+id/List_item_context"
-        android:layout_width="220dp"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:background="#0D000000"
-        android:padding="4dp"
-        android:orientation="horizontal">
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:background="@drawable/just_ripple"
-            android:src="@drawable/ic_baseline_edit_24"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:id="@+id/List_item_context_edit"
-            app:tint="@color/teaser_blue" />
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:background="@drawable/just_ripple"
-            android:id="@+id/List_item_context_delete"
-            android:src="@drawable/ic_baseline_delete_outline_24"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            app:tint="@color/teaser_blue" />
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:background="@drawable/just_ripple"
-            android:id="@+id/List_item_context_close"
-            android:src="@drawable/ic_baseline_keyboard_arrow_left_24"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            app:tint="@color/teaser_blue" />
-    </LinearLayout>
-    <LinearLayout
         android:layout_width="fill_parent"
         android:orientation="vertical"
         android:gravity="center"

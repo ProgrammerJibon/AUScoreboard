@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -23,6 +24,7 @@ public class PlayerList extends Fragment {
     ProgressBar progressBar;
     ListView listView;
     SwipeRefreshLayout swipeRefreshLayout;
+    TextView deletePlayer;
 
 
     public PlayerList() {
@@ -42,12 +44,13 @@ public class PlayerList extends Fragment {
        View view = inflater.inflate(R.layout.fragment_player_list, container, false);
        progressBar = view.findViewById(R.id.progressBarPlayer);
         listView = view.findViewById(R.id.listViewPlayerList);
+        deletePlayer = view.findViewById(R.id.deletePlayer);
         swipeRefreshLayout = view.findViewById(R.id.listViewRefreshPlayer);
           swipeRefreshLayout.setOnRefreshListener(() -> {
             swipeRefreshLayout.setRefreshing(false);
-            new GetPlayerListInternet(activity, new Data(activity).urlGenerate("players=1"), progressBar, listView).execute();
+            new GetPlayerListInternet(activity, new Data(activity).urlGenerate("players=1"), progressBar, listView, deletePlayer).execute();
         });
-        new GetPlayerListInternet(activity, new Data(activity).urlGenerate("players=1"), progressBar, listView).execute();
+        new GetPlayerListInternet(activity, new Data(activity).urlGenerate("players=1"), progressBar, listView, deletePlayer).execute();
         return view;
     }
 }

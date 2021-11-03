@@ -31,5 +31,12 @@
             android:layout_height="wrap_content"
             android:id="@+id/team"
             android:text="Team"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1.2"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:id="@+id/deletePlayer"
+            android:text="Delete"/>
     </LinearLayout>
 </LinearLayout>

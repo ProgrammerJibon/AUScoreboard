@@ -8,6 +8,7 @@ import android.webkit.CookieManager;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -20,8 +21,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import bd.com.jibon.AUScoreboard.Adapter.PlayerListAdapter;
-import bd.com.jibon.AUScoreboard.Adapter.TeamListAdapter;
 import bd.com.jibon.AUScoreboard.CustomTools;
 import bd.com.jibon.AUScoreboard.R;
 
@@ -30,12 +29,14 @@ public class GetPlayerListInternet extends AsyncTask<String, String, JSONObject>
     public String url;
     public ProgressBar progressBar;
     public ListView listView;
+    TextView action;
     public ArrayList<JSONObject> arrayList = new ArrayList<>();
-    public GetPlayerListInternet(Activity context, String url, ProgressBar progressBar, ListView listView) {
+    public GetPlayerListInternet(Activity context, String url, ProgressBar progressBar, ListView listView, TextView action) {
         this.context = context;
         this.url = url;
         this.progressBar = progressBar;
         this.listView = listView;
+        this.action = action;
     }
 
 
@@ -45,20 +46,24 @@ public class GetPlayerListInternet extends AsyncTask<String, String, JSONObject>
         try{
             if (jsonObject == null){
                 new CustomTools(context).toast("Can't connect to server", R.drawable.ic_baseline_kitchen_24);
-            }
-            String user_role = "";
-            if(jsonObject.has("user_role")){
-                user_role = jsonObject.getString("user_role");
-
-            }
-            if (jsonObject.has("players")) {
-                JSONArray matchArray = jsonObject.getJSONArray("players");
-                for (int xs = 0; xs < matchArray.length(); xs++){
-                    arrayList.add(matchArray.getJSONObject(xs));
+            }else{
+                String user_role = "";
+                if(jsonObject.has("user_role")){
+                    user_role = jsonObject.getString("user_role");
+                    if (!user_role.equals("ADMIN")){
+                        action.setVisibility(View.GONE);
+                    }
                 }
-                BaseAdapter baseAdapter = new PlayerListAdapter(arrayList, context, user_role);
-                listView.setAdapter(baseAdapter);
+                if (jsonObject.has("players")) {
+                    JSONArray matchArray = jsonObject.getJSONArray("players");
+                    for (int xs = 0; xs < matchArray.length(); xs++){
+                        arrayList.add(matchArray.getJSONObject(xs));
+                    }
+                    BaseAdapter baseAdapter = new PlayerListAdapter(arrayList, context, user_role);
+                    listView.setAdapter(baseAdapter);
+                }
             }
+
         }catch (Exception error){
             Log.e("errnos_teamli", error.toString());
         }

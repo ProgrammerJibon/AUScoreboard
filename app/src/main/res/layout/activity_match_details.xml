@@ -6,24 +6,40 @@
     tools:ignore="HardcodedText"
     tools:context=".Match_Details">
 
-    <TextView
-        android:id="@+id/topTeamNames"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="0dp"
         android:background="@color/teaser_blue"
-        android:textSize="18dp"
-        android:gravity="center"
-        android:text="Teams"
-        android:textColor="@color/white" />
+        android:id="@+id/headerX"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/topTeamNames"
+            android:layout_width="0px"
+            android:layout_weight="8"
+            android:layout_height="?actionBarSize"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp"
+            android:textSize="18dp"
+            android:gravity="center"
+            android:text="Teams"
+            android:textColor="@color/white" />
+        <ImageView
+            android:layout_width="0dp"
+            android:id="@+id/deleteMatch"
+            android:visibility="gone"
+            android:background="@drawable/just_ripple"
+            android:padding="8dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_baseline_delete_outline_24"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
 
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swiprefresh_match_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/topTeamNames"
+        android:layout_below="@+id/headerX"
         android:layout_alignParentBottom="true">
 
         <LinearLayout

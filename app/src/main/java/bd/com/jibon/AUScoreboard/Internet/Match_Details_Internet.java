@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.CookieManager;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -45,8 +46,9 @@ public class Match_Details_Internet extends AsyncTask<String, String, JSONObject
     private final ListView players_team2;
     private final ListView team1Baller;
     private final ListView team2Baller;
+    View deleteButton;
 
-    public Match_Details_Internet(Activity context, String url, ProgressBar progressBar, TextView team1name, TextView team2name, TextView run_wicket1, TextView run_wicket2, TextView over1, TextView over2, ListView players_team1, ListView players_team2, TextView teams, ListView team1Baller, ListView team2Baller) {
+    public Match_Details_Internet(Activity context, String url, ProgressBar progressBar, TextView team1name, TextView team2name, TextView run_wicket1, TextView run_wicket2, TextView over1, TextView over2, ListView players_team1, ListView players_team2, TextView teams, ListView team1Baller, ListView team2Baller, View deleteButton) {
         this.context = context;
         this.url = url;
         this.progressBar = progressBar;
@@ -61,6 +63,7 @@ public class Match_Details_Internet extends AsyncTask<String, String, JSONObject
         this.team1Baller = team1Baller;
         this.team2Baller = team2Baller;
         this.teams = teams;
+        this.deleteButton = deleteButton;
 
     }
 
@@ -78,8 +81,15 @@ public class Match_Details_Internet extends AsyncTask<String, String, JSONObject
             new CustomTools(context).toast("Can't connect to server", R.drawable.ic_baseline_kitchen_24);
         }else{
             try{
+
+                if (json.has("user_role")){
+                    if (json.getString("user_role").equals("ADMIN")){
+                        deleteButton.setVisibility(View.VISIBLE);
+                    }
+                }
                 if (json.has("matches")){
                     JSONObject jsonObject = ((JSONArray)json.getJSONArray("matches")).getJSONObject(0);
+
                     team1name.setText(jsonObject.getString("team1_name"));
                     team2name.setText(jsonObject.getString("team2_name"));
                     teams.setText(jsonObject.getString("team1_name")+" vs "+jsonObject.getString("team2_name"));
@@ -87,6 +97,11 @@ public class Match_Details_Internet extends AsyncTask<String, String, JSONObject
                     over2.setText(jsonObject.getString("team2_over_no")+"."+jsonObject.getString("team2_ball_no"));
                     run_wicket1.setText(jsonObject.getString("team1_run")+"/"+jsonObject.getString("team1_wicket"));
                     run_wicket2.setText(jsonObject.getString("team2_run")+"/"+jsonObject.getString("team2_wicket"));
+
+                    if (jsonObject.getString("status").equals("DELETED")){
+                        teams.setText("(Deleted) "+teams.getText());
+                        ((ImageView) deleteButton).setVisibility(View.GONE);
+                    }
                 }
                 if(json.has("player_data1")){
                     if (!json.getString("player_data1").equals("null")){

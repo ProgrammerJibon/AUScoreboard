@@ -67,10 +67,6 @@ public class MatchListGetSetViews extends BaseAdapter {
             TextView status1 = view.findViewById(R.id.status1);
             TextView status2 = view.findViewById(R.id.status2);
 
-            LinearLayout List_item_context = view.findViewById(R.id.List_item_context);
-            ImageView List_item_context_edit = view.findViewById(R.id.List_item_context_edit);
-            ImageView List_item_context_delete = view.findViewById(R.id.List_item_context_delete);
-            ImageView List_item_context_close = view.findViewById(R.id.List_item_context_close);
 
             status1.setText("Over: "+new_data.getString("team1_over_no")+"."+new_data.getString("team1_ball_no"));
             status2.setText("Over: "+new_data.getString("team2_over_no")+"."+new_data.getString("team2_ball_no"));
@@ -78,6 +74,9 @@ public class MatchListGetSetViews extends BaseAdapter {
             runWicket2.setText(new_data.getString("team2_run")+"/"+new_data.getString("team2_wicket"));
             team1Name.setText(new_data.getString("team1_name"));
             team2Name.setText(new_data.getString("team2_name"));
+            if (new_data.getString("status").equals("DELETED")){
+                view.setAlpha((float)0.5);
+            }
 
             view.setOnClickListener(v->{
                 try {
@@ -92,23 +91,6 @@ public class MatchListGetSetViews extends BaseAdapter {
                 }
             });
 
-            if(user_role == "ADMIN"){
-                view.setOnFocusChangeListener((view12, b) -> {
-                    if (!b){
-                        List_item_context.setVisibility(View.GONE);
-                    }
-                });
-
-                view.setLongClickable(true);
-                view.setOnLongClickListener(view1 -> {
-                    List_item_context.setVisibility(View.VISIBLE);
-                    return  false;
-                });
-
-                List_item_context_close.setOnClickListener((x)->{
-                    List_item_context.setVisibility(View.GONE);
-                });
-            }
 
 
 
