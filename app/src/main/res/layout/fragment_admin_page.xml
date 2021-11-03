@@ -1,28 +1,241 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:layout_margin="16dp"
+    tools:ignore="HardcodedText,RtlHardcoded,UnusedAttribute,UseCompatTextViewDrawableXml"
     tools:context=".Fragments.AdminPage">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
 
-    <EditText
-        android:layout_width="0dp"
-        android:layout_weight="8"
-        android:layout_height="wrap_content"
-        android:hint="profile_id"
-        android:padding="16dp"
-        android:id="@+id/profile_id"
-        android:inputType="number"/>
-    <ImageButton
-        android:id="@+id/profile_go"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:padding="16dp"
-        android:layout_height="wrap_content"
-        android:tint="@color/white"
-        android:background="@color/teaser_blue"
-        android:src="@drawable/ic_baseline_done_all_24"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
 
-</LinearLayout>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#80FFFFFF"
+                android:src="@drawable/main_logo" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:gravity="center_horizontal"
+                android:text="App control panel"
+                android:textAllCaps="true"
+                android:textColor="@color/deep_blue"
+                android:textSize="20dp" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/newMatch"
+            android:background="@drawable/just_ripple"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="New Match"
+                android:padding="16dp"
+                android:drawableTint="@color/teaser_blue"
+                android:drawableRight="@drawable/ic_baseline_add_chart_24"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/addTeams"
+            android:background="@drawable/just_ripple"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add Team"
+                android:padding="16dp"
+                android:drawableTint="@color/teaser_blue"
+                android:drawableRight="@drawable/ic_baseline_map_24"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/just_ripple"
+            android:id="@+id/addPlayer"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add Player"
+                android:padding="16dp"
+                android:drawableTint="@color/teaser_blue"
+                android:drawableRight="@drawable/ic_outline_people_24"
+                 />
+        </LinearLayout>
+
+        <!--<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/just_ripple"
+            android:id="@+id/manageuser"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Manage Users"
+                android:padding="16dp"
+                android:drawableTint="@color/teaser_blue"
+                android:drawableRight="@drawable/ic_baseline_account_circle_24"
+                 />
+        </LinearLayout>-->
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/addPlayerShow"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:clickable="true"
+        android:padding="16px"
+        android:focusable="true">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="16sp"
+            android:text="New Player"
+            android:textColor="@color/teaser_blue"
+            android:textSize="20sp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="Select player team"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Spinner
+                android:id="@+id/countryList"
+                android:layout_width="0dp"
+                android:layout_weight="9"
+                android:layout_height="56dp" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="0"
+                android:gravity="center"
+                android:layout_marginRight="16dp"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:id="@+id/showCountryId"/>
+        </LinearLayout>
+
+
+        <EditText
+            android:id="@+id/playerName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Player Name"
+            android:padding="16sp" />
+
+        <Button
+            android:id="@+id/addPlayerSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16sp"
+            android:text="Add" />
+
+        <Button
+            android:id="@+id/closeAddplayer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:padding="16sp"
+            android:text="Close"
+            android:textColor="@color/teaser_blue" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/addTeamsView"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_margin="16dp"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:focusable="true">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="16sp"
+            android:text="New Team"
+            android:textColor="@color/teaser_blue"
+            android:textSize="20sp" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:id="@+id/team_name"
+            android:background="@color/transparent"
+            android:hint="Enter team name"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="select team type"
+            android:padding="16dp"/>
+        <Spinner
+            android:layout_width="match_parent"
+            android:padding="16dp"
+            android:id="@+id/showTeamType"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/teaser_blue"
+            android:id="@+id/submitTeamName"
+            android:text="Add"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="close"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/teaser_blue"
+            android:id="@+id/closeAddteamView"/>
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:id="@+id/progressBar"
+        android:clickable="false"
+        android:background="#E6000000"
+        android:visibility="gone"
+        android:layout_height="match_parent">
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/teaser_blue"/>
+    </LinearLayout>
+
+
+</RelativeLayout>

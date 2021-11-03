@@ -44,6 +44,7 @@ public class OptionSelectView extends AsyncTask<String, String, JSONObject> {
 
     @Override
     protected void onPreExecute() {
+        progressBar.setVisibility(View.VISIBLE);
         super.onPreExecute();
     }
 
@@ -51,12 +52,21 @@ public class OptionSelectView extends AsyncTask<String, String, JSONObject> {
     protected void onPostExecute(JSONObject json) {
         super.onPostExecute(json);
         try{
+            progressBar.setVisibility(View.GONE);
             if (json != null){
                 if (json.has("countries") && type == "countries"){
                     JSONArray countries = json.getJSONArray("countries");
                     for (int countryInt = 0; countryInt < countries.length(); countryInt++){
                         countryName.add(countries.getJSONObject(countryInt).getString("name"));
                         countryId.add(countries.getJSONObject(countryInt).getString("id"));
+                    }
+                    ArrayAdapter<String> baseAdapter1 = new ArrayAdapter<>(activity, android.R.layout.simple_list_item_1, countryName);
+                    spinner.setAdapter(baseAdapter1);
+                }
+                if (json.has("team_type") && type == "team_type"){
+                    JSONArray countries = json.getJSONArray("team_type");
+                    for (int countryInt = 0; countryInt < countries.length(); countryInt++){
+                        countryName.add(countries.getString(countryInt));
                     }
                     ArrayAdapter<String> baseAdapter1 = new ArrayAdapter<>(activity, android.R.layout.simple_list_item_1, countryName);
                     spinner.setAdapter(baseAdapter1);

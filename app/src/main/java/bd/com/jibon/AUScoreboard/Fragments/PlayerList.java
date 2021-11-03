@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -21,7 +22,7 @@ import bd.com.jibon.AUScoreboard.R;
 
 public class PlayerList extends Fragment {
     Activity activity;
-    ProgressBar progressBar;
+    LinearLayout progressBar;
     ListView listView;
     SwipeRefreshLayout swipeRefreshLayout;
     TextView deletePlayer;
@@ -42,7 +43,7 @@ public class PlayerList extends Fragment {
                              Bundle savedInstanceState) {
 
        View view = inflater.inflate(R.layout.fragment_player_list, container, false);
-       progressBar = view.findViewById(R.id.progressBarPlayer);
+       progressBar = view.findViewById(R.id.progressBar);
         listView = view.findViewById(R.id.listViewPlayerList);
         deletePlayer = view.findViewById(R.id.deletePlayer);
         swipeRefreshLayout = view.findViewById(R.id.listViewRefreshPlayer);

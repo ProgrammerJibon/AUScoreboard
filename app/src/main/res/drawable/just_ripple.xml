@@ -3,4 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:color="@color/teaser_blue"
-    tools:targetApi="lollipop" />
+    tools:targetApi="lollipop">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/transparent"/>
+        </shape>
+    </item>
+</ripple>

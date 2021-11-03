@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
@@ -22,7 +23,7 @@ import bd.com.jibon.AUScoreboard.R;
 public class MatcheList extends Fragment {
     public ListView listView;
     public Activity activity;
-    public ProgressBar progressBar;
+    public LinearLayout progressBar;
     public SwipeRefreshLayout swipeRefreshLayout;
     public MatcheList() {
         // Required empty public constructor
@@ -43,7 +44,7 @@ public class MatcheList extends Fragment {
         try {
 
             listView = view.findViewById(R.id.ListViewMatchList);
-            progressBar = view.findViewById(R.id.match_list_progressbar);
+            progressBar = view.findViewById(R.id.progressBar);
             swipeRefreshLayout = view.findViewById(R.id.swiprefresh_match_list);
 
             listView.setOnContextClickListener(view1 -> false);

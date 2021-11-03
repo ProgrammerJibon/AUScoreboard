@@ -2,6 +2,7 @@ package bd.com.jibon.AUScoreboard;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -73,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                         MainActivity.this.mainActivityTitle.setText("Admin Area");
                     }
                     if (fragment != null) {
-                        FragmentTransaction fragmentTransaction1 = MainActivity.this.getSupportFragmentManager().beginTransaction();
+                        FragmentTransaction fragmentTransaction1 = MainActivity.this.getSupportFragmentManager().beginTransaction().addToBackStack(null);
                         fragmentTransaction1.replace(R.id.fragmentMainActivity, fragment);
                         fragmentTransaction1.commit();
                     }
@@ -90,7 +91,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     public void onBackPressed() {
-        new Settings(this.activity).exitApp(true);
+        FragmentManager fragmentManager = getFragmentManager();
+        if (fragmentManager.getBackStackEntryCount() > 0){
+            fragmentManager.popBackStack();
+        }else{
+            new Settings(this.activity).exitApp(true);
+        }
     }
 }

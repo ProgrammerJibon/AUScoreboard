@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.webkit.CookieManager;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
@@ -29,11 +30,11 @@ public class GetMatchListAndSetToMainView extends AsyncTask<String, String, JSON
     public Activity context;
     public String url;
     public JSONObject result;
-    public ProgressBar progressBar;
+    public LinearLayout progressBar;
     public ListView listView;
     public ArrayList<JSONObject> arrayList = new ArrayList<>();
 
-    public GetMatchListAndSetToMainView(Activity context, String url, ProgressBar progressBar, ListView listView) {
+    public GetMatchListAndSetToMainView(Activity context, String url, LinearLayout progressBar, ListView listView) {
         this.context = context;
         this.url = url;
         this.progressBar = progressBar;

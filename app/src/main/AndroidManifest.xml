@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="bd.com.jibon.AUScoreboard">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,21 +13,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AUScorecard">
         <activity
+            android:name=".ManageMatch"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
-            android:exported="true">
-        </activity>
-        <activity android:name=".Splash"
-            android:theme="@style/SplashScreen"
-            android:exported="true">
+            android:exported="true" />
+        <activity
+            android:name=".Splash"
+            android:exported="true"
+            android:theme="@style/SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Match_Details"
-            android:exported="true"/>
-
+        <activity
+            android:name=".Match_Details"
+            android:exported="true" />
     </application>
 
 </manifest>

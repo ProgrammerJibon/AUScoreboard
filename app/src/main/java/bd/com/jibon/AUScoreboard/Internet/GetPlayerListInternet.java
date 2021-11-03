@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.CookieManager;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -28,11 +29,11 @@ import bd.com.jibon.AUScoreboard.R;
 public class GetPlayerListInternet extends AsyncTask<String, String, JSONObject> {
     public Activity context;
     public String url;
-    public ProgressBar progressBar;
+    public LinearLayout progressBar;
     public ListView listView;
     TextView action;
     public ArrayList<JSONObject> arrayList = new ArrayList<>();
-    public GetPlayerListInternet(Activity context, String url, ProgressBar progressBar, ListView listView, TextView action) {
+    public GetPlayerListInternet(Activity context, String url, LinearLayout progressBar, ListView listView, TextView action) {
         this.context = context;
         this.url = url;
         this.progressBar = progressBar;
