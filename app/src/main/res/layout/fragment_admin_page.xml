@@ -245,14 +245,13 @@
                     android:text="Start New Match"/>
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="32dp"
-                    android:gravity="bottom"
+                    android:layout_height="wrap_content"
                     android:text="Select first team:"/>
                 <Spinner
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="30dp"
-                    android:layout_marginBottom="16dp"
+                    android:background="#F6FAFF"
+                    android:layout_marginBottom="8dp"
                     android:id="@+id/selectTeam1"/>
                 <TextView
                     android:layout_width="match_parent"
@@ -262,37 +261,37 @@
                 <Spinner
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="30dp"
-                    android:layout_marginBottom="16dp"
+                    android:background="#F6FAFF"
+                    android:layout_marginBottom="8dp"
                     android:id="@+id/selectTeam2"/>
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="16dp"
-                    android:background="@color/transparent"
+                    android:id="@+id/overs"
+                    android:background="#F6FAFF"
                     android:hint="Total Over"
+                    android:layout_marginBottom="16dp"
                     android:inputType="number"/>
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="32dp"
-                    android:gravity="bottom"
+                    android:layout_height="wrap_content"
                     android:text="Toss owner:"/>
                 <Spinner
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="30dp"
-                    android:layout_marginBottom="16dp"
+                    android:background="#F6FAFF"
+                    android:layout_marginBottom="8dp"
                     android:id="@+id/tossOwner"/>
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="32dp"
-                    android:gravity="bottom"
+                    android:layout_height="wrap_content"
                     android:text="Batting:"/>
                 <Spinner
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="30dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="#F6FAFF"
                     android:id="@+id/batting"/>
                 <Button
                     android:layout_width="match_parent"

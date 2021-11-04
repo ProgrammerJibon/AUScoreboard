@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -15,6 +16,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+
+import java.util.ArrayList;
 
 import bd.com.jibon.AUScoreboard.Data;
 import bd.com.jibon.AUScoreboard.Internet.AddDataToInternetThenHide;
@@ -112,7 +115,22 @@ public class AdminPage extends Fragment {
 
             //new match
             LinearLayout addMatchView = view.findViewById(R.id.newMatchView);
-            Spinner selectTeam1 = view.findViewById(R.id.selectTeam1), selectTeam2 = view.findViewById(R.id.selectTeam2);
+            addMatchView.setVisibility(View.GONE);
+            Spinner selectTeam1 = view.findViewById(R.id.selectTeam1),
+                    selectTeam2 = view.findViewById(R.id.selectTeam2),
+                    tossWonBy = view.findViewById(R.id.tossOwner),
+                    battingChoose = view.findViewById(R.id.batting);
+            EditText overs = view.findViewById(R.id.overs);
+            Button startMatch = view.findViewById(R.id.startMatch),
+                    closeMatchView = view.findViewById(R.id.closeAddMatchView);
+
+
+            ArrayList<String> arrayList = new ArrayList<>();
+            arrayList.add("First Team");
+            arrayList.add("Second Team");
+            ArrayAdapter arrayAdapter = new ArrayAdapter(activity, android.R.layout.simple_list_item_1, arrayList);
+            tossWonBy.setAdapter(arrayAdapter);
+            battingChoose.setAdapter(arrayAdapter);
 
             OptionSelectView team1Names = new OptionSelectView(activity, new Data(activity).urlGenerate("teams=1"), progressBar, selectTeam1, "teams");
             team1Names.execute();
@@ -121,6 +139,9 @@ public class AdminPage extends Fragment {
 
             view.findViewById(R.id.newMatch).setOnClickListener(v->{
                 addMatchView.setVisibility(View.VISIBLE);
+            });
+            closeMatchView.setOnClickListener(v->{
+                addMatchView.setVisibility(View.GONE);
             });
 
 
