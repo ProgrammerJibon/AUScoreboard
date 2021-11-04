@@ -50,15 +50,14 @@ public class AdminPage extends Fragment {
             LinearLayout progressBar = view.findViewById(R.id.progressBar);
             TextView showCountryId = view.findViewById(R.id.showCountryId);
 
-            view.findViewById(R.id.newMatch).setOnClickListener(v->{
 
-            });
+
 
 
 
 
             //add team
-            OptionSelectView optionSelectView = new OptionSelectView(activity, new Data(activity).urlGenerate("teams=1"), progressBar, new_player_country, "countries");
+            OptionSelectView optionSelectView = new OptionSelectView(activity, new Data(activity).urlGenerate("teams=1"), progressBar, new_player_country, "teams");
             optionSelectView.execute();
             new_player_country.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
@@ -108,6 +107,21 @@ public class AdminPage extends Fragment {
             });
 
             new OptionSelectView(activity, new Data(activity).urlGenerate("team_type=1"), progressBar, team_type, "team_type").execute();
+
+
+
+            //new match
+            LinearLayout addMatchView = view.findViewById(R.id.newMatchView);
+            Spinner selectTeam1 = view.findViewById(R.id.selectTeam1), selectTeam2 = view.findViewById(R.id.selectTeam2);
+
+            OptionSelectView team1Names = new OptionSelectView(activity, new Data(activity).urlGenerate("teams=1"), progressBar, selectTeam1, "teams");
+            team1Names.execute();
+            OptionSelectView team2Names = new OptionSelectView(activity, new Data(activity).urlGenerate("teams=1"), progressBar, selectTeam2, "teams");
+            team2Names.execute();
+
+            view.findViewById(R.id.newMatch).setOnClickListener(v->{
+                addMatchView.setVisibility(View.VISIBLE);
+            });
 
 
 

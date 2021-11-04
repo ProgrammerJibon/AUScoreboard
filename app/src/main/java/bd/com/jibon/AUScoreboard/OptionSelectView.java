@@ -63,6 +63,15 @@ public class OptionSelectView extends AsyncTask<String, String, JSONObject> {
                     ArrayAdapter<String> baseAdapter1 = new ArrayAdapter<>(activity, android.R.layout.simple_list_item_1, countryName);
                     spinner.setAdapter(baseAdapter1);
                 }
+                if (json.has("teams") && type == "teams"){
+                    JSONArray countries = json.getJSONArray("teams");
+                    for (int countryInt = 0; countryInt < countries.length(); countryInt++){
+                        countryName.add(countries.getJSONObject(countryInt).getString("name"));
+                        countryId.add(countries.getJSONObject(countryInt).getString("id"));
+                    }
+                    ArrayAdapter<String> baseAdapter1 = new ArrayAdapter<>(activity, android.R.layout.simple_list_item_1, countryName);
+                    spinner.setAdapter(baseAdapter1);
+                }
                 if (json.has("team_type") && type == "team_type"){
                     JSONArray countries = json.getJSONArray("team_type");
                     for (int countryInt = 0; countryInt < countries.length(); countryInt++){
