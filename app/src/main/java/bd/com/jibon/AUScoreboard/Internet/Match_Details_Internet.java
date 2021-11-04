@@ -3,6 +3,7 @@ package bd.com.jibon.AUScoreboard.Internet;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.util.Log;
 import android.view.View;
 import android.webkit.CookieManager;
@@ -46,9 +47,9 @@ public class Match_Details_Internet extends AsyncTask<String, String, JSONObject
     private final ListView players_team2;
     private final ListView team1Baller;
     private final ListView team2Baller;
-    View deleteButton;
+    View adminArea;
 
-    public Match_Details_Internet(Activity context, String url, ProgressBar progressBar, TextView team1name, TextView team2name, TextView run_wicket1, TextView run_wicket2, TextView over1, TextView over2, ListView players_team1, ListView players_team2, TextView teams, ListView team1Baller, ListView team2Baller, View deleteButton) {
+    public Match_Details_Internet(Activity context, String url, ProgressBar progressBar, TextView team1name, TextView team2name, TextView run_wicket1, TextView run_wicket2, TextView over1, TextView over2, ListView players_team1, ListView players_team2, TextView teams, ListView team1Baller, ListView team2Baller, View adminArea) {
         this.context = context;
         this.url = url;
         this.progressBar = progressBar;
@@ -63,7 +64,7 @@ public class Match_Details_Internet extends AsyncTask<String, String, JSONObject
         this.team1Baller = team1Baller;
         this.team2Baller = team2Baller;
         this.teams = teams;
-        this.deleteButton = deleteButton;
+        this.adminArea = adminArea;
 
     }
 
@@ -84,7 +85,7 @@ public class Match_Details_Internet extends AsyncTask<String, String, JSONObject
 
                 if (json.has("user_role")){
                     if (json.getString("user_role").equals("ADMIN")){
-                        deleteButton.setVisibility(View.VISIBLE);
+                        adminArea.setVisibility(View.VISIBLE);
                     }
                 }
                 if (json.has("matches")){
@@ -99,8 +100,11 @@ public class Match_Details_Internet extends AsyncTask<String, String, JSONObject
                     run_wicket2.setText(jsonObject.getString("team2_run")+"/"+jsonObject.getString("team2_wicket"));
 
                     if (jsonObject.getString("status").equals("DELETED")){
-                        teams.setText("(Deleted) "+teams.getText());
-                        ((ImageView) deleteButton).setVisibility(View.GONE);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            teams.setBackgroundColor(context.getColor(android.R.color.holo_red_dark));
+                        }
+                        teams.setText("Admin Only");
+                        adminArea.setVisibility(View.GONE);
                     }
                 }
                 if(json.has("player_data1")){

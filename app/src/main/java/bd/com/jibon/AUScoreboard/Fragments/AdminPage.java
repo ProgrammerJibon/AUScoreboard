@@ -137,10 +137,28 @@ public class AdminPage extends Fragment {
             OptionSelectView team2Names = new OptionSelectView(activity, new Data(activity).urlGenerate("teams=1"), progressBar, selectTeam2, "teams");
             team2Names.execute();
 
+
             view.findViewById(R.id.newMatch).setOnClickListener(v->{
                 addMatchView.setVisibility(View.VISIBLE);
             });
             closeMatchView.setOnClickListener(v->{
+                addMatchView.setVisibility(View.GONE);
+            });
+            startMatch.setOnClickListener(v->{
+                String tosswonerx = "";
+                String battingX = "";
+                if (tossWonBy.getSelectedItemPosition() == 0){
+                    tosswonerx  = team1Names.countryId.get(selectTeam1.getSelectedItemPosition());
+                }else if (tossWonBy.getSelectedItemPosition() == 1){
+                    tosswonerx  = team2Names.countryId.get(selectTeam2.getSelectedItemPosition());
+                }
+                if (battingChoose.getSelectedItemPosition() == 0){
+                    battingX  = team1Names.countryId.get(selectTeam1.getSelectedItemPosition());
+                }else if (battingChoose.getSelectedItemPosition() == 1){
+                    battingX  = team2Names.countryId.get(selectTeam2.getSelectedItemPosition());
+                }
+                String url = new Data(activity).urlGenerate("new_match=1&team1="+team1Names.countryId.get(selectTeam1.getSelectedItemPosition())+"&team2="+team2Names.countryId.get(selectTeam2.getSelectedItemPosition())+"&start_time=null&overs="+overs.getText()+"&toss="+tosswonerx+"&choose_to="+battingX);
+                new AddDataToInternetThenHide(activity, url, progressBar).execute();
                 addMatchView.setVisibility(View.GONE);
             });
 

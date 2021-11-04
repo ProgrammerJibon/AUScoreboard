@@ -1,6 +1,7 @@
 package bd.com.jibon.AUScoreboard.Internet;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +18,8 @@ import java.net.URL;
 import java.util.List;
 
 import bd.com.jibon.AUScoreboard.CustomTools;
+import bd.com.jibon.AUScoreboard.ManageMatch;
+import bd.com.jibon.AUScoreboard.Match_Details;
 import bd.com.jibon.AUScoreboard.R;
 
 public class AddDataToInternetThenHide extends AsyncTask<String, String, JSONObject> {
@@ -43,6 +46,16 @@ public class AddDataToInternetThenHide extends AsyncTask<String, String, JSONObj
                 }
                 if (jsonObject.has("add_team")){
                     if (jsonObject.getJSONObject("add_team").has("add_team_id")){
+                        new CustomTools(activity).toast("Team Added", R.drawable.ic_baseline_done_all_24);
+                    }else{
+                        new CustomTools(activity).toast("Something went wrong...", R.drawable.ic_baseline_done_all_24);
+                    }
+                }
+                if (jsonObject.has("new_match")){
+                    if (jsonObject.getJSONObject("new_match").has("macth_id")){
+                        Intent intent = new Intent(activity, Match_Details.class);
+                        intent.putExtra("match_id", jsonObject.getJSONObject("new_match").getString("macth_id"));
+                        activity.startActivity(intent);
                         new CustomTools(activity).toast("Team Added", R.drawable.ic_baseline_done_all_24);
                     }else{
                         new CustomTools(activity).toast("Something went wrong...", R.drawable.ic_baseline_done_all_24);

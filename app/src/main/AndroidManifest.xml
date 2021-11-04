@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AUScorecard">
         <activity
+            android:name=".AddPlayerToMatchTeam"
+            android:exported="false" />
+        <activity
             android:name=".ManageMatch"
             android:exported="false" />
         <activity

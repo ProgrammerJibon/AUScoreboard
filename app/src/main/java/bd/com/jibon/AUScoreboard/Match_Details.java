@@ -5,7 +5,9 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -41,6 +43,7 @@ public class Match_Details extends AppCompatActivity {
             ListView team2Baller = findViewById(R.id.team2Baller);
             ProgressBar progressBar = findViewById(R.id.match_list_progressbarx);
             SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swiprefresh_match_list);
+            LinearLayout adminArea = findViewById(R.id.adminArea);
 
             Intent intent = getIntent();
             Bundle bundle = intent.getExtras();
@@ -53,12 +56,13 @@ public class Match_Details extends AppCompatActivity {
 
                 swipeRefreshLayout.setOnRefreshListener(()->{
                     swipeRefreshLayout.setRefreshing(false);
-                    new Match_Details_Internet(this, url, progressBar, team1name, team2name, wicket1, wicket2, over1, over2, team1Batsman, team2Batsman, teams, team1Baller, team2Baller, findViewById(R.id.deleteMatch)).execute();
+                    new Match_Details_Internet(this, url, progressBar, team1name, team2name, wicket1, wicket2, over1, over2, team1Batsman, team2Batsman, teams, team1Baller, team2Baller, adminArea).execute();
                 });
-                new Match_Details_Internet(this, url, progressBar, team1name, team2name, wicket1, wicket2, over1, over2, team1Batsman, team2Batsman, teams, team1Baller, team2Baller, findViewById(R.id.deleteMatch)).execute();
+                new Match_Details_Internet(this, url, progressBar, team1name, team2name, wicket1, wicket2, over1, over2, team1Batsman, team2Batsman, teams, team1Baller, team2Baller, adminArea).execute();
 
 
-                ((ImageView)findViewById(R.id.deleteMatch)).setOnClickListener(v->{
+                Button deleteMatch = (Button)findViewById(R.id.deleteMatch);
+                deleteMatch.setOnClickListener(v->{
                     AlertDialog.Builder builder = new AlertDialog.Builder(activity);
                     builder.setTitle("Delete")
                             .setCancelable(true)

@@ -314,9 +314,6 @@
     </LinearLayout>
 
 
-<!--    ?new_match=1&team1=18&team2=25&start_time=null&overs=50&toss=18&choose_to=18-->
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:id="@+id/progressBar"
