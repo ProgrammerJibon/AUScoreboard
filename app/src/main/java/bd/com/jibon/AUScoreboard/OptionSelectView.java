@@ -72,17 +72,33 @@ public class OptionSelectView extends AsyncTask<String, String, JSONObject> {
                     ArrayAdapter<String> baseAdapter1 = new ArrayAdapter<>(activity, android.R.layout.simple_list_item_1, countryName);
                     spinner.setAdapter(baseAdapter1);
                 }
-                if (json.has("team_type") && type == "team_type"){
-                    JSONArray countries = json.getJSONArray("team_type");
+                if (json.has("players") && type == "players"){
+                    JSONArray countries = json.getJSONArray("players");
                     for (int countryInt = 0; countryInt < countries.length(); countryInt++){
-                        countryName.add(countries.getString(countryInt));
+                        countryName.add(countries.getJSONObject(countryInt).getString("name"));
+                        countryId.add(countries.getJSONObject(countryInt).getString("id"));
                     }
                     ArrayAdapter<String> baseAdapter1 = new ArrayAdapter<>(activity, android.R.layout.simple_list_item_1, countryName);
                     spinner.setAdapter(baseAdapter1);
+                    spinner.setVisibility(View.VISIBLE);
                 }
+                if (json.has("team_type") && type == "team_type"){
+                    JSONArray countries = json.getJSONArray("team_type");
+                    if(countries != null) {
+                        for (int countryInt = 0; countryInt < countries.length(); countryInt++) {
+                            countryName.add(countries.getString(countryInt));
+                        }
+                        ArrayAdapter<String> baseAdapter1 = new ArrayAdapter<>(activity, android.R.layout.simple_list_item_1, countryName);
+                        spinner.setAdapter(baseAdapter1);
+                    }else{
+                        spinner.setVisibility(View.GONE);
+                    }
+                }
+            }else{
+                new CustomTools(activity).toast("Can't connect to server", R.drawable.ic_baseline_kitchen_24);
             }
         }catch (Exception e){
-            Log.e("errnos_OptionSelect", url+"--/ \t"+e.toString());
+            Log.e("errnos_OptionSelect_x", url+" \t"+e.toString());
         }
 
     }

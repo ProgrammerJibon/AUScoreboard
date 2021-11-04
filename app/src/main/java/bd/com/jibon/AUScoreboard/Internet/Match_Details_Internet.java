@@ -9,6 +9,7 @@ import android.view.View;
 import android.webkit.CookieManager;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -35,7 +36,7 @@ public class Match_Details_Internet extends AsyncTask<String, String, JSONObject
     public Activity context;
     public String url;
     public JSONObject result;
-    public ProgressBar progressBar;
+    public LinearLayout progressBar;
     private final TextView team1name;
     private final TextView team2name;
     private final TextView run_wicket1;
@@ -49,7 +50,7 @@ public class Match_Details_Internet extends AsyncTask<String, String, JSONObject
     private final ListView team2Baller;
     View adminArea;
 
-    public Match_Details_Internet(Activity context, String url, ProgressBar progressBar, TextView team1name, TextView team2name, TextView run_wicket1, TextView run_wicket2, TextView over1, TextView over2, ListView players_team1, ListView players_team2, TextView teams, ListView team1Baller, ListView team2Baller, View adminArea) {
+    public Match_Details_Internet(Activity context, String url, LinearLayout progressBar, TextView team1name, TextView team2name, TextView run_wicket1, TextView run_wicket2, TextView over1, TextView over2, ListView players_team1, ListView players_team2, TextView teams, ListView team1Baller, ListView team2Baller, View adminArea) {
         this.context = context;
         this.url = url;
         this.progressBar = progressBar;
@@ -76,7 +77,6 @@ public class Match_Details_Internet extends AsyncTask<String, String, JSONObject
     @SuppressLint("SetTextI18n")
     @Override
     protected void onPostExecute(JSONObject json) {
-        Log.e("errnos", json.toString());
         progressBar.setVisibility(View.GONE);
         if (json == null){
             new CustomTools(context).toast("Can't connect to server", R.drawable.ic_baseline_kitchen_24);
@@ -106,35 +106,71 @@ public class Match_Details_Internet extends AsyncTask<String, String, JSONObject
                         teams.setText("Admin Only");
                         adminArea.setVisibility(View.GONE);
                     }
+                    if (jsonObject.getString("status").equals("FINISHED")){
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            teams.setBackgroundColor(context.getColor(android.R.color.holo_green_dark));
+                        }
+                        adminArea.setVisibility(View.GONE);
+                    }
                 }
                 if(json.has("player_data1")){
                     if (!json.getString("player_data1").equals("null")){
                         JSONArray jsonArray1 = json.getJSONArray("player_data1");
-                        ArrayList<JSONObject> jsonObjects = new ArrayList<>();
+                        ArrayList<JSONObject> jsonObjectsx = new ArrayList<>();
+                        ArrayList<JSONObject> jsonObjectsy = new ArrayList<>();
                         for (int x=0; x < jsonArray1.length(); x++){
-                            jsonObjects.add(jsonArray1.getJSONObject(x));
+                            if (!String.valueOf(jsonArray1.getJSONObject(x).get("batsman_data")).equals("null")){
+                                jsonObjectsx.add(jsonArray1.getJSONObject(x));
+                            }
+                            if (!String.valueOf(jsonArray1.getJSONObject(x).get("baller_data")).equals("null")){
+                                jsonObjectsy.add(jsonArray1.getJSONObject(x));
+                            }
                         }
-                        BaseAdapter baseAdapter = new MatchBatsmanAdapter(context, jsonObjects);
+                        BaseAdapter baseAdapter = new MatchBatsmanAdapter(context, jsonObjectsx);
                         players_team1.setAdapter(baseAdapter);
-                        BaseAdapter baseAdapter1 = new MatchBallerAdapter(context, jsonObjects);
+                        BaseAdapter baseAdapter1 = new MatchBallerAdapter(context, jsonObjectsy);
                         team1Baller.setAdapter(baseAdapter1);
+                        if (jsonObjectsx.size() == 0){
+                            players_team1.setVisibility(View.GONE);
+                        }
+                        if (jsonObjectsy.size() == 0){
+                            team1Baller.setVisibility(View.GONE);
+                        }
+                    }else {
+                        players_team1.setVisibility(View.GONE);
+                        team1Baller.setVisibility(View.GONE);
                     }
                 }
                 if (json.has("player_data2")){
                     if (!json.getString("player_data2").equals("null")){
                         JSONArray jsonArray1 = json.getJSONArray("player_data2");
-                        ArrayList<JSONObject> jsonObjects = new ArrayList<>();
+                        ArrayList<JSONObject> jsonObjectsx = new ArrayList<>();
+                        ArrayList<JSONObject> jsonObjectsy = new ArrayList<>();
                         for (int x=0; x < jsonArray1.length(); x++){
-                            jsonObjects.add(jsonArray1.getJSONObject(x));
+                            if (!String.valueOf(jsonArray1.getJSONObject(x).get("batsman_data")).equals("null")){
+                                jsonObjectsx.add(jsonArray1.getJSONObject(x));
+                            }
+                            if (!String.valueOf(jsonArray1.getJSONObject(x).get("baller_data")).equals("null")){
+                                jsonObjectsy.add(jsonArray1.getJSONObject(x));
+                            }
                         }
-                        BaseAdapter baseAdapter = new MatchBatsmanAdapter(context, jsonObjects);
+                        BaseAdapter baseAdapter = new MatchBatsmanAdapter(context, jsonObjectsx);
                         players_team2.setAdapter(baseAdapter);
-                        BaseAdapter baseAdapter1 = new MatchBallerAdapter(context, jsonObjects);
+                        BaseAdapter baseAdapter1 = new MatchBallerAdapter(context, jsonObjectsy);
                         team2Baller.setAdapter(baseAdapter1);
+                        if (jsonObjectsx.size() == 0){
+                            players_team2.setVisibility(View.GONE);
+                        }
+                        if (jsonObjectsy.size() == 0){
+                            team2Baller.setVisibility(View.GONE);
+                        }
+                    }else {
+                        players_team1.setVisibility(View.GONE);
+                        team1Baller.setVisibility(View.GONE);
                     }
                 }
             }catch (Exception error){
-                Log.e("errnos_cbi", error.toString());
+                Log.e("errnos_cbi", url+"\t"+error.toString());
             }
         }
     }

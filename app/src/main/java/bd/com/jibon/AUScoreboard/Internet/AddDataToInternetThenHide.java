@@ -17,6 +17,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
+import bd.com.jibon.AUScoreboard.AddPlayerToMatchTeam;
 import bd.com.jibon.AUScoreboard.CustomTools;
 import bd.com.jibon.AUScoreboard.ManageMatch;
 import bd.com.jibon.AUScoreboard.Match_Details;
@@ -38,7 +39,13 @@ public class AddDataToInternetThenHide extends AsyncTask<String, String, JSONObj
                 new CustomTools(activity).toast("Can't connect to server", R.drawable.ic_baseline_kitchen_24);
             }else{
                 if (jsonObject.has("new_player")){
+
                     if (jsonObject.getJSONObject("new_player").has("player_id")){
+                        new CustomTools(activity).toast("Player Added", R.drawable.ic_baseline_done_all_24);
+                    }
+                }
+                if (jsonObject.has("new_player_in_match")){
+                    if (jsonObject.has("new_player_in_match")){
                         new CustomTools(activity).toast("Player Added", R.drawable.ic_baseline_done_all_24);
                     }else{
                         new CustomTools(activity).toast("Something went wrong...", R.drawable.ic_baseline_done_all_24);
@@ -53,8 +60,10 @@ public class AddDataToInternetThenHide extends AsyncTask<String, String, JSONObj
                 }
                 if (jsonObject.has("new_match")){
                     if (jsonObject.getJSONObject("new_match").has("macth_id")){
-                        Intent intent = new Intent(activity, Match_Details.class);
+                        Intent intent = new Intent(activity, AddPlayerToMatchTeam.class);
                         intent.putExtra("match_id", jsonObject.getJSONObject("new_match").getString("macth_id"));
+                        intent.putExtra("team1_id", jsonObject.getJSONObject("new_match").getString("team1"));
+                        intent.putExtra("team2_id", jsonObject.getJSONObject("new_match").getString("team2"));
                         activity.startActivity(intent);
                         new CustomTools(activity).toast("Team Added", R.drawable.ic_baseline_done_all_24);
                     }else{

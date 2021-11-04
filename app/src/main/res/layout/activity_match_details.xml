@@ -60,6 +60,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_margin="16dp"
+                        android:id="@+id/finishMatch"
                         android:layout_height="match_parent"
                         android:backgroundTint="@android:color/holo_green_dark"
                         android:text="FINISH MATCH"/>
@@ -68,6 +69,7 @@
                         android:layout_weight="1"
                         android:layout_margin="16dp"
                         android:layout_height="match_parent"
+                        android:id="@+id/scoreEditor"
                         android:text="Score Editor"/>
                 </LinearLayout>
 
@@ -181,7 +183,8 @@
                         <ListView
                             android:id="@+id/team1Batsman"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="200dp"
+                            android:nestedScrollingEnabled="true"
                             tools:listitem="@layout/sample_batsman_status" />
                     </LinearLayout>
                     <LinearLayout
@@ -253,7 +256,8 @@
                         <ListView
                             android:id="@+id/team1Baller"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="200dp"
+                            android:nestedScrollingEnabled="true"
                             tools:listitem="@layout/sample_baller_status" />
                     </LinearLayout>
                 </LinearLayout>
@@ -368,7 +372,8 @@
                         <ListView
                             android:id="@+id/team2Batsman"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:nestedScrollingEnabled="true"
+                            android:layout_height="200dp"
                             tools:listitem="@layout/sample_batsman_status" />
                     </LinearLayout>
                     <LinearLayout
@@ -439,8 +444,9 @@
 
                         <ListView
                             android:id="@+id/team2Baller"
+                            android:nestedScrollingEnabled="true"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="200dp"
                             tools:listitem="@layout/sample_baller_status" />
                     </LinearLayout>
                 </LinearLayout>
@@ -448,12 +454,20 @@
         </ScrollView>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    <ProgressBar
-        android:id="@+id/match_list_progressbarx"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:indeterminate="true"
-        android:indeterminateTint="@color/teaser_blue" />
+        android:id="@+id/progressBar"
+        android:clickable="false"
+        android:background="#E6000000"
+        android:visibility="gone"
+        android:layout_height="match_parent">
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/teaser_blue"/>
+    </LinearLayout>
 </RelativeLayout>

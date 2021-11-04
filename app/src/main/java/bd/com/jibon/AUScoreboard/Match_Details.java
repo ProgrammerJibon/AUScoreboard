@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import bd.com.jibon.AUScoreboard.Internet.DeleteTargetedWithId;
+import bd.com.jibon.AUScoreboard.Internet.FinishMatchWithId;
 import bd.com.jibon.AUScoreboard.Internet.Match_Details_Internet;
 
 
@@ -41,7 +42,7 @@ public class Match_Details extends AppCompatActivity {
             ListView team2Batsman = findViewById(R.id.team2Batsman);
             ListView team1Baller = findViewById(R.id.team1Baller);
             ListView team2Baller = findViewById(R.id.team2Baller);
-            ProgressBar progressBar = findViewById(R.id.match_list_progressbarx);
+            LinearLayout progressBar = findViewById(R.id.match_list_progressbarx);
             SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swiprefresh_match_list);
             LinearLayout adminArea = findViewById(R.id.adminArea);
 
@@ -62,17 +63,35 @@ public class Match_Details extends AppCompatActivity {
 
 
                 Button deleteMatch = (Button)findViewById(R.id.deleteMatch);
+                Button finishMatch = (Button)findViewById(R.id.finishMatch);
+                Button scoreEditor = (Button)findViewById(R.id.scoreEditor);
                 deleteMatch.setOnClickListener(v->{
                     AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-                    builder.setTitle("Delete")
+                    builder.setTitle("Warning")
                             .setCancelable(true)
-                            .setMessage("Delete Match Id "+MATCH_ID)
-                            .setIcon(R.drawable.ic_baseline_admin_panel_settings_24)
+                            .setMessage("Delete Match "+MATCH_ID)
+                            .setIcon(R.drawable.ic_baseline_warning_24)
                             .setPositiveButton("DELETE", (dialog, which)-> new DeleteTargetedWithId(activity, "MATCH", MATCH_ID).execute())
                             .setNegativeButton("Cancel", ((dialog, which)-> dialog.cancel()))
                             .show();
                 });
-
+                finishMatch.setOnClickListener(v->{
+                    AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                    builder.setTitle("Warning")
+                            .setCancelable(true)
+                            .setMessage("Finish Match "+MATCH_ID)
+                            .setIcon(R.drawable.ic_baseline_warning_24)
+                            .setPositiveButton("Finish", (dialog, which)-> new FinishMatchWithId(activity, MATCH_ID).execute())
+                            .setNegativeButton("Cancel", ((dialog, which)-> dialog.cancel()))
+                            .show();
+                });
+                scoreEditor.setOnClickListener(v->{
+                    Intent intent1 = new Intent(activity, ManageMatch.class);
+                    intent1.putExtra("match_id", MATCH_ID);
+                    intent1.putExtra("team1", TEAM1);
+                    intent1.putExtra("team2", TEAM2);
+                    activity.startActivity(intent1);
+                });
             }
         }catch (Exception error){
             Log.e("errnos_match_det", error.toString());
