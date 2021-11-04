@@ -42,7 +42,7 @@ public class Match_Details extends AppCompatActivity {
             ListView team2Batsman = findViewById(R.id.team2Batsman);
             ListView team1Baller = findViewById(R.id.team1Baller);
             ListView team2Baller = findViewById(R.id.team2Baller);
-            LinearLayout progressBar = findViewById(R.id.match_list_progressbarx);
+            LinearLayout progressBar = findViewById(R.id.progressBar);
             SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swiprefresh_match_list);
             LinearLayout adminArea = findViewById(R.id.adminArea);
 
