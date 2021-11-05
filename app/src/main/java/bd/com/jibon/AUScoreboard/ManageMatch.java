@@ -50,7 +50,7 @@ public class ManageMatch extends AppCompatActivity {
     public Activity activity;
     public LinearLayout progressBar;
     public CustomTools customTools;
-    public Boolean changed = false;
+    public Boolean changed = false, outer = false;
     public ArrayList<String> teamNames = new ArrayList<>(), team1Players = new ArrayList<>(), team2Players = new ArrayList<>(), teamsId = new ArrayList<>(), team1PlayersId = new ArrayList<>(), teams2PlayersId = new ArrayList<>();
 
 
@@ -209,24 +209,30 @@ public class ManageMatch extends AppCompatActivity {
             outPlayer.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    if (CURRENT_BATTING.equals(TEAM1)){
-                        OUT_ID = Integer.parseInt(team1PlayersId.get(position));
-                    }else{
-                        OUT_ID = Integer.parseInt(teams2PlayersId.get(position));
+                    if (outer){
+                        if (CURRENT_BATTING.equals(TEAM1)){
+                            OUT_ID = Integer.parseInt(team1PlayersId.get(position));
+                        }else{
+                            OUT_ID = Integer.parseInt(teams2PlayersId.get(position));
+                        }
+                        OUT_BY = Integer.parseInt(team1PlayersId.get(floorBaller.getSelectedItemPosition()));
                     }
-                    OUT_BY = Integer.parseInt(team1PlayersId.get(floorBaller.getSelectedItemPosition()));
                 }@Override public void onNothingSelected(AdapterView<?> parent) { }
             });
 
             ((CheckBox)findViewById(R.id.isOut)).setOnCheckedChangeListener((buttonView, isChecked) -> {
                 if (isChecked){
+                    OUT_ID = 0;
+                    OUT_BY = 0;
+                    outer = true;
                     outPlayer.setClickable(true);
                     outPlayer.setEnabled(true);
                 }else{
-                    outPlayer.setClickable(false);
-                    outPlayer.setEnabled(false);
                     OUT_ID = 0;
                     OUT_BY = 0;
+                    outer = false;
+                    outPlayer.setClickable(false);
+                    outPlayer.setEnabled(false);
                 }
             });
 
@@ -321,16 +327,21 @@ public class ManageMatch extends AppCompatActivity {
                         JSONObject jsonObject1 = jsonObject.getJSONObject("add_run_ball");
                         if (jsonObject1.has("error_swap")){
                             customTools.toast(jsonObject1.getString("error_swap"), R.drawable.ic_baseline_warning_24);
-                        }else if (jsonObject1.has("swap")){
+                        }
+                        if (jsonObject1.has("swap")){
                             int xBat = floor2Batsman.getSelectedItemPosition(), yBat = floor1Batsman.getSelectedItemPosition();
                             floor1Batsman.setSelection(xBat);
                             floor2Batsman.setSelection(yBat);
-                        }else if (jsonObject1.has("req_new_batsman")){
+                            customTools.toast("Batsman Changed", R.drawable.ic_baseline_warning_24);
+                        }
+                        if (jsonObject1.has("req_new_batsman")){
                             customTools.toast("Please change batsman", R.drawable.ic_baseline_warning_24);
-                        }else if (jsonObject1.has("status")){
+                        }
+                        if (jsonObject1.has("new_baller")){
+                            customTools.toast("Please change baller", R.drawable.ic_baseline_warning_24);
+                        }
+                        if (jsonObject1.has("status")){
                             customTools.toast(jsonObject1.getString("status"), R.drawable.ic_baseline_warning_24);
-                        }else{
-                            customTools.toast("DONE", R.drawable.ic_baseline_done_all_24);
                         }
                     }else{
                         customTools.toast("Something went wrong", R.drawable.ic_baseline_warning_24);
@@ -376,6 +387,7 @@ public class ManageMatch extends AppCompatActivity {
                 }
                 allLines = stringBuffer.toString();
                 JSONObject jsonObject = new JSONObject(allLines);
+                Log.e("errnos_res", allLines);
                 publishProgress("50");
                 return jsonObject;
             } catch (Exception e) {

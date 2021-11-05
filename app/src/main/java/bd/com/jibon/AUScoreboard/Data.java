@@ -4,7 +4,7 @@ import android.app.Activity;
 
 public class Data {
     public Activity activity;
-    public String website = "https://newjson.000webhostapp.com/auscorecard";
+    public String website = "http://www.auiplay.com/app";
     public Data(Activity activity) {
         this.activity = activity;
     }
