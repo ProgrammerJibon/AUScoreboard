@@ -20,6 +20,12 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -43,6 +49,7 @@ public class Match_Details extends AppCompatActivity {
     public String MATCH_ID, TEAM1, TEAM2;
     Activity activity;
     public Boolean changed = false;
+    private AdView mView, nView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +72,11 @@ public class Match_Details extends AppCompatActivity {
             LinearLayout progressBar = findViewById(R.id.progressBar);
             SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swiprefresh_match_list);
             LinearLayout adminArea = findViewById(R.id.adminArea);
+            mView = findViewById(R.id.cooler1);
+            AdRequest adRequest = new AdRequest.Builder().build();
+            mView.loadAd(adRequest);
+            nView = findViewById(R.id.cooler2);
+            nView.loadAd(adRequest);
 
             Intent intent = getIntent();
             Bundle bundle = intent.getExtras();

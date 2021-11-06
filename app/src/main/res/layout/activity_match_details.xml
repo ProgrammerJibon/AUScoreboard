@@ -260,6 +260,15 @@
                             android:nestedScrollingEnabled="true"
                             tools:listitem="@layout/sample_baller_status" />
                     </LinearLayout>
+                    <com.google.android.gms.ads.AdView
+                        xmlns:ads="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/cooler1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        ads:adSize="SMART_BANNER"
+                        ads:adUnitId="ca-app-pub-6695709429891253/7201068759">
+                    </com.google.android.gms.ads.AdView>
                 </LinearLayout>
 
                 <LinearLayout
@@ -448,6 +457,16 @@
                             android:layout_width="match_parent"
                             android:layout_height="200dp"
                             tools:listitem="@layout/sample_baller_status" />
+
+                        <com.google.android.gms.ads.AdView
+                            xmlns:ads="http://schemas.android.com/apk/res-auto"
+                            android:id="@+id/cooler2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            ads:adSize="SMART_BANNER"
+                            ads:adUnitId="ca-app-pub-6695709429891253/3261823748">
+                        </com.google.android.gms.ads.AdView>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
