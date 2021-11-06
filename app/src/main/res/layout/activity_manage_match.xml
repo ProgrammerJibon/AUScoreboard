@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:ignore="UnusedAttribute,HardcodedText,RtlHardcoded,RtlSymmetry,UseSwitchCompatOrMaterialXml"
     tools:targetApi="lollipop"
+    android:background="@color/white"
     android:soundEffectsEnabled="true"
     tools:context=".ManageMatch">
 

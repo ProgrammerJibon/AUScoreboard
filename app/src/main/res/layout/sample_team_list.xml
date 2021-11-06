@@ -37,6 +37,6 @@
             android:gravity="center"
             android:id="@+id/deleteTeam"
             android:layout_height="wrap_content"
-            android:text="Restore"/>
+            android:text="Delete"/>
     </LinearLayout>
 </LinearLayout>

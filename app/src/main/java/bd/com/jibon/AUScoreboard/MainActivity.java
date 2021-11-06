@@ -97,11 +97,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void onBackPressed() {
-        FragmentManager fragmentManager = getFragmentManager();
-        if (fragmentManager.getBackStackEntryCount() > 0){
-            super.onBackPressed();
-        }else{
-            new Settings(this.activity).exitApp(true);
-        }
+        new Settings(this.activity).exitApp(true);
     }
 }
