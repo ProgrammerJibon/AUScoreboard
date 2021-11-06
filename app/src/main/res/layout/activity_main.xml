@@ -25,6 +25,7 @@
         android:name="bd.com.jibon.AUScoreboard.Fragments.MatcheList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
         android:layout_above="@+id/MainActivityTabLayout"
         android:layout_below="@+id/ActionMenuVIew" />
 

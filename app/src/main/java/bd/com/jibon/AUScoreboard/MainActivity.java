@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
                 tabLayoutMainActivity.removeTabAt(4);
             }
 
+
             String finalUser_role = user_role;
             tabLayoutMainActivity.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                 @SuppressLint("SetTextI18n")
@@ -74,8 +75,10 @@ public class MainActivity extends AppCompatActivity {
                         MainActivity.this.mainActivityTitle.setText("Admin Area");
                     }
                     if (fragment != null) {
-                        FragmentTransaction fragmentTransaction1 = MainActivity.this.getSupportFragmentManager().beginTransaction().addToBackStack(null);
+                        FragmentTransaction fragmentTransaction1 = MainActivity.this.getSupportFragmentManager().beginTransaction();
                         fragmentTransaction1.replace(R.id.fragmentMainActivity, fragment);
+                        fragmentTransaction1.addToBackStack(null);
+                        fragmentTransaction1.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
                         fragmentTransaction1.commit();
                     }
                 }
@@ -92,10 +95,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
     public void onBackPressed() {
         FragmentManager fragmentManager = getFragmentManager();
         if (fragmentManager.getBackStackEntryCount() > 0){
-            fragmentManager.popBackStack();
+            super.onBackPressed();
         }else{
             new Settings(this.activity).exitApp(true);
         }
