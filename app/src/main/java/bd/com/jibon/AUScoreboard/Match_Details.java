@@ -216,9 +216,9 @@ public class Match_Details extends AppCompatActivity {
                             teams.setText("");
                             int diff = (Integer.parseInt(jsonObject.getString("team1_run")) - Integer.parseInt(jsonObject.getString("team2_run")));
                             if (diff > 0){
-                                teams.setText(jsonObject.getString("team1_name")+" won by "+ diff);
+                                teams.setText(jsonObject.getString("team1_name")+" won by "+ diff + " runs");
                             }else if(diff < 0){
-                                teams.setText(jsonObject.getString("team2_name")+" won by "+ ((-1) * diff));
+                                teams.setText(jsonObject.getString("team2_name")+" won by "+ ((-1) * diff) + " runs");
                             }else{
                                 teams.setText("Match drawn");
                             }
@@ -251,7 +251,8 @@ public class Match_Details extends AppCompatActivity {
                                 team1Baller.setAdapter(baseAdapter1);
                                 baseAdapter1.notifyDataSetChanged();
 
-                            }                            if (jsonObjectsx.size() == 0){
+                            }
+                            if (jsonObjectsx.size() == 0){
                                 players_team1.setVisibility(View.GONE);
                             }
                             if (jsonObjectsy.size() == 0){

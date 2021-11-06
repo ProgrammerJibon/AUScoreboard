@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import bd.com.jibon.AUScoreboard.Data;
@@ -32,11 +33,10 @@ public class MatcheList extends Fragment {
 
     @Override
     public void onAttach(@NonNull Activity context) {
-        super.onAttach(context);
         this.activity = context;
+        super.onAttach(context);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,7 +47,6 @@ public class MatcheList extends Fragment {
             progressBar = view.findViewById(R.id.progressBar);
             swipeRefreshLayout = view.findViewById(R.id.swiprefresh_match_list);
 
-            listView.setOnContextClickListener(view1 -> false);
 
             swipeRefreshLayout.setOnRefreshListener(() -> {
                 swipeRefreshLayout.setRefreshing(false);

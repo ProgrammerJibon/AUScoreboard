@@ -19,6 +19,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import bd.com.jibon.AUScoreboard.Adapter.MatchListGetSetViews;
 import bd.com.jibon.AUScoreboard.CustomTools;
@@ -32,7 +34,6 @@ public class GetMatchListAndSetToMainView extends AsyncTask<String, String, JSON
     public JSONObject result;
     public LinearLayout progressBar;
     public ListView listView;
-    public ArrayList<JSONObject> arrayList = new ArrayList<>();
 
     public GetMatchListAndSetToMainView(Activity context, String url, LinearLayout progressBar, ListView listView) {
         this.context = context;
@@ -48,20 +49,17 @@ public class GetMatchListAndSetToMainView extends AsyncTask<String, String, JSON
             if (json == null) {
                 new CustomTools(context).toast("Can't connect to server", R.drawable.ic_baseline_kitchen_24);
             } else {
-                String user_role = "";
-                if(json.has("user_role")){
-                    user_role = json.getString("user_role");
-
-                }
                 if (json.has("matches")) {
                     JSONArray matchArray = json.getJSONArray("matches");
+                    ArrayList<JSONObject> arrayList = new ArrayList<>();
                     for (int xs = 0; xs < matchArray.length(); xs++){
-                        if (!matchArray.getJSONObject(xs).getString("status").equals("DELETED")){
-                            this.arrayList.add(matchArray.getJSONObject(xs));
+                        if (!matchArray.getJSONObject(xs).getString("status").equals("DELETED") && matchArray.getJSONObject(xs).has("team1_name") && matchArray.getJSONObject(xs).has("team2_name")){
+                            arrayList.add(matchArray.getJSONObject(xs));
                         }
                     }
-                    MatchListGetSetViews matchListGetSetViews = new MatchListGetSetViews(context, this.arrayList , user_role);
+                    MatchListGetSetViews matchListGetSetViews = new MatchListGetSetViews(context, arrayList);
                     listView.setAdapter(matchListGetSetViews);
+
                 }
 
 

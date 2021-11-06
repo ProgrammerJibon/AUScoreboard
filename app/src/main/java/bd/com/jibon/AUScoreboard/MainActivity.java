@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Lifecycle;
 
 import com.google.android.material.tabs.TabLayout;
 
@@ -52,34 +53,39 @@ public class MainActivity extends AppCompatActivity {
             tabLayoutMainActivity.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                 @SuppressLint("SetTextI18n")
                 public void onTabSelected(TabLayout.Tab tab) {
-                    Fragment fragment = null;
-                    if (tab.getPosition() == 0) {
-                        fragment = new MatcheList();
-                        MainActivity.this.mainActivityTitle.setText("All Matches");
-                    } else if (tab.getPosition() == 1) {
-                        fragment = new PlayerList();
-                        MainActivity.this.mainActivityTitle.setText("All Player");
-                    } else if (tab.getPosition() == 2) {
-                        fragment = new TeamList();
-                        MainActivity.this.mainActivityTitle.setText("All Temas");
-                    } else if (tab.getPosition() == 3) {
-                        if (finalUser_role.equals("ADMIN") || finalUser_role.equals("USER")){
-                            fragment = new ProfilePage();
-                            MainActivity.this.mainActivityTitle.setText("Profile");
-                        }else{
-                            fragment = new MyAccount();
-                            MainActivity.this.mainActivityTitle.setText("My Account");
+                    try {
+                        Fragment fragment = null;
+                        if (tab.getPosition() == 0) {
+                            fragment = new MatcheList();
+                            MainActivity.this.mainActivityTitle.setText("All Matches");
+                        } else if (tab.getPosition() == 1) {
+                            fragment = new PlayerList();
+                            MainActivity.this.mainActivityTitle.setText("All Player");
+                        } else if (tab.getPosition() == 2) {
+                            fragment = new TeamList();
+                            MainActivity.this.mainActivityTitle.setText("All Temas");
+                        } else if (tab.getPosition() == 3) {
+                            if (finalUser_role.equals("ADMIN") || finalUser_role.equals("USER")) {
+                                fragment = new ProfilePage();
+                                MainActivity.this.mainActivityTitle.setText("Profile");
+                            } else {
+                                fragment = new MyAccount();
+                                MainActivity.this.mainActivityTitle.setText("My Account");
+                            }
+                        } else if (tab.getPosition() == 4) {
+                            fragment = new AdminPage();
+                            MainActivity.this.mainActivityTitle.setText("Admin Area");
                         }
-                    } else if (tab.getPosition() == 4) {
-                        fragment = new AdminPage();
-                        MainActivity.this.mainActivityTitle.setText("Admin Area");
-                    }
-                    if (fragment != null) {
-                        FragmentTransaction fragmentTransaction1 = MainActivity.this.getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction1.replace(R.id.fragmentMainActivity, fragment);
-                        fragmentTransaction1.addToBackStack(null);
-                        fragmentTransaction1.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
-                        fragmentTransaction1.commit();
+                        if (fragment != null) {
+                            FragmentTransaction fragmentTransaction1 = MainActivity.this.getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction1.replace(R.id.fragmentMainActivity, fragment);
+                            fragmentTransaction1.addToBackStack(null);
+                            fragmentTransaction1.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
+                            fragmentTransaction1.setMaxLifecycle(fragment, Lifecycle.State.RESUMED);
+                            fragmentTransaction1.commit();
+                        }
+                    }catch (Exception e){
+                        Log.e("errnos_fragment", e.toString());
                     }
                 }
 
