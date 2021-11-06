@@ -58,6 +58,24 @@ public class AddDataToInternetThenHide extends AsyncTask<String, String, JSONObj
                         new CustomTools(activity).toast("Something went wrong...", R.drawable.ic_baseline_done_all_24);
                     }
                 }
+                if (jsonObject.has("change_pass")){
+                    if (jsonObject.getString("change_pass").equals("success")){
+                        new CustomTools(activity).toast("Password Changed", R.drawable.ic_baseline_done_all_24);
+                    }else if (jsonObject.getString("change_pass").equals("pass")){
+                        new CustomTools(activity).toast("Wrong old password", R.drawable.ic_baseline_done_all_24);
+                    }else{
+                        new CustomTools(activity).toast("Something went wrong...", R.drawable.ic_baseline_done_all_24);
+                    }
+                }
+                if (jsonObject.has("change_username")){
+                    if (jsonObject.getJSONObject("change_username").has("success")){
+                        new CustomTools(activity).toast("Password Changed", R.drawable.ic_baseline_done_all_24);
+                    }else if (jsonObject.getJSONObject("change_username").has("pass")){
+                        new CustomTools(activity).toast("Wrong old password", R.drawable.ic_baseline_done_all_24);
+                    }else{
+                        new CustomTools(activity).toast("Something went wrong...", R.drawable.ic_baseline_done_all_24);
+                    }
+                }
                 if (jsonObject.has("new_match")){
                     if (jsonObject.getJSONObject("new_match").has("macth_id")){
                         Intent intent = new Intent(activity, AddPlayerToMatchTeam.class);

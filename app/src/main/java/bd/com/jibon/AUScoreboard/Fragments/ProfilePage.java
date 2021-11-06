@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.CookieManager;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -35,6 +36,7 @@ import java.util.TimerTask;
 
 import bd.com.jibon.AUScoreboard.CustomTools;
 import bd.com.jibon.AUScoreboard.Data;
+import bd.com.jibon.AUScoreboard.Internet.AddDataToInternetThenHide;
 import bd.com.jibon.AUScoreboard.R;
 import bd.com.jibon.AUScoreboard.Splash;
 
@@ -73,6 +75,36 @@ public class ProfilePage extends Fragment {
             avatar = view.findViewById(R.id.avatar);
             progressBar = view.findViewById(R.id.progressBar);
             swipeRefreshLayout = view.findViewById(R.id.refresh);
+            /*LinearLayout linearLayout = view.findViewById(R.id.changePassView);
+
+            view.findViewById(R.id.passwordChange).setOnClickListener(v->{
+                linearLayout.setVisibility(View.VISIBLE);
+                swipeRefreshLayout.setVisibility(View.GONE);
+            });
+            view.findViewById(R.id.closePass).setOnClickListener(v->{
+                linearLayout.setVisibility(View.GONE);
+                swipeRefreshLayout.setVisibility(View.VISIBLE);
+            });
+            view.findViewById(R.id.hitPass).setOnClickListener(v->{
+                String oldPass = String.valueOf(((EditText)view.findViewById(R.id.oldPassword)).getText());
+                String newPass1= String.valueOf(((EditText)view.findViewById(R.id.pass1)).getText());
+                String newPass2= String.valueOf(((EditText)view.findViewById(R.id.pass2)).getText());
+
+                if (!oldPass.equals("") && !newPass1.contains("&")){
+                    if (newPass1.equals(newPass2) && !newPass1.equals("")){
+                        linearLayout.setVisibility(View.GONE);
+                        swipeRefreshLayout.setVisibility(View.VISIBLE);
+                        String urlxw = new Data(activity).urlGenerate("change_password=1&old_pass"+oldPass+"&newPass="+newPass1);
+                        new AddDataToInternetThenHide(activity, urlxw, progressBar).execute();
+                    }else{
+                        new CustomTools(activity).toast("Password didn't matched", R.drawable.ic_baseline_warning_24);
+                    }
+                }else{
+                    new CustomTools(activity).toast("Fill old pass", R.drawable.ic_baseline_warning_24);
+                }
+
+
+            });*/
 
             logout.setOnClickListener(v->{
                 String lsx = new Data(activity).urlGenerate("logout=true");

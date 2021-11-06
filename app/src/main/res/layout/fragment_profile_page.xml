@@ -9,8 +9,8 @@
 
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:layout_width="match_parent"
         android:id="@+id/refresh"
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <ScrollView
@@ -27,13 +27,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginTop="40dp"
                     android:background="@color/transparent"
                     app:cardCornerRadius="75dp">
 
                     <ImageView
-                        android:layout_width="150dp"
                         android:id="@+id/avatar"
+                        android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:src="@drawable/ic_baseline_account_circle_24" />
                 </androidx.cardview.widget.CardView>
@@ -53,9 +53,9 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:paddingLeft="50dp"
-                    android:paddingTop="16dp"
+                    android:paddingTop="12dp"
                     android:paddingRight="50dp"
-                    android:paddingBottom="16dp">
+                    android:paddingBottom="12dp">
 
                     <TextView
                         android:layout_width="0dp"
@@ -68,11 +68,11 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
-                        android:selectAllOnFocus="true"
                         android:focusable="true"
-                        android:textIsSelectable="true"
                         android:gravity="right"
-                        android:text="USER" />
+                        android:selectAllOnFocus="true"
+                        android:text="USER"
+                        android:textIsSelectable="true" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -80,9 +80,9 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:paddingLeft="50dp"
-                    android:paddingTop="16dp"
+                    android:paddingTop="12dp"
                     android:paddingRight="50dp"
-                    android:paddingBottom="16dp">
+                    android:paddingBottom="12dp">
 
                     <TextView
                         android:layout_width="0dp"
@@ -104,9 +104,9 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:paddingLeft="50dp"
-                    android:paddingTop="16dp"
+                    android:paddingTop="12dp"
                     android:paddingRight="50dp"
-                    android:paddingBottom="16dp">
+                    android:paddingBottom="12dp">
 
                     <TextView
                         android:layout_width="0dp"
@@ -120,7 +120,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="right"
-                        android:text="01/03/2020"/>
+                        android:text="01/03/2020" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -128,14 +128,14 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:paddingLeft="50dp"
-                    android:paddingTop="16dp"
-                    android:paddingRight="50dp">
+                    android:paddingTop="12dp"
+                    android:paddingRight="50dp"
+                    android:paddingBottom="12dp">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:paddingBottom="16dp"
                         android:text="Sex" />
 
                     <TextView
@@ -152,9 +152,9 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:paddingLeft="50dp"
-                    android:paddingTop="16dp"
+                    android:paddingTop="12dp"
                     android:paddingRight="50dp"
-                    android:paddingBottom="16dp">
+                    android:paddingBottom="12dp">
 
                     <TextView
                         android:layout_width="0dp"
@@ -167,11 +167,11 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
+                        android:focusable="true"
                         android:gravity="right"
                         android:selectAllOnFocus="true"
-                        android:focusable="true"
-                        android:textIsSelectable="true"
-                        android:text="username@example.com" />
+                        android:text="username@example.com"
+                        android:textIsSelectable="true" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -179,9 +179,9 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:paddingLeft="50dp"
-                    android:paddingTop="16dp"
+                    android:paddingTop="12dp"
                     android:paddingRight="50dp"
-                    android:paddingBottom="16dp">
+                    android:paddingBottom="12dp">
 
                     <TextView
                         android:layout_width="0dp"
@@ -203,9 +203,9 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:paddingLeft="50dp"
-                    android:paddingTop="16dp"
+                    android:paddingTop="12dp"
                     android:paddingRight="50dp"
-                    android:paddingBottom="16dp">
+                    android:paddingBottom="12dp">
 
                     <TextView
                         android:layout_width="0dp"
@@ -221,9 +221,102 @@
                         android:gravity="right"
                         android:text="USER" />
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="50dp"
+                        android:paddingTop="12dp"
+                        android:paddingBottom="12dp"
+                        android:text=""
+                        android:textColor="@color/teaser_blue"
+                        android:layout_weight="1"/>
+
+                    <TextView
+                        android:id="@+id/passwordChange"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:paddingTop="12dp"
+                        android:paddingRight="50dp"
+                        android:paddingBottom="12dp"
+                        android:textColor="@color/teaser_blue"
+                        android:text="Change Details" />
+                </LinearLayout>
             </LinearLayout>
         </ScrollView>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <!--<ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/changePassView"
+        android:background="@color/white"
+        android:clickable="true"
+        android:focusable="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="16dp"
+                android:textColor="@color/white"
+                android:background="@color/deep_blue"
+                android:text="Change Credentials"/>
+
+            <EditText
+                android:id="@+id/oldPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:hint="Enter old password"
+                android:inputType="textPassword" />
+
+            <EditText
+                android:id="@+id/pass1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:hint="Enter old password"
+                android:inputType="textPassword" />
+
+            <EditText
+                android:id="@+id/pass2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:hint="Enter old password"
+                android:inputType="textPassword" />
+
+            <Button
+                android:id="@+id/hitPass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="Change"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/closePass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:backgroundTint="@color/white"
+                android:text="back"
+                android:textColor="@color/teaser_blue" />
+
+        </LinearLayout>
+    </ScrollView>-->
 
     <ImageButton
         android:layout_width="56dp"
@@ -238,7 +331,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:id="@+id/progressBar"
-        android:clickable="false"
+        android:clickable="true"
+        android:focusable="true"
         android:background="#E6000000"
         android:visibility="gone"
         android:layout_height="match_parent">
