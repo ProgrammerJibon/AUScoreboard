@@ -20,7 +20,6 @@ public class Splash extends AppCompatActivity {
             Manifest.permission.INTERNET,
             Manifest.permission.ACCESS_NETWORK_STATE,
             Manifest.permission.ACCESS_WIFI_STATE,
-            Manifest.permission.CLEAR_APP_CACHE,
             Manifest.permission.VIBRATE
     };
     int PERMISSIONS_ALL = 125;
