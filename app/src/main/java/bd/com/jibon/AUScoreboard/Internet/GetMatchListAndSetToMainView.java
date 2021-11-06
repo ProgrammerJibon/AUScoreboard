@@ -56,11 +56,12 @@ public class GetMatchListAndSetToMainView extends AsyncTask<String, String, JSON
                 if (json.has("matches")) {
                     JSONArray matchArray = json.getJSONArray("matches");
                     for (int xs = 0; xs < matchArray.length(); xs++){
-                        this.arrayList.add(matchArray.getJSONObject(xs));
+                        if (!matchArray.getJSONObject(xs).getString("status").equals("DELETED")){
+                            this.arrayList.add(matchArray.getJSONObject(xs));
+                        }
                     }
                     MatchListGetSetViews matchListGetSetViews = new MatchListGetSetViews(context, this.arrayList , user_role);
                     listView.setAdapter(matchListGetSetViews);
-
                 }
 
 

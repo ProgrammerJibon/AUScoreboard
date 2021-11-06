@@ -47,7 +47,7 @@ public class PlayerList extends Fragment {
         listView = view.findViewById(R.id.listViewPlayerList);
         deletePlayer = view.findViewById(R.id.deletePlayer);
         swipeRefreshLayout = view.findViewById(R.id.listViewRefreshPlayer);
-          swipeRefreshLayout.setOnRefreshListener(() -> {
+        swipeRefreshLayout.setOnRefreshListener(() -> {
             swipeRefreshLayout.setRefreshing(false);
             new GetPlayerListInternet(activity, new Data(activity).urlGenerate("players=1"), progressBar, listView, deletePlayer).execute();
         });

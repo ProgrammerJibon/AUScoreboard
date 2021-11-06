@@ -213,6 +213,15 @@ public class Match_Details extends AppCompatActivity {
                             adminArea.setVisibility(View.GONE);
                         }
                         if (jsonObject.getString("status").equals("FINISHED")){
+                            teams.setText("");
+                            int diff = (Integer.parseInt(jsonObject.getString("team1_run")) - Integer.parseInt(jsonObject.getString("team2_run")));
+                            if (diff > 0){
+                                teams.setText(jsonObject.getString("team1_name")+" won by "+ diff);
+                            }else if(diff < 0){
+                                teams.setText(jsonObject.getString("team2_name")+" won by "+ ((-1) * diff));
+                            }else{
+                                teams.setText("Match drawn");
+                            }
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                                 teams.setBackgroundColor(context.getColor(android.R.color.holo_green_dark));
                             }

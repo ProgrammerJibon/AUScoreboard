@@ -59,7 +59,11 @@ public class GetPlayerListInternet extends AsyncTask<String, String, JSONObject>
                 if (jsonObject.has("players")) {
                     JSONArray matchArray = jsonObject.getJSONArray("players");
                     for (int xs = 0; xs < matchArray.length(); xs++){
-                        arrayList.add(matchArray.getJSONObject(xs));
+                        JSONObject jsonObject1 = matchArray.getJSONObject(xs);
+                        if (!jsonObject1.getString("status").equals("DELETED")){
+                            arrayList.add(jsonObject1);
+                        }
+
                     }
                     BaseAdapter baseAdapter = new PlayerListAdapter(arrayList, context, user_role);
                     listView.setAdapter(baseAdapter);

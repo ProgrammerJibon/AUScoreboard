@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import org.json.JSONObject;
@@ -72,37 +73,13 @@ public class PlayerListAdapter extends BaseAdapter {
             if (user_role.equals("ADMIN")){
 
                 if (jsonObject.getString("status").equals("DELETED")){
-                    deletePlayer.setText("Restore");
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        deletePlayer.setTextColor(activity.getColor(R.color.teaser_blue));
-                    }
+                    //convertView.setAlpha(0.5F);
                 }else{
                     deletePlayer.setText("Delete");
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         deletePlayer.setTextColor(activity.getColor(R.color.red));
                     }
-                }
-
-                if (deletePlayer.getText().equals("Restore")){
-                    deletePlayer.setText("Restore");
-                    deletePlayer.setOnClickListener(v -> {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-                        builder.setTitle("Restore")
-                                .setCancelable(true)
-                                .setMessage("Restore " + xxname)
-                                .setIcon(R.drawable.ic_baseline_admin_panel_settings_24)
-                                .setPositiveButton("RESTORE", (dialog, which) -> {
-                                    new RestoreWithId(activity, "PLAYER", xxId).execute();
-                                    deletePlayer.setText("Delete");
-                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                        deletePlayer.setTextColor(activity.getColor(R.color.red));
-                                    }
-                                })
-                                .setNegativeButton("Cancel", ((dialog, which) -> dialog.cancel()))
-                                .show();
-                    });
-                }else{
-                    deletePlayer.setText("Delete");
+                    View finalConvertView = convertView;
                     deletePlayer.setOnClickListener(v -> {
                         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
                         builder.setTitle("Delete")
@@ -111,15 +88,15 @@ public class PlayerListAdapter extends BaseAdapter {
                                 .setIcon(R.drawable.ic_baseline_admin_panel_settings_24)
                                 .setPositiveButton("DELETE", (dialog, which) -> {
                                     new DeleteTargetedWithId(activity, "PLAYER", xxId).execute();
-                                    deletePlayer.setText("Restore");
-                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                        deletePlayer.setTextColor(activity.getColor(R.color.teaser_blue));
-                                    }
+                                    finalConvertView.setAlpha(0.5F);
+                                    deletePlayer.setText("");
                                 })
                                 .setNegativeButton("Cancel", ((dialog, which) -> dialog.cancel()))
                                 .show();
                     });
                 }
+
+
 
             }else{
                 deletePlayer.setVisibility(View.GONE);

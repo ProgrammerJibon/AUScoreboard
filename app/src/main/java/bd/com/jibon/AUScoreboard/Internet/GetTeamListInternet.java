@@ -60,7 +60,10 @@ public class GetTeamListInternet extends AsyncTask<String, String, JSONObject> {
             if (jsonObject.has("teams")) {
                 JSONArray matchArray = jsonObject.getJSONArray("teams");
                 for (int xs = 0; xs < matchArray.length(); xs++){
-                    arrayList.add(matchArray.getJSONObject(xs));
+                    JSONObject jsonObject1 = matchArray.getJSONObject(xs);
+                    if (!jsonObject1.getString("status").equals("DELETED")){
+                        arrayList.add(matchArray.getJSONObject(xs));
+                    }
                 }
                 BaseAdapter baseAdapter = new TeamListAdapter(arrayList, context, user_role);
                 listView.setAdapter(baseAdapter);

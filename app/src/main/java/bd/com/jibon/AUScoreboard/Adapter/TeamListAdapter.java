@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import org.json.JSONObject;
@@ -23,6 +24,7 @@ public class TeamListAdapter extends BaseAdapter {
     public ArrayList<JSONObject> arrayList;
     public Activity activity;
     public String user_role;
+
 
     public TeamListAdapter(ArrayList<JSONObject> arrayList, Activity activity, String user_role) {
         this.arrayList = arrayList;
@@ -72,7 +74,7 @@ public class TeamListAdapter extends BaseAdapter {
             if (user_role.equals("ADMIN")){
 
                 if (jsonObject.getString("status").equals("DELETED")){
-                    convertView.setVisibility(View.GONE);
+                    convertView.setAlpha(0.5F);
                 }else{
                     deletePlayer.setText("Delete");
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -87,7 +89,8 @@ public class TeamListAdapter extends BaseAdapter {
                         builder.setIcon(R.drawable.ic_baseline_admin_panel_settings_24);
                         builder.setPositiveButton("DELETE", (dialog, which) -> {
                             new DeleteTargetedWithId(activity, "TEAM", xxId).execute();
-                            finalConvertView.setVisibility(View.GONE);
+                            finalConvertView.setAlpha(0.5F);
+                            deletePlayer.setText("");
                         });
                         builder.setNegativeButton("Cancel", ((dialog, which) -> dialog.cancel()));
                         builder.show();

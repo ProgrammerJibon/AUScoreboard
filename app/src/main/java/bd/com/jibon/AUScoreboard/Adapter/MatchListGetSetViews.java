@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -74,8 +76,22 @@ public class MatchListGetSetViews extends BaseAdapter {
             runWicket2.setText(new_data.getString("team2_run")+"/"+new_data.getString("team2_wicket"));
             team1Name.setText(new_data.getString("team1_name"));
             team2Name.setText(new_data.getString("team2_name"));
-            if (new_data.getString("status").equals("DELETED")){
-                view.setAlpha((float)0.5);
+            if (new_data.getString("status").equals("FINISHED")){
+                view.setAlpha(0.5F);
+                if (new_data.getString("status").equals("FINISHED")){
+                    int diff = (Integer.parseInt(new_data.getString("team1_run")) - Integer.parseInt(new_data.getString("team2_run")));
+                    if (diff > 0){
+                        team1Name.setText(new_data.getString("team1_name")+" won by "+ diff + " run");
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            team2Name.setTextColor(activity.getColor(android.R.color.holo_blue_light));
+                        }
+                    }else if(diff < 0){
+                        team2Name.setText(new_data.getString("team2_name")+" won by "+ ((-1) * diff) + " run");
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            team1Name.setTextColor(activity.getColor(android.R.color.holo_blue_light));
+                        }
+                    }
+                }
             }
 
             view.setOnClickListener(v->{
