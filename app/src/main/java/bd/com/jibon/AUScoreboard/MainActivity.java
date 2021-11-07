@@ -2,19 +2,24 @@ package bd.com.jibon.AUScoreboard;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Lifecycle;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
+
+import java.util.ArrayList;
 
 import bd.com.jibon.AUScoreboard.Fragments.AdminPage;
 import bd.com.jibon.AUScoreboard.Fragments.MatcheList;
@@ -26,7 +31,8 @@ import bd.com.jibon.AUScoreboard.Fragments.TeamList;
 
 public class MainActivity extends AppCompatActivity {
     public Activity activity = this;
-    public View fragmentMainActivity;
+//    public View fragmentMainActivity;
+    public ViewPager2 viewPager2;
     public TextView mainActivityTitle;
     public TabLayout tabLayoutMainActivity;
     @Override
@@ -35,55 +41,47 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         try {
             tabLayoutMainActivity = findViewById(R.id.MainActivityTabLayout);
-            fragmentMainActivity = findViewById(R.id.fragmentMainActivity);
+//            fragmentMainActivity = findViewById(R.id.fragmentMainActivity);
+            viewPager2 = findViewById(R.id.viewPager2);
             mainActivityTitle = findViewById(R.id.MainActivityTitle);
+            tabLayoutMainActivity.addTab(tabLayoutMainActivity.newTab().setIcon(R.drawable.ic_baseline_sports_cricket_24));
+            tabLayoutMainActivity.addTab(tabLayoutMainActivity.newTab().setIcon(R.drawable.ic_outline_people_24));
+            tabLayoutMainActivity.addTab(tabLayoutMainActivity.newTab().setIcon(R.drawable.ic_outline_emoji_flags_24));
+            tabLayoutMainActivity.addTab(tabLayoutMainActivity.newTab().setIcon(R.drawable.ic_baseline_account_circle_24));
+
 
             Intent intentList = getIntent();
             Bundle bundle = intentList.getExtras();
             String user_role = "";
+            ArrayList<Fragment> fragments = new ArrayList<>();
+            FragmentAdapter fragmentAdapter = new FragmentAdapter(getSupportFragmentManager(), getLifecycle(), fragments);
+
             if (bundle != null){
                 user_role = bundle.getString("user_role");
             }
-            if (!user_role.equals("ADMIN")){
-                tabLayoutMainActivity.removeTabAt(4);
-            }
-
 
             String finalUser_role = user_role;
+
+            fragments.add(new MatcheList());
+            fragments.add(new PlayerList());
+            fragments.add(new TeamList());
+            if (finalUser_role.equals("ADMIN") || finalUser_role.equals("USER")) {
+                fragments.add(new ProfilePage());
+                if (user_role.equals("ADMIN")){
+                    tabLayoutMainActivity.addTab(tabLayoutMainActivity.newTab().setIcon(R.drawable.ic_outline_admin_panel_settings_24));
+                    fragments.add(new AdminPage());
+                }
+            } else {
+                fragments.add(new MyAccount());
+            }
+
+            viewPager2.setAdapter(fragmentAdapter);
+
             tabLayoutMainActivity.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                 @SuppressLint("SetTextI18n")
                 public void onTabSelected(TabLayout.Tab tab) {
                     try {
-                        Fragment fragment = null;
-                        if (tab.getPosition() == 0) {
-                            fragment = new MatcheList();
-                            MainActivity.this.mainActivityTitle.setText("All Matches");
-                        } else if (tab.getPosition() == 1) {
-                            fragment = new PlayerList();
-                            MainActivity.this.mainActivityTitle.setText("All Player");
-                        } else if (tab.getPosition() == 2) {
-                            fragment = new TeamList();
-                            MainActivity.this.mainActivityTitle.setText("All Temas");
-                        } else if (tab.getPosition() == 3) {
-                            if (finalUser_role.equals("ADMIN") || finalUser_role.equals("USER")) {
-                                fragment = new ProfilePage();
-                                MainActivity.this.mainActivityTitle.setText("Profile");
-                            } else {
-                                fragment = new MyAccount();
-                                MainActivity.this.mainActivityTitle.setText("My Account");
-                            }
-                        } else if (tab.getPosition() == 4) {
-                            fragment = new AdminPage();
-                            MainActivity.this.mainActivityTitle.setText("Admin Area");
-                        }
-                        if (fragment != null) {
-                            FragmentTransaction fragmentTransaction1 = MainActivity.this.getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction1.replace(R.id.fragmentMainActivity, fragment);
-                            fragmentTransaction1.addToBackStack(null);
-                            fragmentTransaction1.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
-                            fragmentTransaction1.setMaxLifecycle(fragment, Lifecycle.State.RESUMED);
-                            fragmentTransaction1.commit();
-                        }
+                        viewPager2.setCurrentItem(tab.getPosition());
                     }catch (Exception e){
                         Log.e("errnos_fragment", e.toString());
                     }
@@ -98,11 +96,43 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception error) {
             Log.e("errnos_main", error.toString());
         }
+
+        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                tabLayoutMainActivity.selectTab(tabLayoutMainActivity.getTabAt(position));
+            }
+        });
     }
+
 
 
 
     public void onBackPressed() {
         new Settings(this.activity).exitApp(true);
+    }
+
+
+
+
+
+    public class FragmentAdapter extends FragmentStateAdapter{
+        ArrayList<Fragment> fragments;
+
+        public FragmentAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle, ArrayList<Fragment> fragments) {
+            super(fragmentManager, lifecycle);
+            this.fragments = fragments;
+        }
+
+        @NonNull
+        @Override
+        public Fragment createFragment(int position) {
+            return fragments.get(position);
+        }
+
+        @Override
+        public int getItemCount() {
+            return fragments.size();
+        }
     }
 }

@@ -21,14 +21,19 @@
             android:textColor="@color/white" />
     </androidx.appcompat.widget.ActionMenuView>
 
-    <androidx.fragment.app.FragmentContainerView
+    <androidx.viewpager2.widget.ViewPager2
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/MainActivityTabLayout"
+        android:layout_below="@+id/ActionMenuVIew"
+        android:id="@+id/viewPager2"/>
+
+    <!--<androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentMainActivity"
-        android:name="bd.com.jibon.AUScoreboard.Fragments.MatcheList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
-        android:layout_above="@+id/MainActivityTabLayout"
-        android:layout_below="@+id/ActionMenuVIew" />
+         />-->
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/MainActivityTabLayout"
@@ -37,7 +42,7 @@
         android:layout_alignParentBottom="true"
         tools:ignore="HardcodedText">
 
-        <com.google.android.material.tabs.TabItem
+        <!--<com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="Running Matches"
@@ -65,7 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="Admin Panel"
-            android:icon="@drawable/ic_outline_admin_panel_settings_24" />
+            android:icon="@drawable/ic_outline_admin_panel_settings_24" />-->
 
     </com.google.android.material.tabs.TabLayout>
 </RelativeLayout>

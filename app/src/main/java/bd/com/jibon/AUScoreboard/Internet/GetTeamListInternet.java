@@ -8,7 +8,6 @@ import android.webkit.CookieManager;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -22,9 +21,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import bd.com.jibon.AUScoreboard.Adapter.MatchListGetSetViews;
-import bd.com.jibon.AUScoreboard.Adapter.TeamListAdapter;
 import bd.com.jibon.AUScoreboard.CustomTools;
+import bd.com.jibon.AUScoreboard.Fragments.TeamList;
 import bd.com.jibon.AUScoreboard.R;
 
 public class GetTeamListInternet extends AsyncTask<String, String, JSONObject> {
@@ -65,7 +63,7 @@ public class GetTeamListInternet extends AsyncTask<String, String, JSONObject> {
                         arrayList.add(matchArray.getJSONObject(xs));
                     }
                 }
-                BaseAdapter baseAdapter = new TeamListAdapter(arrayList, context, user_role);
+                BaseAdapter baseAdapter = new TeamList.TeamListAdapter(arrayList, context, user_role);
                 listView.setAdapter(baseAdapter);
             }
         }catch (Exception error){

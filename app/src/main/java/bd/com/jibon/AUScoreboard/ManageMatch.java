@@ -7,17 +7,13 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.webkit.CookieManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -35,8 +31,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import bd.com.jibon.AUScoreboard.Adapter.MatchBallerAdapter;
-import bd.com.jibon.AUScoreboard.Adapter.MatchBatsmanAdapter;
 import bd.com.jibon.AUScoreboard.Internet.DeleteTargetedWithId;
 import bd.com.jibon.AUScoreboard.Internet.FinishMatchWithId;
 

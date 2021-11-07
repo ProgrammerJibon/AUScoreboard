@@ -1,16 +1,16 @@
 plugins {
     id 'com.android.application'
 }
-
+def versionCodeX = (int)((new Date().getTime()/1000)-1451606400)
 android {
     compileSdk 31
 
     defaultConfig {
         applicationId "bd.com.jibon.AUScoreboard"
-        minSdk 16
+        minSdk 23
         targetSdk 31
-        versionCode 236
-        versionName 'ProgrammerJibon.v.1.2.36'
+        versionCode versionCodeX
+        versionName 'ProgrammerJibon.v='+versionCodeX
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
