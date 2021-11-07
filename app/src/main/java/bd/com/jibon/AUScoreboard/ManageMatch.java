@@ -318,7 +318,7 @@ public class ManageMatch extends AppCompatActivity {
                 try {
                     new ManageMatchInternet(mainUrl).execute();
                     if (jsonObject.has("add_run_ball")) {
-                        if (jsonObject.getBoolean("add_run_ball")) {
+                        if (jsonObject.get("add_run_ball") instanceof JSONObject) {
                             JSONObject jsonObject1 = jsonObject.getJSONObject("add_run_ball");
                             if (jsonObject1.has("error_swap")) {
                                 customTools.toast(jsonObject1.getString("error_swap"), R.drawable.ic_baseline_warning_24);
@@ -334,6 +334,19 @@ public class ManageMatch extends AppCompatActivity {
                             }
                             if (jsonObject1.has("new_baller")) {
                                 customTools.toast("Please change baller", R.drawable.ic_baseline_warning_24);
+                            }
+                            if (jsonObject1.has("team2_died")) {
+                                customTools.toast("Change team. All wicket are down.", R.drawable.ic_baseline_warning_24);
+                            }
+                            if (jsonObject1.has("team1_died")) {
+                                customTools.toast("Change team. All wicket are down.", R.drawable.ic_baseline_warning_24);
+                            }
+                            if (jsonObject1.has("over_team")) {
+                                customTools.toast("Please check over and change team.", R.drawable.ic_baseline_warning_24);
+                            }
+                            if (jsonObject1.has("finished")) {
+                                customTools.toast("Match Finished", R.drawable.ic_baseline_warning_24);
+                                activity.finish();
                             }
                             if (jsonObject1.has("status")) {
                                 customTools.toast(jsonObject1.getString("status"), R.drawable.ic_baseline_warning_24);

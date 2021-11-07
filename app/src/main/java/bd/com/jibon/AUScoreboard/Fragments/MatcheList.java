@@ -145,7 +145,7 @@ public class MatcheList extends Fragment {
                 String team1_overs = new_data.getString("team1_over_no");
                 String team2_overs = new_data.getString("team2_over_no");
                 String team1_ball = new_data.getString("team1_ball_no");
-                String team2_ball = new_data.getString("team1_ball_no");
+                String team2_ball = new_data.getString("team2_ball_no");
                 String team1_run = new_data.getString("team1_run");
                 String team2_run = new_data.getString("team2_run");
                 String team1_name = "loading...", team2_name = "loading...";

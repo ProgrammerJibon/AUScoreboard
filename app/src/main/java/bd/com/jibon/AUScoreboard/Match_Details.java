@@ -237,16 +237,16 @@ public class Match_Details extends AppCompatActivity {
                                 }
                             }
                             BaseAdapter baseAdapter = new MatchBatsmanAdapter(context, jsonObjectsx);
-                            if (!changed){
-                                players_team1.setAdapter(baseAdapter);
-                                baseAdapter.notifyDataSetChanged();
-                            }
                             BaseAdapter baseAdapter1 = new MatchBallerAdapter(context, jsonObjectsy);
-                            if (!changed){
-                                team1Baller.setAdapter(baseAdapter1);
-                                baseAdapter1.notifyDataSetChanged();
-
+                            if (players_team1.getAdapter() == null){
+                                players_team1.setAdapter(baseAdapter);
                             }
+                            baseAdapter.notifyDataSetChanged();
+                            if(team1Baller.getAdapter() == null){
+                                team1Baller.setAdapter(baseAdapter1);
+                            }
+                            baseAdapter1.notifyDataSetChanged();
+
                             if (jsonObjectsx.size() == 0){
                                 players_team1.setVisibility(View.GONE);
                             }
@@ -272,16 +272,16 @@ public class Match_Details extends AppCompatActivity {
                                 }
                             }
                             BaseAdapter baseAdapter = new MatchBatsmanAdapter(context, jsonObjectsx);
-                            if (!changed){
-                                players_team2.setAdapter(baseAdapter);
-                                baseAdapter.notifyDataSetChanged();
-                            }
                             BaseAdapter baseAdapter1 = new MatchBallerAdapter(context, jsonObjectsy);
-                            if (!changed){
+                            if (players_team2.getAdapter() == null){
+                                players_team2.setAdapter(baseAdapter);
+                            }
+                            if (team2Baller.getAdapter() == null){
                                 team2Baller.setAdapter(baseAdapter1);
-                                baseAdapter1.notifyDataSetChanged();
-
-                            }                            if (jsonObjectsx.size() == 0){
+                            }
+                            baseAdapter.notifyDataSetChanged();
+                            baseAdapter1.notifyDataSetChanged();
+                            if (jsonObjectsx.size() == 0){
                                 players_team2.setVisibility(View.GONE);
                             }
                             if (jsonObjectsy.size() == 0){
