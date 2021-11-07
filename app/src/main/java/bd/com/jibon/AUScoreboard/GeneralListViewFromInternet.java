@@ -95,7 +95,7 @@ public class GeneralListViewFromInternet extends AsyncTask<String, String, JSONO
                     JSONArray countries = json.getJSONArray("match_players");
                     for (int countryInt = 0; countryInt < countries.length(); countryInt++){
                         countryName.add(countries.getJSONObject(countryInt).getString("name"));
-                        countryId.add(countries.getJSONObject(countryInt).getString("id"));
+                        countryId.add(countries.getJSONObject(countryInt).getString("player_id"));
                     }
                     ArrayAdapter<String> baseAdapter1 = new ArrayAdapter<>(activity, android.R.layout.simple_list_item_1, countryName);
                     spinner.setAdapter(baseAdapter1);

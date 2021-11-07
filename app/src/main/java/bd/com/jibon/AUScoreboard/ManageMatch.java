@@ -318,24 +318,28 @@ public class ManageMatch extends AppCompatActivity {
                 try {
                     new ManageMatchInternet(mainUrl).execute();
                     if (jsonObject.has("add_run_ball")) {
-                        JSONObject jsonObject1 = jsonObject.getJSONObject("add_run_ball");
-                        if (jsonObject1.has("error_swap")){
-                            customTools.toast(jsonObject1.getString("error_swap"), R.drawable.ic_baseline_warning_24);
-                        }
-                        if (jsonObject1.has("swap")){
-                            int xBat = floor2Batsman.getSelectedItemPosition(), yBat = floor1Batsman.getSelectedItemPosition();
-                            floor1Batsman.setSelection(xBat);
-                            floor2Batsman.setSelection(yBat);
-                            customTools.toast("Batsman Changed", R.drawable.ic_baseline_warning_24);
-                        }
-                        if (jsonObject1.has("req_new_batsman")){
-                            customTools.toast("Please change batsman", R.drawable.ic_baseline_warning_24);
-                        }
-                        if (jsonObject1.has("new_baller")){
-                            customTools.toast("Please change baller", R.drawable.ic_baseline_warning_24);
-                        }
-                        if (jsonObject1.has("status")){
-                            customTools.toast(jsonObject1.getString("status"), R.drawable.ic_baseline_warning_24);
+                        if (jsonObject.getBoolean("add_run_ball")) {
+                            JSONObject jsonObject1 = jsonObject.getJSONObject("add_run_ball");
+                            if (jsonObject1.has("error_swap")) {
+                                customTools.toast(jsonObject1.getString("error_swap"), R.drawable.ic_baseline_warning_24);
+                            }
+                            if (jsonObject1.has("swap")) {
+                                int xBat = floor2Batsman.getSelectedItemPosition(), yBat = floor1Batsman.getSelectedItemPosition();
+                                floor1Batsman.setSelection(xBat);
+                                floor2Batsman.setSelection(yBat);
+                                customTools.toast("Batsman Changed", R.drawable.ic_baseline_warning_24);
+                            }
+                            if (jsonObject1.has("req_new_batsman")) {
+                                customTools.toast("Please change batsman", R.drawable.ic_baseline_warning_24);
+                            }
+                            if (jsonObject1.has("new_baller")) {
+                                customTools.toast("Please change baller", R.drawable.ic_baseline_warning_24);
+                            }
+                            if (jsonObject1.has("status")) {
+                                customTools.toast(jsonObject1.getString("status"), R.drawable.ic_baseline_warning_24);
+                            }
+                        }else{
+                            customTools.toast("Added", R.drawable.ic_baseline_done_all_24);
                         }
                     }else{
                         customTools.toast("Something went wrong", R.drawable.ic_baseline_warning_24);

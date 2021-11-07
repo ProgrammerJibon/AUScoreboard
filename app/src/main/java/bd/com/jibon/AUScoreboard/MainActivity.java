@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
             tabLayoutMainActivity.addTab(tabLayoutMainActivity.newTab().setIcon(R.drawable.ic_outline_people_24));
             tabLayoutMainActivity.addTab(tabLayoutMainActivity.newTab().setIcon(R.drawable.ic_outline_emoji_flags_24));
             tabLayoutMainActivity.addTab(tabLayoutMainActivity.newTab().setIcon(R.drawable.ic_baseline_account_circle_24));
-
+            tabLayoutMainActivity.addTab(tabLayoutMainActivity.newTab().setIcon(R.drawable.ic_outline_admin_panel_settings_24));
 
             Intent intentList = getIntent();
             Bundle bundle = intentList.getExtras();
@@ -70,22 +70,25 @@ public class MainActivity extends AppCompatActivity {
             fragments.add(new TeamList());
             if (finalUser_role.equals("ADMIN") || finalUser_role.equals("USER")) {
                 fragments.add(new ProfilePage());
-                if (user_role.equals("ADMIN")){
-                    tabLayoutMainActivity.addTab(tabLayoutMainActivity.newTab().setIcon(R.drawable.ic_outline_admin_panel_settings_24));
-                    fragments.add(new AdminPage());
-                }
             } else {
                 fragments.add(new MyAccount());
             }
+            if (finalUser_role.equals("ADMIN")) {
+                fragments.add(new AdminPage());
+            }
 
             viewPager2.setAdapter(fragmentAdapter);
-
-            String finalUser_role1 = user_role;
+            viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+                @Override
+                public void onPageSelected(int position) {
+                    tabLayoutMainActivity.selectTab(tabLayoutMainActivity.getTabAt(position));
+                }
+            });
             tabLayoutMainActivity.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                 @SuppressLint("SetTextI18n")
                 public void onTabSelected(TabLayout.Tab tab) {
                     try {
-                        viewPager2.setCurrentItem(tab.getPosition());
+                        viewPager2.setCurrentItem(tab.getPosition(), false);
                     }catch (Exception e){
                         Log.e("errnos_fragment", e.toString());
                     }
@@ -100,13 +103,6 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception error) {
             Log.e("errnos_main", error.toString());
         }
-
-        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                tabLayoutMainActivity.selectTab(tabLayoutMainActivity.getTabAt(position));
-            }
-        });
     }
 
 
@@ -120,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public class FragmentAdapter extends FragmentStateAdapter{
+    public static class FragmentAdapter extends FragmentStateAdapter{
         ArrayList<Fragment> fragments;
 
         public FragmentAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle, ArrayList<Fragment> fragments) {

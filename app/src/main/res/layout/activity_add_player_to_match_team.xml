@@ -103,7 +103,7 @@
                 android:id="@+id/team2Players"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
-                android:nestedScrollingEnabled="false"
+                android:nestedScrollingEnabled="true"
                 tools:ignore="NestedScrolling" />
 
 
