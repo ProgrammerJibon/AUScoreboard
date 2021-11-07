@@ -19,7 +19,10 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
 
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import bd.com.jibon.AUScoreboard.Fragments.AdminPage;
 import bd.com.jibon.AUScoreboard.Fragments.MatcheList;
@@ -77,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
             viewPager2.setAdapter(fragmentAdapter);
 
+            String finalUser_role1 = user_role;
             tabLayoutMainActivity.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                 @SuppressLint("SetTextI18n")
                 public void onTabSelected(TabLayout.Tab tab) {

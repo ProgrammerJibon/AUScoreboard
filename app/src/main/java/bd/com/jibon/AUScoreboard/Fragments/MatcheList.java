@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.CookieManager;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -43,6 +44,7 @@ public class MatcheList extends Fragment {
     public Activity activity;
     public LinearLayout progressBar;
     public SwipeRefreshLayout swipeRefreshLayout;
+    public boolean changed = false;
     public MatcheList() {
         // Required empty public constructor
     }
@@ -105,79 +107,92 @@ public class MatcheList extends Fragment {
             }
         }
 
+        @Override
+        public int getViewTypeCount() {
+            return getCount();
+        }
+        @Override
+        public int getItemViewType(int position) {
+            return position;
+        }
+
+
+
         @SuppressLint("SetTextI18n")
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
             try {
+                ViewHolder viewHolder;
                 if (view == null) {
                     LayoutInflater layoutInflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                     view = layoutInflater.inflate(R.layout.sample_match_list, viewGroup, false);
                 }
+                    JSONObject new_data = arrayList.get(i);
 
-                JSONObject new_data = arrayList.get(i);
+                    Log.e("errnos_match_list", String.valueOf(new_data));
 
-                String str_team_id_1 = new_data.getString("team1");
-                String str_team_id_2 = new_data.getString("team2");
-                String team1_overs = new_data.getString("team1_over_no");
-                String team2_overs = new_data.getString("team2_over_no");
-                String team1_ball = new_data.getString("team1_ball_no");
-                String team2_ball = new_data.getString("team1_ball_no");
-                String team1_run = new_data.getString("team1_run");
-                String team2_run = new_data.getString("team2_run");
-                String team1_name = "loading...", team2_name = "loading...";
-                if(new_data.has("team1_name")) {
-                    team1_name = new_data.getString("team1_name");
-                }
-                if (new_data.has("team2_name")) {
-                    team2_name = new_data.getString("team2_name");
-                }
-                String team1_wicket = new_data.getString("team1_wicket");
-                String team2_wicket = new_data.getString("team2_wicket");
-                String status = new_data.getString("status");
-                String m_id = new_data.getString("id");
-
-                TextView team1Name = view.findViewById(R.id.team1);
-                TextView team2Name = view.findViewById(R.id.team2);
-                TextView runWicket1 = view.findViewById(R.id.run_wickets1);
-                TextView runWicket2 = view.findViewById(R.id.run_wickets2);
-                TextView status1 = view.findViewById(R.id.status1);
-                TextView status2 = view.findViewById(R.id.status2);
-
-
-                status1.setText("Over: "+team1_overs+"."+team1_ball);
-                status2.setText("Over: "+team2_overs+"."+team2_ball);
-                runWicket1.setText(team1_run+"/"+ team1_wicket);
-                runWicket2.setText(team2_run+"/"+team2_wicket);
-                team1Name.setText(team1_name);
-                team2Name.setText(team2_name);
-                if (status.equals("FINISHED")){
-                    int diff = (Integer.parseInt(team1_run) - Integer.parseInt(team2_run));
-                    if (diff > 0){
-                        team1Name.setText(team1_name+" won by "+ diff + " run");
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            team1Name.setTextColor(activity.getColor(android.R.color.holo_green_dark));
-                        }
-                    }else if(diff < 0){
-                        team2Name.setText(team2_name+" won by "+ ((-1) * diff) + " run");
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            team2Name.setTextColor(activity.getColor(android.R.color.holo_green_dark));
-                        }
+                    String str_team_id_1 = new_data.getString("team1");
+                    String str_team_id_2 = new_data.getString("team2");
+                    String team1_overs = new_data.getString("team1_over_no");
+                    String team2_overs = new_data.getString("team2_over_no");
+                    String team1_ball = new_data.getString("team1_ball_no");
+                    String team2_ball = new_data.getString("team1_ball_no");
+                    String team1_run = new_data.getString("team1_run");
+                    String team2_run = new_data.getString("team2_run");
+                    String team1_name = "loading...", team2_name = "loading...";
+                    if (new_data.has("team1_name")) {
+                        team1_name = new_data.getString("team1_name");
                     }
-                    view.setAlpha((float) 0.5);
-                }
-
-                view.setOnClickListener(v->{
-                    try {
-                        Intent intent = new Intent(activity, Match_Details.class);
-                        intent.putExtra("match_id", m_id);
-                        intent.putExtra("team1", str_team_id_1);
-                        intent.putExtra("team2", str_team_id_2);
-                        activity.startActivity(intent);
-                    } catch (Exception e) {
-                        Log.e("errnos", e.toString());
-                        e.printStackTrace();
+                    if (new_data.has("team2_name")) {
+                        team2_name = new_data.getString("team2_name");
                     }
-                });
+                    String team1_wicket = new_data.getString("team1_wicket");
+                    String team2_wicket = new_data.getString("team2_wicket");
+                    String status = new_data.getString("status");
+                    String m_id = new_data.getString("id");
+
+                    TextView team1Name = view.findViewById(R.id.team1);
+                    TextView team2Name = view.findViewById(R.id.team2);
+                    TextView runWicket1 = view.findViewById(R.id.run_wickets1);
+                    TextView runWicket2 = view.findViewById(R.id.run_wickets2);
+                    TextView status1 = view.findViewById(R.id.status1);
+                    TextView status2 = view.findViewById(R.id.status2);
+
+
+                    status1.setText("Over: " + team1_overs + "." + team1_ball);
+                    status2.setText("Over: " + team2_overs + "." + team2_ball);
+                    runWicket1.setText(team1_run + "/" + team1_wicket);
+                    runWicket2.setText(team2_run + "/" + team2_wicket);
+                    team1Name.setText(team1_name);
+                    team2Name.setText(team2_name);
+                    if (status.equals("FINISHED")) {
+                        int diff = (Integer.parseInt(team1_run) - Integer.parseInt(team2_run));
+                        if (diff > 0) {
+                            team1Name.setText(team1_name + " won by " + diff + " run");
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                team1Name.setTextColor(activity.getColor(android.R.color.holo_green_dark));
+                            }
+                        } else if (diff < 0) {
+                            team2Name.setText(team2_name + " won by " + ((-1) * diff) + " run");
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                team2Name.setTextColor(activity.getColor(android.R.color.holo_green_dark));
+                            }
+                        }
+                        view.setAlpha((float) 0.5);
+                    }
+
+                    view.setOnClickListener(v -> {
+                        try {
+                            Intent intent = new Intent(activity, Match_Details.class);
+                            intent.putExtra("match_id", m_id);
+                            intent.putExtra("team1", str_team_id_1);
+                            intent.putExtra("team2", str_team_id_2);
+                            activity.startActivity(intent);
+                        } catch (Exception e) {
+                            Log.e("errnos", e.toString());
+                            e.printStackTrace();
+                        }
+                    });
             } catch (Exception error) {
                 Log.e("errnos", error.toString());
             }
@@ -188,7 +203,29 @@ public class MatcheList extends Fragment {
 
     }
 
-    public static class GetMatchListAndSetToMainView extends AsyncTask<String, String, JSONObject> {
+    private static class ViewHolder{
+        public TextView team1Name;
+        public TextView team2Name;
+        public TextView runWicket1;
+        public TextView runWicket2;
+        public TextView status1;
+        public TextView status2;/*
+
+        public ViewHolder(View view, TextView team1Name, TextView team2Name, TextView runWicket1, TextView runWicket2, TextView status1, TextView status2) {
+            this.view = view;
+            this.team1Name = team1Name;
+            this.team2Name = team2Name;
+            this.runWicket1 = runWicket1;
+            this.runWicket2 = runWicket2;
+            this.status1 = status1;
+            this.status2 = status2;
+        }*/
+
+
+
+    }
+
+    public class GetMatchListAndSetToMainView extends AsyncTask<String, String, JSONObject> {
 
         public Activity context;
         public String url;
@@ -214,12 +251,17 @@ public class MatcheList extends Fragment {
                         JSONArray matchArray = json.getJSONArray("matches");
                         ArrayList<JSONObject> arrayList = new ArrayList<>();
                         for (int xs = 0; xs < matchArray.length(); xs++){
-                            if (!matchArray.getJSONObject(xs).getString("status").equals("DELETED") && matchArray.getJSONObject(xs).has("team1_name") && matchArray.getJSONObject(xs).has("team2_name")){
+                            if (matchArray.getJSONObject(xs).has("team1_name") && matchArray.getJSONObject(xs).has("team2_name")){
                                 arrayList.add(matchArray.getJSONObject(xs));
                             }
                         }
                         MatchListGetSetViews matchListGetSetViews = new MatchListGetSetViews(context, arrayList);
-                        listView.setAdapter(matchListGetSetViews);
+                        if (!changed){
+                            listView.setAdapter(matchListGetSetViews);
+                            matchListGetSetViews.notifyDataSetChanged();
+                            changed =true;
+
+                        }
 
                     }
 
