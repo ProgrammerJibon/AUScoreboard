@@ -197,8 +197,9 @@ public class AddPlayerToMatchTeam extends AppCompatActivity {
         protected void onPostExecute(JSONObject jsonObject) {
             progressBar.setVisibility(View.GONE);
             if (jsonObject == null){
-                new CustomTools(activity).toast("No server connection", R.drawable.ic_baseline_kitchen_24);
+
             }else{
+                new CustomTools(activity).toast("Removed", R.drawable.ic_baseline_kitchen_24);
                 String team1PlayersUrl = new Data(activity).urlGenerate("match_players=1&match_id="+MATCH_ID+"&team_id="+TEAM1ID);
                 String team2PlayersUrl = new Data(activity).urlGenerate("match_players=1&match_id="+MATCH_ID+"&team_id="+TEAM2ID);
                 ThisSpinnerRead optionSelectViewList1 = new ThisSpinnerRead(activity, team1PlayersUrl, progressBar, team1Players, "players1");
@@ -355,7 +356,6 @@ public class AddPlayerToMatchTeam extends AppCompatActivity {
                 progressBar.setVisibility(View.GONE);
                 if (json != null){
                     if (json.has("match_players") && type == "players1"){
-                        if (json.getBoolean("match_players")) {
                             JSONArray countries = json.getJSONArray("match_players");
                             for (int countryInt = 0; countryInt < countries.length(); countryInt++) {
                                 countryName.add(countries.getJSONObject(countryInt).getString("name"));
@@ -368,10 +368,8 @@ public class AddPlayerToMatchTeam extends AppCompatActivity {
                             if (countryId.size() == 0) {
                                 spinner.setVisibility(View.GONE);
                             }
-                        }
                     }
                     if (json.has("match_players") && type == "players2"){
-                        if (json.getBoolean("match_players")) {
                             JSONArray countries = json.getJSONArray("match_players");
                             for (int countryInt = 0; countryInt < countries.length(); countryInt++) {
                                 countryName.add(countries.getJSONObject(countryInt).getString("name"));
@@ -384,7 +382,6 @@ public class AddPlayerToMatchTeam extends AppCompatActivity {
                             if (countryId.size() == 0) {
                                 spinner.setVisibility(View.GONE);
                             }
-                        }
                     }
                 }else{
                     new CustomTools(activity).toast("Can't connect to server", R.drawable.ic_baseline_kitchen_24);
