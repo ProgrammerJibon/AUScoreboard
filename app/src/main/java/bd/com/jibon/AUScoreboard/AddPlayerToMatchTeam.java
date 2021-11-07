@@ -113,7 +113,7 @@ public class AddPlayerToMatchTeam extends AppCompatActivity {
 
             spinnerAdd1.setOnClickListener(v->{
                 try {
-                    String urlx1 = new Data(activity).urlGenerate("add_player_to_match=1&match_id=" + MATCH_ID + "&team_id=" + TEAM1ID + "&player_id=" + listViewPlayersId1.get(addTeam1PlayerSpinner.getSelectedItemPosition()));
+                    String urlx1 = new Data(activity).urlGenerate("add_player_to_match=1&match_id=" + MATCH_ID + "&team_id=" + TEAM1ID + "&player_id=" + optionSelectViewTeam1.countryId.get(addTeam1PlayerSpinner.getSelectedItemPosition()));
                     new AddDataToInternetThenHide(activity, urlx1, progressBar).execute();
                     ThisSpinnerRead xoptionSelectViewList1 = new ThisSpinnerRead(activity, team1PlayersUrl, progressBar, team1Players, "players1");
                     xoptionSelectViewList1.execute();
@@ -123,7 +123,7 @@ public class AddPlayerToMatchTeam extends AppCompatActivity {
             });
             spinnerAdd2.setOnClickListener(v->{
                 try {
-                    String urlx2 = new Data(activity).urlGenerate("add_player_to_match=1&match_id=" + MATCH_ID + "&team_id=" + TEAM2ID + "&player_id=" + listViewPlayersId2.get(addTeam2PlayerSpinner.getSelectedItemPosition()));
+                    String urlx2 = new Data(activity).urlGenerate("add_player_to_match=1&match_id=" + MATCH_ID + "&team_id=" + TEAM2ID + "&player_id=" + optionSelectViewTeam2.countryId.get(addTeam2PlayerSpinner.getSelectedItemPosition()));
                     new AddDataToInternetThenHide(activity, urlx2, progressBar).execute();
                     ThisSpinnerRead xoptionSelectViewList2 = new ThisSpinnerRead(activity, team2PlayersUrl, progressBar, team2Players, "players2");
                     xoptionSelectViewList2.execute();
