@@ -190,12 +190,6 @@ public class AddPlayerToMatchTeam extends AppCompatActivity {
     public class RemovePlayer extends AsyncTask<String, String, JSONObject>{
         String url;
         public RemovePlayer(String  url) {
-            String team1PlayersUrl = new Data(activity).urlGenerate("match_players=1&match_id="+MATCH_ID+"&team_id="+TEAM1ID);
-            String team2PlayersUrl = new Data(activity).urlGenerate("match_players=1&match_id="+MATCH_ID+"&team_id="+TEAM2ID);
-            ThisSpinnerRead optionSelectViewList1 = new ThisSpinnerRead(activity, team1PlayersUrl, progressBar, team1Players, "players1");
-            ThisSpinnerRead optionSelectViewList2 = new ThisSpinnerRead(activity, team2PlayersUrl, progressBar, team2Players, "players2");
-            optionSelectViewList1.execute();
-            optionSelectViewList2.execute();
             this.url = url;
         }
 
@@ -205,6 +199,12 @@ public class AddPlayerToMatchTeam extends AppCompatActivity {
             if (jsonObject == null){
                 new CustomTools(activity).toast("No server connection", R.drawable.ic_baseline_kitchen_24);
             }else{
+                String team1PlayersUrl = new Data(activity).urlGenerate("match_players=1&match_id="+MATCH_ID+"&team_id="+TEAM1ID);
+                String team2PlayersUrl = new Data(activity).urlGenerate("match_players=1&match_id="+MATCH_ID+"&team_id="+TEAM2ID);
+                ThisSpinnerRead optionSelectViewList1 = new ThisSpinnerRead(activity, team1PlayersUrl, progressBar, team1Players, "players1");
+                ThisSpinnerRead optionSelectViewList2 = new ThisSpinnerRead(activity, team2PlayersUrl, progressBar, team2Players, "players2");
+                optionSelectViewList1.execute();
+                optionSelectViewList2.execute();
                 Log.e("errnos", jsonObject.toString());
             }
         }
@@ -354,45 +354,36 @@ public class AddPlayerToMatchTeam extends AppCompatActivity {
             try{
                 progressBar.setVisibility(View.GONE);
                 if (json != null){
-                    if (json.has("countries") && type == "countries"){
-                        JSONArray countries = json.getJSONArray("countries");
-                        for (int countryInt = 0; countryInt < countries.length(); countryInt++){
-                            countryName.add(countries.getJSONObject(countryInt).getString("name"));
-                            countryId.add(countries.getJSONObject(countryInt).getString("id"));
-                        }
-                        ArrayAdapter<String> baseAdapter1 = new ArrayAdapter<>(activity, android.R.layout.simple_list_item_1, countryName);
-                        spinner.setAdapter(baseAdapter1);
-                        spinner.setVisibility(View.VISIBLE);
-                        if (countryId.size() == 0){
-                            spinner.setVisibility(View.GONE);
-                        }
-                    }
                     if (json.has("match_players") && type == "players1"){
-                        JSONArray countries = json.getJSONArray("match_players");
-                        for (int countryInt = 0; countryInt < countries.length(); countryInt++){
-                            countryName.add(countries.getJSONObject(countryInt).getString("name"));
-                            countryId.add(countries.getJSONObject(countryInt).getString("player_id"));
-                        }
-                        listViewPlayersId1 = countryId;
-                        ArrayAdapter<String> baseAdapter1 = new ArrayAdapter<>(activity, android.R.layout.simple_list_item_1, countryName);
-                        spinner.setAdapter(baseAdapter1);
-                        spinner.setVisibility(View.VISIBLE);
-                        if (countryId.size() == 0){
-                            spinner.setVisibility(View.GONE);
+                        if (json.getBoolean("match_players")) {
+                            JSONArray countries = json.getJSONArray("match_players");
+                            for (int countryInt = 0; countryInt < countries.length(); countryInt++) {
+                                countryName.add(countries.getJSONObject(countryInt).getString("name"));
+                                countryId.add(countries.getJSONObject(countryInt).getString("player_id"));
+                            }
+                            listViewPlayersId1 = countryId;
+                            ArrayAdapter<String> baseAdapter1 = new ArrayAdapter<>(activity, android.R.layout.simple_list_item_1, countryName);
+                            spinner.setAdapter(baseAdapter1);
+                            spinner.setVisibility(View.VISIBLE);
+                            if (countryId.size() == 0) {
+                                spinner.setVisibility(View.GONE);
+                            }
                         }
                     }
                     if (json.has("match_players") && type == "players2"){
-                        JSONArray countries = json.getJSONArray("match_players");
-                        for (int countryInt = 0; countryInt < countries.length(); countryInt++){
-                            countryName.add(countries.getJSONObject(countryInt).getString("name"));
-                            countryId.add(countries.getJSONObject(countryInt).getString("player_id"));
-                        }
-                        listViewPlayersId2 = countryId;
-                        ArrayAdapter<String> baseAdapter1 = new ArrayAdapter<>(activity, android.R.layout.simple_list_item_1, countryName);
-                        spinner.setAdapter(baseAdapter1);
-                        spinner.setVisibility(View.VISIBLE);
-                        if (countryId.size() == 0){
-                            spinner.setVisibility(View.GONE);
+                        if (json.getBoolean("match_players")) {
+                            JSONArray countries = json.getJSONArray("match_players");
+                            for (int countryInt = 0; countryInt < countries.length(); countryInt++) {
+                                countryName.add(countries.getJSONObject(countryInt).getString("name"));
+                                countryId.add(countries.getJSONObject(countryInt).getString("player_id"));
+                            }
+                            listViewPlayersId2 = countryId;
+                            ArrayAdapter<String> baseAdapter1 = new ArrayAdapter<>(activity, android.R.layout.simple_list_item_1, countryName);
+                            spinner.setAdapter(baseAdapter1);
+                            spinner.setVisibility(View.VISIBLE);
+                            if (countryId.size() == 0) {
+                                spinner.setVisibility(View.GONE);
+                            }
                         }
                     }
                 }else{
