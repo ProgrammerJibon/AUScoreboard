@@ -124,7 +124,7 @@ public class ManageMatch extends AppCompatActivity {
             TEAM1 = bundle.getString("team1");
             TEAM2 = bundle.getString("team2");
 
-            mainUrl = new Data(this).urlGenerate("matches=1&m_id="+MATCH_ID);
+            mainUrl = new Data(this).urlGenerate("matches=1&counting=1&m_id="+MATCH_ID);
             new ManageMatchInternet(mainUrl).execute();
 
             findViewById(R.id.addPlayer).setOnClickListener(v->{
@@ -338,6 +338,7 @@ public class ManageMatch extends AppCompatActivity {
                                 customTools.toast("Batsman Changed", R.drawable.ic_baseline_warning_24);
                             }
                             if (jsonObject1.has("req_new_batsman")) {
+                                loadBasics();
                                 customTools.toast("Please change batsman", R.drawable.ic_baseline_warning_24);
                             }
                             if (jsonObject1.has("new_baller")) {
@@ -461,8 +462,10 @@ public class ManageMatch extends AppCompatActivity {
                                     if (!String.valueOf(jsonArray1.getJSONObject(x).get("batsman_data")).equals("null")){
                                         if (!String.valueOf(jsonArray1.getJSONObject(x).getJSONArray("batsman_data")).equals("null")){
                                             JSONObject jsonObject1 = jsonArray1.getJSONObject(x).getJSONArray("batsman_data").getJSONObject(0);
-                                            team1Players.add(jsonObject1.getString("player_name"));
-                                            team1PlayersId.add(jsonObject1.getString("player_id"));
+                                            if (true){
+                                                team1Players.add(jsonObject1.getString("player_name"));
+                                                team1PlayersId.add(jsonObject1.getString("player_id"));
+                                            }
                                         }
                                     }
                                 }
@@ -475,15 +478,17 @@ public class ManageMatch extends AppCompatActivity {
                                     if (!String.valueOf(jsonArray1.getJSONObject(x).get("batsman_data")).equals("null")){
                                         if (!String.valueOf(jsonArray1.getJSONObject(x).getJSONArray("batsman_data")).equals("null")){
                                             JSONObject jsonObject1 = jsonArray1.getJSONObject(x).getJSONArray("batsman_data").getJSONObject(0);
-                                            team2Players.add(jsonObject1.getString("player_name"));
-                                            teams2PlayersId.add(jsonObject1.getString("player_id"));
+                                            if (true){
+                                                team2Players.add(jsonObject1.getString("player_name"));
+                                                teams2PlayersId.add(jsonObject1.getString("player_id"));
+                                            }
                                         }
                                     }
                                 }
                             }
                         }
-                        loadBasics();
                         if (!changed){
+                            loadBasics();
                             changed = true;
                         }
                     }

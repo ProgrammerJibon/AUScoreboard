@@ -75,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
             }
             if (finalUser_role.equals("ADMIN")) {
                 fragments.add(new AdminPage());
+            }else{
+                tabLayoutMainActivity.removeTabAt(5);
             }
 
             viewPager2.setAdapter(fragmentAdapter);

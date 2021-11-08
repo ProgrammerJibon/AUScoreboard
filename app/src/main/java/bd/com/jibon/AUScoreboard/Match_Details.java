@@ -86,6 +86,7 @@ public class Match_Details extends AppCompatActivity {
 
                 swipeRefreshLayout.setOnRefreshListener(()->{
                     swipeRefreshLayout.setRefreshing(false);
+                    changed = false;
                     new Match_Details_Internet(this, url, progressBar, team1name, team2name, wicket1, wicket2, over1, over2, team1Batsman, team2Batsman, teams, team1Baller, team2Baller, adminArea).execute();
                 });
                 new Match_Details_Internet(this, url, progressBar, team1name, team2name, wicket1, wicket2, over1, over2, team1Batsman, team2Batsman, teams, team1Baller, team2Baller, adminArea).execute();
