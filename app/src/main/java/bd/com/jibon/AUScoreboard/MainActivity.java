@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
             tabLayoutMainActivity.addTab(tabLayoutMainActivity.newTab().setIcon(R.drawable.ic_outline_people_24));
             tabLayoutMainActivity.addTab(tabLayoutMainActivity.newTab().setIcon(R.drawable.ic_outline_emoji_flags_24));
             tabLayoutMainActivity.addTab(tabLayoutMainActivity.newTab().setIcon(R.drawable.ic_baseline_account_circle_24));
-            tabLayoutMainActivity.addTab(tabLayoutMainActivity.newTab().setIcon(R.drawable.ic_outline_admin_panel_settings_24));
 
             Intent intentList = getIntent();
             Bundle bundle = intentList.getExtras();
@@ -65,6 +64,10 @@ public class MainActivity extends AppCompatActivity {
 
             String finalUser_role = user_role;
 
+            if (finalUser_role.equals("ADMIN")) {
+                tabLayoutMainActivity.addTab(tabLayoutMainActivity.newTab().setIcon(R.drawable.ic_outline_admin_panel_settings_24));
+            }
+
             fragments.add(new MatcheList());
             fragments.add(new PlayerList());
             fragments.add(new TeamList());
@@ -75,8 +78,6 @@ public class MainActivity extends AppCompatActivity {
             }
             if (finalUser_role.equals("ADMIN")) {
                 fragments.add(new AdminPage());
-            }else{
-                tabLayoutMainActivity.removeTabAt(5);
             }
 
             viewPager2.setAdapter(fragmentAdapter);
