@@ -45,8 +45,8 @@ public class Match_Details extends AppCompatActivity {
     Activity activity;
     public Boolean changed = false;
     private AdView mView, nView;
-    public ArrayList<JSONObject> jsonObjectsx  = new ArrayList<>(), jsonObjectsy  = new ArrayList<>();
-    public BaseAdapter baseAdapter, baseAdapter1;
+    ArrayList<JSONObject> jsonObjectsx, jsonObjectsy, jsonObjectsxa, jsonObjectsya;
+    public BaseAdapter baseAdapter, baseAdapter1, baseAdaptera, baseAdapter1a;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +86,7 @@ public class Match_Details extends AppCompatActivity {
 
                 swipeRefreshLayout.setOnRefreshListener(()->{
                     swipeRefreshLayout.setRefreshing(false);
-                    //new Match_Details_Internet(this, url, progressBar, team1name, team2name, wicket1, wicket2, over1, over2, team1Batsman, team2Batsman, teams, team1Baller, team2Baller, adminArea).execute();
+                    new Match_Details_Internet(this, url, progressBar, team1name, team2name, wicket1, wicket2, over1, over2, team1Batsman, team2Batsman, teams, team1Baller, team2Baller, adminArea).execute();
                 });
                 new Match_Details_Internet(this, url, progressBar, team1name, team2name, wicket1, wicket2, over1, over2, team1Batsman, team2Batsman, teams, team1Baller, team2Baller, adminArea).execute();
 
@@ -241,13 +241,17 @@ public class Match_Details extends AppCompatActivity {
                             if (players_team1.getAdapter() == null){
                                 baseAdapter = new MatchBatsmanAdapter(context, jsonObjectsx);
                                 players_team1.setAdapter(baseAdapter);
+                            }else{
+                                baseAdapter.notifyDataSetChanged();
                             }
-                            if(team1Baller.getAdapter() == null){
+                            if (team1Baller.getAdapter() == null){
                                 baseAdapter1 = new MatchBallerAdapter(context, jsonObjectsy);
                                 team1Baller.setAdapter(baseAdapter1);
+                            }else{
+                                baseAdapter1.notifyDataSetChanged();
                             }
-                            baseAdapter.notifyDataSetChanged();
-                            baseAdapter1.notifyDataSetChanged();
+
+
 
                             if (jsonObjectsx.size() == 0){
                                 players_team1.setVisibility(View.GONE);
@@ -263,26 +267,31 @@ public class Match_Details extends AppCompatActivity {
                     if (json.has("player_data2")){
                         if (!json.getString("player_data2").equals("null")){
                             JSONArray jsonArray1 = json.getJSONArray("player_data2");
-                            ArrayList<JSONObject> jsonObjectsx = new ArrayList<>();
-                            ArrayList<JSONObject> jsonObjectsy = new ArrayList<>();
+                             jsonObjectsxa = new ArrayList<>();
+                             jsonObjectsya = new ArrayList<>();
                             for (int x=0; x < jsonArray1.length(); x++){
                                 if (!String.valueOf(jsonArray1.getJSONObject(x).get("batsman_data")).equals("null")){
-                                    jsonObjectsx.add(jsonArray1.getJSONObject(x));
+                                    jsonObjectsxa.add(jsonArray1.getJSONObject(x));
                                 }
                                 if (!String.valueOf(jsonArray1.getJSONObject(x).get("baller_data")).equals("null")){
-                                    jsonObjectsy.add(jsonArray1.getJSONObject(x));
+                                    jsonObjectsya.add(jsonArray1.getJSONObject(x));
                                 }
                             }
-                            BaseAdapter baseAdapter = new MatchBatsmanAdapter(context, jsonObjectsx);
-                            BaseAdapter baseAdapter1 = new MatchBallerAdapter(context, jsonObjectsy);
                             if (players_team2.getAdapter() == null){
-                                players_team2.setAdapter(baseAdapter);
+                                baseAdaptera = new MatchBatsmanAdapter(context, jsonObjectsxa);
+                                players_team2.setAdapter(baseAdaptera);
+                            }else{
+                                baseAdaptera.notifyDataSetChanged();
                             }
                             if (team2Baller.getAdapter() == null){
-                                team2Baller.setAdapter(baseAdapter1);
+                                baseAdapter1a = new MatchBallerAdapter(context, jsonObjectsya);
+                                team2Baller.setAdapter(baseAdapter1a);
+                            }else{
+                                baseAdapter1a.notifyDataSetChanged();
                             }
-                            baseAdapter.notifyDataSetChanged();
-                            baseAdapter1.notifyDataSetChanged();
+
+
+
                             if (jsonObjectsx.size() == 0){
                                 players_team2.setVisibility(View.GONE);
                             }
@@ -346,6 +355,7 @@ public class Match_Details extends AppCompatActivity {
             this.activity = context;
             this.jsonObjects = jsonObjects;
         }
+
 
         @Override
         public int getCount() {

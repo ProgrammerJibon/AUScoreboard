@@ -221,6 +221,12 @@ public class ManageMatch extends AppCompatActivity {
                     outer = true;
                     outPlayer.setClickable(true);
                     outPlayer.setEnabled(true);
+                    if (CURRENT_BATTING.equals(TEAM1)){
+                        OUT_ID = Integer.parseInt(team1PlayersId.get(outPlayer.getSelectedItemPosition()));
+                    }else{
+                        OUT_ID = Integer.parseInt(teams2PlayersId.get(outPlayer.getSelectedItemPosition()));
+                    }
+                    OUT_BY = Integer.parseInt(team1PlayersId.get(floorBaller.getSelectedItemPosition()));
                 }else{
                     OUT_ID = 0;
                     OUT_BY = 0;
@@ -275,6 +281,7 @@ public class ManageMatch extends AppCompatActivity {
 
                 ArrayAdapter<String> arrayAdapter2 = new ArrayAdapter<>(activity, android.R.layout.simple_list_item_1, team1Players);
                 floor2Batsman.setAdapter(arrayAdapter2);
+                floor2Batsman.setSelection(2);
 
                 ArrayAdapter<String> arrayAdapter3 = new ArrayAdapter<>(activity, android.R.layout.simple_list_item_1, team2Players);
                 floorBaller.setAdapter(arrayAdapter3);
@@ -287,6 +294,7 @@ public class ManageMatch extends AppCompatActivity {
 
                 ArrayAdapter<String> arrayAdapter2 = new ArrayAdapter<>(activity, android.R.layout.simple_list_item_1, team2Players);
                 floor2Batsman.setAdapter(arrayAdapter2);
+                floor2Batsman.setSelection(2);
 
 
                 ArrayAdapter<String> arrayAdapter3 = new ArrayAdapter<>(activity, android.R.layout.simple_list_item_1, team1Players);
@@ -474,8 +482,8 @@ public class ManageMatch extends AppCompatActivity {
                                 }
                             }
                         }
+                        loadBasics();
                         if (!changed){
-                            loadBasics();
                             changed = true;
                         }
                     }
