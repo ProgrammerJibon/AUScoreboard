@@ -45,6 +45,8 @@ public class Match_Details extends AppCompatActivity {
     Activity activity;
     public Boolean changed = false;
     private AdView mView, nView;
+    public ArrayList<JSONObject> jsonObjectsx  = new ArrayList<>(), jsonObjectsy  = new ArrayList<>();
+    public BaseAdapter baseAdapter, baseAdapter1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -226,8 +228,8 @@ public class Match_Details extends AppCompatActivity {
                     if(json.has("player_data1")){
                         if (!json.getString("player_data1").equals("null")){
                             JSONArray jsonArray1 = json.getJSONArray("player_data1");
-                            ArrayList<JSONObject> jsonObjectsx = new ArrayList<>();
-                            ArrayList<JSONObject> jsonObjectsy = new ArrayList<>();
+                            jsonObjectsx = new ArrayList<>();
+                            jsonObjectsy = new ArrayList<>();
                             for (int x=0; x < jsonArray1.length(); x++){
                                 if (!String.valueOf(jsonArray1.getJSONObject(x).get("batsman_data")).equals("null")){
                                     jsonObjectsx.add(jsonArray1.getJSONObject(x));
@@ -236,15 +238,15 @@ public class Match_Details extends AppCompatActivity {
                                     jsonObjectsy.add(jsonArray1.getJSONObject(x));
                                 }
                             }
-                            BaseAdapter baseAdapter = new MatchBatsmanAdapter(context, jsonObjectsx);
-                            BaseAdapter baseAdapter1 = new MatchBallerAdapter(context, jsonObjectsy);
                             if (players_team1.getAdapter() == null){
+                                baseAdapter = new MatchBatsmanAdapter(context, jsonObjectsx);
                                 players_team1.setAdapter(baseAdapter);
                             }
-                            baseAdapter.notifyDataSetChanged();
                             if(team1Baller.getAdapter() == null){
+                                baseAdapter1 = new MatchBallerAdapter(context, jsonObjectsy);
                                 team1Baller.setAdapter(baseAdapter1);
                             }
+                            baseAdapter.notifyDataSetChanged();
                             baseAdapter1.notifyDataSetChanged();
 
                             if (jsonObjectsx.size() == 0){
