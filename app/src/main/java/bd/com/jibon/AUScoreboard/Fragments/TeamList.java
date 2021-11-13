@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -25,6 +26,7 @@ import bd.com.jibon.AUScoreboard.CustomTools;
 import bd.com.jibon.AUScoreboard.Data;
 import bd.com.jibon.AUScoreboard.Internet.DeleteTargetedWithId;
 import bd.com.jibon.AUScoreboard.Internet.GetTeamListInternet;
+import bd.com.jibon.AUScoreboard.Internet.OpenImageFromLink;
 import bd.com.jibon.AUScoreboard.R;
 
 
@@ -95,20 +97,29 @@ public class TeamList extends Fragment {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             try {
+                ViewHolderTeams viewHolderTeams;
                 if (convertView == null) {
                     LayoutInflater layoutInflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                     convertView = layoutInflater.inflate(R.layout.sample_team_list, parent, false);
-
+                    viewHolderTeams = new ViewHolderTeams();
+                    viewHolderTeams.name = convertView.findViewById(R.id.name);
+                    viewHolderTeams.type = convertView.findViewById(R.id.type);
+                    viewHolderTeams.imageView = convertView.findViewById(R.id.pics);
+                    viewHolderTeams.deletePlayer = convertView.findViewById(R.id.deleteTeam);
+                    convertView.setTag(viewHolderTeams);
+                }else{
+                    viewHolderTeams = (ViewHolderTeams) convertView.getTag();
                 }
                 JSONObject jsonObject = arrayList.get(position);
 
-                TextView name = convertView.findViewById(R.id.name);
-                TextView type = convertView.findViewById(R.id.type);
-                TextView id = convertView.findViewById(R.id.id);
+                TextView name = viewHolderTeams.name;
+                TextView type = viewHolderTeams.type;
+                ImageView imageView = viewHolderTeams.imageView;
+                TextView deletePlayer = viewHolderTeams.deletePlayer;
 
-                TextView deletePlayer = convertView.findViewById(R.id.deleteTeam);
                 String xxId = jsonObject.getString("id");
                 String xxname = jsonObject.getString("name");
+                String linkImg = new Data(activity).urlGenerateGeneral(jsonObject.getString("pic"));
 
                 convertView.setOnClickListener(v -> {
                     try {
@@ -148,12 +159,18 @@ public class TeamList extends Fragment {
 
                 name.setText(jsonObject.getString("name"));
                 type.setText(jsonObject.getString("type"));
-                id.setText(jsonObject.getString("id"));
+                new OpenImageFromLink(linkImg, imageView).execute();
 
             }catch (Exception error){
                 Log.e("errnos_teamada", error.toString());
             }
             return convertView;
         }
+    }
+    public static class ViewHolderTeams{
+        public TextView name;
+        public TextView type;
+        public ImageView imageView;
+        public TextView deletePlayer;
     }
 }

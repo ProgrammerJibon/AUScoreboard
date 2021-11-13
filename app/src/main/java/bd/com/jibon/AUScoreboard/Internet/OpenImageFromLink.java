@@ -25,11 +25,11 @@ public class OpenImageFromLink extends AsyncTask<Bitmap, Bitmap, Bitmap> {
         this.imageView = (ImageView) imageView;
         this.url = url;
     }
-
+/*
     @Override
     protected void onPreExecute() {
         imageView.setImageResource(R.drawable.ic_baseline_cloud_download_24);
-    }
+    }*/
 
     @Override
     protected Bitmap doInBackground(Bitmap... bitmaps) {
