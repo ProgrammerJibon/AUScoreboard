@@ -139,6 +139,8 @@ public class MatcheList extends Fragment {
                 }
                 JSONObject new_data = arrayList.get(i);
 
+                Log.e("errnos", new_data.toString());
+
 
                 String str_team_id_1 = new_data.getString("team1");
                 String str_team_id_2 = new_data.getString("team2");

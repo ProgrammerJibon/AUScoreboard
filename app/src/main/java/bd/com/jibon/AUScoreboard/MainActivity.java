@@ -112,7 +112,11 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void onBackPressed() {
-        new Settings(this.activity).exitApp(true);
+        if (viewPager2.getCurrentItem() != 0){
+            viewPager2.setCurrentItem(0);
+        }else{
+            new Settings(this.activity).exitApp(true);
+        }
     }
 
 
