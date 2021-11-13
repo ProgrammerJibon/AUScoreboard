@@ -25,7 +25,8 @@ public class Splash extends AppCompatActivity {
             Manifest.permission.ACCESS_WIFI_STATE,
             Manifest.permission.VIBRATE,
             Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.ACCESS_FINE_LOCATION
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.READ_EXTERNAL_STORAGE
     };
     int PERMISSIONS_ALL = 1;
     public Activity activity;

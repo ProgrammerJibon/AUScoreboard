@@ -40,5 +40,21 @@
       android:layout_alignParentEnd="true"
       android:layout_alignParentBottom="true"
       android:background="@color/teaser_blue" />
-
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:id="@+id/progressBar"
+      android:clickable="true"
+      android:background="#E6000000"
+      android:visibility="gone"
+      android:focusable="true"
+      android:layout_height="match_parent">
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:indeterminate="true"
+        android:id="@+id/mainProgress"
+        android:indeterminateTint="@color/teaser_blue"/>
+  </LinearLayout>
   </RelativeLayout>

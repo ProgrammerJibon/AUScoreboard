@@ -129,9 +129,11 @@ public class PlayerList extends Fragment {
                 convertView.setOnClickListener(v -> {
                     try {
                         new CustomTools(activity).toast(jsonObject.getString("name"), R.drawable.ic_outline_people_24);
-                        Intent intent = new Intent(activity, WebActivity.class);
-                        intent.putExtra("link", new Data(activity).urlGenerateGeneral("/players.php?id="+xxId));
-                        activity.startActivity(intent);
+                        if(user_role == "ADMIN"){
+                            Intent intent = new Intent(activity, WebActivity.class);
+                            intent.putExtra("link", new Data(activity).urlGenerateGeneral("/players.php?id="+xxId));
+                            activity.startActivity(intent);
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
