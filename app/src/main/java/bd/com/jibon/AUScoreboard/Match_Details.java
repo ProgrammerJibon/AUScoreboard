@@ -46,7 +46,8 @@ public class Match_Details extends AppCompatActivity {
     public Boolean changed = false;
     private AdView mView, nView;
     ArrayList<JSONObject> jsonObjectsx, jsonObjectsy, jsonObjectsxa, jsonObjectsya;
-    public BaseAdapter baseAdapter, baseAdapter1, baseAdaptera, baseAdapter1a;
+    public MatchBatsmanAdapter baseAdapter, baseAdaptera;
+    public MatchBallerAdapter baseAdapter1, baseAdapter1a;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -243,13 +244,13 @@ public class Match_Details extends AppCompatActivity {
                                 baseAdapter = new MatchBatsmanAdapter(context, jsonObjectsx);
                                 players_team1.setAdapter(baseAdapter);
                             }else{
-                                baseAdapter.notifyDataSetChanged();
+                                baseAdapter.updateList(jsonObjectsx);
                             }
                             if (team1Baller.getAdapter() == null){
                                 baseAdapter1 = new MatchBallerAdapter(context, jsonObjectsy);
                                 team1Baller.setAdapter(baseAdapter1);
                             }else{
-                                baseAdapter1.notifyDataSetChanged();
+                                baseAdapter1.updateList(jsonObjectsy);
                             }
 
 
@@ -282,13 +283,13 @@ public class Match_Details extends AppCompatActivity {
                                 baseAdaptera = new MatchBatsmanAdapter(context, jsonObjectsxa);
                                 players_team2.setAdapter(baseAdaptera);
                             }else{
-                                baseAdaptera.notifyDataSetChanged();
+                                baseAdaptera.updateList(jsonObjectsxa);
                             }
                             if (team2Baller.getAdapter() == null){
                                 baseAdapter1a = new MatchBallerAdapter(context, jsonObjectsya);
                                 team2Baller.setAdapter(baseAdapter1a);
                             }else{
-                                baseAdapter1a.notifyDataSetChanged();
+                                baseAdapter1a.updateList(jsonObjectsya);
                             }
 
 
@@ -363,6 +364,12 @@ public class Match_Details extends AppCompatActivity {
             return jsonObjects.size();
         }
 
+        public void updateList(ArrayList<JSONObject> newList) {
+            jsonObjects.clear();
+            jsonObjects.addAll(newList);
+            this.notifyDataSetChanged();
+        }
+
         @Override
         public Object getItem(int position) {
             return jsonObjects.get(position);
@@ -425,6 +432,12 @@ public class Match_Details extends AppCompatActivity {
         public MatchBatsmanAdapter(Activity context, ArrayList<JSONObject> jsonObjects) {
             this.activity = context;
             this.jsonObjects = jsonObjects;
+        }
+
+        public void updateList(ArrayList<JSONObject> newList) {
+            jsonObjects.clear();
+            jsonObjects.addAll(newList);
+            this.notifyDataSetChanged();
         }
 
         @Override
