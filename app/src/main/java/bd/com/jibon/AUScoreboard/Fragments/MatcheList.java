@@ -178,16 +178,15 @@ public class MatcheList extends Fragment {
                     int diff = (Integer.parseInt(team1_run) - Integer.parseInt(team2_run));
                     if (diff > 0) {
                         team1Name.setText(team1_name + " won by " + diff + " run");
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            team1Name.setTextColor(activity.getColor(android.R.color.holo_green_dark));
-                        }
                     } else if (diff < 0) {
                         team2Name.setText(team2_name + " won by " + ((-1) * diff) + " run");
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            team2Name.setTextColor(activity.getColor(android.R.color.holo_green_dark));
-                        }
                     }
-                    view.setAlpha((float) 0.5);
+                    team1Name.setTextColor(activity.getColor(R.color.teaser_blue));
+                    team2Name.setTextColor(activity.getColor(R.color.teaser_blue));
+                    view.setAlpha((float) 0.8);
+                }else{
+                    team1Name.setTextColor(activity.getColor(R.color.deep_blue));
+                    team2Name.setTextColor(activity.getColor(R.color.deep_blue));
                 }
 
                 view.setOnClickListener(v -> {
