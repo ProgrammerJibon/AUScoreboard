@@ -11,4 +11,7 @@ public class Data {
     public String urlGenerate(String... getAction){
         return website+"/?"+getAction[0];
     }
+    public String urlGenerateGeneral(String... getAction){
+        return website+getAction[0];
+    }
 }

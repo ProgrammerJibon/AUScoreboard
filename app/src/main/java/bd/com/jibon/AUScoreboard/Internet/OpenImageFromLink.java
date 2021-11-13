@@ -36,26 +36,12 @@ public class OpenImageFromLink extends AsyncTask<Bitmap, Bitmap, Bitmap> {
         try{
             URL urlx = new URL(url);
             HttpURLConnection urlxConnection = (HttpURLConnection) urlx.openConnection();
-            // Fetch and set cookies in requests
-            CookieManager cookieManager = CookieManager.getInstance();
-            String cookie = cookieManager.getCookie(urlxConnection.getURL().toString());
-            if (cookie != null) {
-                urlxConnection.setRequestProperty("Cookie", cookie);
-            }
-            urlxConnection.connect();
-            // Get cookies from responses and save into the cookie manager
-            List cookieList = urlxConnection.getHeaderFields().get("Set-Cookie");
-            if (cookieList != null) {
-                for (Object cookieTemp : cookieList) {
-                    cookieManager.setCookie(urlxConnection.getURL().toString(), String.valueOf(cookieTemp));
-                }
-            }
             urlxConnection.setUseCaches(true);
             InputStream urlxInputStream = urlxConnection.getInputStream();
             Bitmap bitmap = BitmapFactory.decodeStream(urlxInputStream);
             return bitmap;
         }catch (Exception e){
-            //Log.e("errnos", e.toString());
+            Log.e("errnos_pic_load", "\t"+url+"\t"+e.toString());
             return null;
         }
     }
@@ -65,9 +51,9 @@ public class OpenImageFromLink extends AsyncTask<Bitmap, Bitmap, Bitmap> {
         if (bitmap!=null){
             try{
                 imageView.setImageBitmap(bitmap);
-                //Log.e("errnos", "\tImage set success...");
+//                Log.e("errnos", "\tImage set success...");
             }catch (Exception error){
-                //Log.e("errnos", "\tImage is not set success...");
+//                Log.e("errnos", "\tImage is not set success...");
             }
 
         }
