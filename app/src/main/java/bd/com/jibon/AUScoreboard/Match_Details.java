@@ -421,7 +421,7 @@ public class Match_Details extends AppCompatActivity {
                 wicket.setText(baller_data.getString("ball_wicket"));
                 status.setText(baller_data.getString("status"));
 
-                new OpenImageFromLink(new Data(activity).urlGenerateGeneral(baller_data.getString("player_pic")), imageView).execute();
+                new OpenImageFromLink(new Data(activity).urlGenerateGeneral(teamdatass.getString("pic")), imageView).execute();
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -495,9 +495,8 @@ public class Match_Details extends AppCompatActivity {
                 byes.setText(batsman_data.getString("byes"));
                 out.setText(batsman_data.getString("status"));
 
-                Log.e("errnos_s", batsman_data.toString());
 
-                new OpenImageFromLink(new Data(activity).urlGenerateGeneral(batsman_data.getString("player_pic")), pic).execute();
+                new OpenImageFromLink(new Data(activity).urlGenerateGeneral(teamdatass.getString("pic")), pic).execute();
             } catch (Exception e) {
                 e.printStackTrace();
                 Log.e("errnos_p_d", e.toString());
