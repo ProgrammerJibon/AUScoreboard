@@ -44,7 +44,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/headList"
-                        android:background="#1A000000"
+                        android:layout_margin="8dp"
                         android:padding="16dp"
                         android:orientation="horizontal">
                         <TextView
@@ -79,6 +79,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <ListView
+                            android:divider="@color/transparent"
                             android:id="@+id/listViewPlayerList"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
