@@ -52,6 +52,7 @@
                             android:id="@+id/ListViewMatchList"
                             android:layout_width="match_parent"
                             android:nestedScrollingEnabled="true"
+                            android:divider="@color/transparent"
                             android:layout_height="match_parent"
                             tools:targetApi="lollipop" />
                     </LinearLayout>
