@@ -126,7 +126,7 @@ public class TeamList extends Fragment {
                 convertView.setOnClickListener(v -> {
                     try {
                         new CustomTools(activity).toast(jsonObject.getString("name"), R.drawable.ic_outline_people_24);
-                        if(user_role == "ADMIN"){
+                        if(user_role.equals("ADMIN")){
                             Intent intent = new Intent(activity, WebActivity.class);
                             intent.putExtra("link", new Data(activity).urlGenerateGeneral("/teams.php?id="+xxId));
                             activity.startActivity(intent);
