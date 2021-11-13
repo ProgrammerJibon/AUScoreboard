@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.webkit.CookieManager;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -36,6 +37,7 @@ import java.util.List;
 
 import bd.com.jibon.AUScoreboard.CustomTools;
 import bd.com.jibon.AUScoreboard.Data;
+import bd.com.jibon.AUScoreboard.Internet.OpenImageFromLink;
 import bd.com.jibon.AUScoreboard.Match_Details;
 import bd.com.jibon.AUScoreboard.R;
 
@@ -133,13 +135,15 @@ public class MatcheList extends Fragment {
                     viewHolder.runWicket2 = view.findViewById(R.id.run_wickets2);
                     viewHolder.status1 = view.findViewById(R.id.status1);
                     viewHolder.status2 = view.findViewById(R.id.status2);
+                    viewHolder.team1pic = view.findViewById(R.id.team1Flag);
+                    viewHolder.team2pic = view.findViewById(R.id.team2Flag);
                     view.setTag(viewHolder);
                 }else{
                     viewHolder = (ViewHolder) view.getTag();
                 }
                 JSONObject new_data = arrayList.get(i);
 
-                Log.e("errnos", new_data.toString());
+//                Log.e("errnos", new_data.toString());
 
 
                 String str_team_id_1 = new_data.getString("team1");
@@ -151,11 +155,14 @@ public class MatcheList extends Fragment {
                 String team1_run = new_data.getString("team1_run");
                 String team2_run = new_data.getString("team2_run");
                 String team1_name = "loading...", team2_name = "loading...";
+                String team1_pic = null, team2_pic = null;
                 if (new_data.has("team1_name")) {
                     team1_name = new_data.getString("team1_name");
+                    team1_pic = new Data(activity).urlGenerateGeneral(new_data.getString("team1_pic"));
                 }
                 if (new_data.has("team2_name")) {
                     team2_name = new_data.getString("team2_name");
+                    team2_pic = new Data(activity).urlGenerateGeneral(new_data.getString("team2_pic"));
                 }
                 String team1_wicket = new_data.getString("team1_wicket");
                 String team2_wicket = new_data.getString("team2_wicket");
@@ -168,6 +175,8 @@ public class MatcheList extends Fragment {
                 TextView runWicket2 = viewHolder.runWicket2;
                 TextView status1 = viewHolder.status1;
                 TextView status2 = viewHolder.status2;
+                ImageView imageView = viewHolder.team1pic;
+                ImageView imageView1 = viewHolder.team2pic;
 
 
                 status1.setText("Over: " + team1_overs + "." + team1_ball);
@@ -203,6 +212,8 @@ public class MatcheList extends Fragment {
                         e.printStackTrace();
                     }
                 });
+                new OpenImageFromLink(team1_pic, imageView).execute();
+                new OpenImageFromLink(team2_pic, imageView1).execute();
             } catch (Exception error) {
                 Log.e("errnos", error.toString());
             }
@@ -219,7 +230,10 @@ public class MatcheList extends Fragment {
         public TextView runWicket1;
         public TextView runWicket2;
         public TextView status1;
-        public TextView status2;/*
+        public TextView status2;
+        public ImageView team1pic;
+        public ImageView team2pic;
+        /*
 
         public ViewHolder(View view, TextView team1Name, TextView team2Name, TextView runWicket1, TextView runWicket2, TextView status1, TextView status2) {
             this.view = view;
