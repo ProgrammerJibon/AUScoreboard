@@ -89,14 +89,23 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
+                            android:paddingLeft="8dp"
                             android:layout_height="wrap_content">
+                            <ImageView
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight=".2"
+                                android:src="@color/teaser_blue"
+                                android:padding="1dp"
+                                android:layout_gravity="center"
+                                android:scaleType="centerCrop"
+                                android:id="@+id/team1Flag"/>
 
                             <TextView
                                 android:id="@+id/team1"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:paddingLeft="16dp"
                                 android:text="Team1"
                                 android:textColor="@color/teaser_blue"
                                 android:textSize="20sp"
@@ -287,14 +296,23 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
+                            android:paddingLeft="8dp"
                             android:layout_height="wrap_content">
 
+                            <ImageView
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight=".2"
+                                android:src="@color/teaser_blue"
+                                android:padding="1dp"
+                                android:layout_gravity="center"
+                                android:scaleType="centerCrop"
+                                android:id="@+id/team2Flag"/>
                             <TextView
                                 android:id="@+id/team2"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:paddingLeft="16dp"
                                 android:text="Team2"
                                 android:textColor="@color/teaser_blue"
                                 android:textSize="20sp"

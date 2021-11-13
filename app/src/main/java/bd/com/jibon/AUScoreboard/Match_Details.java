@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.webkit.CookieManager;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -38,6 +39,7 @@ import java.util.List;
 
 import bd.com.jibon.AUScoreboard.Internet.DeleteTargetedWithId;
 import bd.com.jibon.AUScoreboard.Internet.FinishMatchWithId;
+import bd.com.jibon.AUScoreboard.Internet.OpenImageFromLink;
 
 
 public class Match_Details extends AppCompatActivity {
@@ -48,6 +50,7 @@ public class Match_Details extends AppCompatActivity {
     ArrayList<JSONObject> jsonObjectsx, jsonObjectsy, jsonObjectsxa, jsonObjectsya;
     public MatchBatsmanAdapter baseAdapter, baseAdaptera;
     public MatchBallerAdapter baseAdapter1, baseAdapter1a;
+    public ImageView imageView, imageView1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +78,8 @@ public class Match_Details extends AppCompatActivity {
             mView.loadAd(adRequest);
             nView = findViewById(R.id.cooler2);
             nView.loadAd(adRequest);
+            imageView = findViewById(R.id.team1Flag);
+            imageView1 = findViewById(R.id.team2Flag);
 
             Intent intent = getIntent();
             Bundle bundle = intent.getExtras();
@@ -203,6 +208,8 @@ public class Match_Details extends AppCompatActivity {
                         over2.setText(jsonObject.getString("team2_over_no")+"."+jsonObject.getString("team2_ball_no"));
                         run_wicket1.setText(jsonObject.getString("team1_run")+"/"+jsonObject.getString("team1_wicket"));
                         run_wicket2.setText(jsonObject.getString("team2_run")+"/"+jsonObject.getString("team2_wicket"));
+                        new OpenImageFromLink(new Data(activity).urlGenerateGeneral(jsonObject.getString("team1_pic")), imageView).execute();
+                        new OpenImageFromLink(new Data(activity).urlGenerateGeneral(jsonObject.getString("team2_pic")), imageView1).execute();
 
                         if (jsonObject.getString("status").equals("DELETED")){
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -402,6 +409,7 @@ public class Match_Details extends AppCompatActivity {
                 TextView wicket = convertView.findViewById(R.id.wicket);
                 TextView byes = convertView.findViewById(R.id.byes);
                 TextView status = convertView.findViewById(R.id.status);
+                ImageView imageView = convertView.findViewById(R.id.pic);
                 JSONObject baller_data = teamdatass.getJSONArray("baller_data").getJSONObject(0);
 
                 ballerName.setText(baller_data.getString("player_name"));
@@ -413,7 +421,7 @@ public class Match_Details extends AppCompatActivity {
                 wicket.setText(baller_data.getString("ball_wicket"));
                 status.setText(baller_data.getString("status"));
 
-
+                new OpenImageFromLink(new Data(activity).urlGenerateGeneral(baller_data.getString("player_pic")), imageView).execute();
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -476,6 +484,7 @@ public class Match_Details extends AppCompatActivity {
                 TextView four = convertView.findViewById(R.id.four);
                 TextView byes = convertView.findViewById(R.id.byes);
                 TextView out = convertView.findViewById(R.id.status);
+                ImageView pic = convertView.findViewById(R.id.pic);
                 JSONObject batsman_data = teamdatass.getJSONArray("batsman_data").getJSONObject(0);
 
                 batsmanName.setText(batsman_data.getString("player_name"));
@@ -486,6 +495,9 @@ public class Match_Details extends AppCompatActivity {
                 byes.setText(batsman_data.getString("byes"));
                 out.setText(batsman_data.getString("status"));
 
+                Log.e("errnos_s", batsman_data.toString());
+
+                new OpenImageFromLink(new Data(activity).urlGenerateGeneral(batsman_data.getString("player_pic")), pic).execute();
             } catch (Exception e) {
                 e.printStackTrace();
                 Log.e("errnos_p_d", e.toString());
