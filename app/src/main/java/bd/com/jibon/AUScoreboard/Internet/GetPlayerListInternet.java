@@ -21,8 +21,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import bd.com.jibon.AUScoreboard.Adapter.PlayerListAdapter;
 import bd.com.jibon.AUScoreboard.CustomTools;
-import bd.com.jibon.AUScoreboard.Fragments.PlayerList;
 import bd.com.jibon.AUScoreboard.R;
 
 public class GetPlayerListInternet extends AsyncTask<String, String, JSONObject> {
@@ -64,7 +64,7 @@ public class GetPlayerListInternet extends AsyncTask<String, String, JSONObject>
                         }
 
                     }
-                    BaseAdapter baseAdapter = new PlayerList.PlayerListAdapter(arrayList, context, user_role);
+                    PlayerListAdapter baseAdapter = new PlayerListAdapter(arrayList, context, user_role);
                     listView.setAdapter(baseAdapter);
                 }
             }

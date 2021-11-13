@@ -105,17 +105,14 @@ public class WebActivity extends AppCompatActivity {
                     Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
 
-                        // create the file where the photo should go
                         File photoFile = null;
                         try {
                             photoFile = createImageFile();
                             takePictureIntent.putExtra("PhotoPath", mCameraPhotoPath);
                         } catch (Exception ex) {
-                            // Error occurred while creating the File
                             Log.e(TAG, "Unable to create Image File", ex);
                         }
 
-                        // continue only if the file was successfully created
                         if (photoFile != null) {
                             mCameraPhotoPath = "file:" + photoFile.getAbsolutePath();
                             takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
@@ -146,7 +143,6 @@ public class WebActivity extends AppCompatActivity {
                     return true;
                 }
 
-                // creating image files (Lollipop only)
                 private File createImageFile() throws IOException {
 
                     File imageStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "DirectoryNameHere");
@@ -155,12 +151,10 @@ public class WebActivity extends AppCompatActivity {
                         imageStorageDir.mkdirs();
                     }
 
-                    // create an image file name
                     imageStorageDir = new File(imageStorageDir + File.separator + "IMG_" + String.valueOf(System.currentTimeMillis()) + ".jpg");
                     return imageStorageDir;
                 }
 
-                // openFileChooser for Android 3.0+
                 public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType) {
                     mUploadMessage = uploadMsg;
 
@@ -173,7 +167,7 @@ public class WebActivity extends AppCompatActivity {
 
                         File file = new File(imageStorageDir + File.separator + "IMG_" + String.valueOf(System.currentTimeMillis()) + ".jpg");
 
-                        mCapturedImageURI = Uri.fromFile(file); // save to the private variable
+                        mCapturedImageURI = Uri.fromFile(file);
 
                         final Intent captureIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                         captureIntent.putExtra(MediaStore.EXTRA_OUTPUT, mCapturedImageURI);
@@ -193,15 +187,10 @@ public class WebActivity extends AppCompatActivity {
 
                 }
 
-                // openFileChooser for Android < 3.0
                 public void openFileChooser(ValueCallback<Uri> uploadMsg) {
                     openFileChooser(uploadMsg, "");
                 }
 
-                // openFileChooser for other Android versions
-            /* may not work on KitKat due to lack of implementation of openFileChooser() or onShowFileChooser()
-               https://code.google.com/p/android/issues/detail?id=62220
-               however newer versions of KitKat fixed it on some devices */
                 public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture) {
                     openFileChooser(uploadMsg, acceptType);
                 }

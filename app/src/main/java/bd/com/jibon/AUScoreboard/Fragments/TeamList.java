@@ -3,6 +3,7 @@ package bd.com.jibon.AUScoreboard.Fragments;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,6 +28,7 @@ import bd.com.jibon.AUScoreboard.Data;
 import bd.com.jibon.AUScoreboard.Internet.DeleteTargetedWithId;
 import bd.com.jibon.AUScoreboard.Internet.GetTeamListInternet;
 import bd.com.jibon.AUScoreboard.Internet.OpenImageFromLink;
+import bd.com.jibon.AUScoreboard.Internet.WebActivity;
 import bd.com.jibon.AUScoreboard.R;
 
 
@@ -124,6 +126,11 @@ public class TeamList extends Fragment {
                 convertView.setOnClickListener(v -> {
                     try {
                         new CustomTools(activity).toast(jsonObject.getString("name"), R.drawable.ic_outline_people_24);
+                        if(user_role == "ADMIN"){
+                            Intent intent = new Intent(activity, WebActivity.class);
+                            intent.putExtra("link", new Data(activity).urlGenerateGeneral("/teams.php?id="+xxId));
+                            activity.startActivity(intent);
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
